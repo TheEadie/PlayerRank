@@ -7,8 +7,8 @@
     <ProjectGuid>{1BA9589B-6924-47F7-816B-A2928D649F0F}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CommandLine</RootNamespace>
-    <AssemblyName>CommandLine</AssemblyName>
+    <RootNamespace>ELORank.CommandLine</RootNamespace>
+    <AssemblyName>ELORank.CommandLine</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
