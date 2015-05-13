@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ELORank
 {
@@ -15,7 +16,20 @@ namespace ELORank
 
         public List<Player> GetLeaderBoard()
         {
-            return m_Players;
+            return m_Players.OrderBy(x => x.Score).ToList();
+        }
+
+        public void RecordResult(Result results)
+        {
+            foreach (var result in results.Scores)
+            {
+                GetPlayer(result.Key).AddScore(result.Value);
+            }
+        }
+
+        private Player GetPlayer(string name)
+        {
+            return m_Players.SingleOrDefault(player => player.Name == name);
         }
     }
 }
