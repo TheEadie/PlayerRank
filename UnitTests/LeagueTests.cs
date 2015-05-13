@@ -15,17 +15,17 @@ namespace ELORank.UnitTests
         }
 
         [Fact]
-        public void CanRecordSimpleResult()
+        public void CanRecordSimpleGame()
         {
             var league = new League();
             league.AddPlayer("Foo");
             league.AddPlayer("Bar");
 
-            var result = new Result();
-            result.Scores.Add("Foo", 5);
-            result.Scores.Add("Bar", 1);
+            var game = new Game();
+            game.Scores.Add("Foo", 5);
+            game.Scores.Add("Bar", 1);
 
-            league.RecordResult(result);
+            league.RecordGame(game);
 
             Assert.Equal(5.0, league.GetLeaderBoard().Where(x => x.Name == "Foo").Select(x => x.Score).Single());
             Assert.Equal(1.0, league.GetLeaderBoard().Where(x => x.Name == "Bar").Select(x => x.Score).Single());

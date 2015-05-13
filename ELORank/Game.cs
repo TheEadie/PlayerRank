@@ -2,7 +2,7 @@
 
 namespace ELORank
 {
-    public class Result
+    public class Game
     {
         public Dictionary<string, int> Scores = new Dictionary<string, int>();  
     }

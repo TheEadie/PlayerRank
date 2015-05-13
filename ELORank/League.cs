@@ -19,9 +19,9 @@ namespace ELORank
             return m_Players.OrderBy(x => x.Score).ToList();
         }
 
-        public void RecordResult(Result results)
+        public void RecordGame(Game game)
         {
-            foreach (var result in results.Scores)
+            foreach (var result in game.Scores)
             {
                 GetPlayer(result.Key).AddScore(result.Value);
             }
