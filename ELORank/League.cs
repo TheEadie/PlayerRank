@@ -5,7 +5,13 @@ namespace ELORank
 {
     public class League
     {
+        private readonly IScoringStrategy m_ScoringStrategy;
         private readonly List<Player> m_Players = new List<Player>();
+
+        public League(IScoringStrategy scoringStrategy)
+        {
+            m_ScoringStrategy = scoringStrategy;
+        }
 
         public void AddPlayer(string playerName)
         {
@@ -21,13 +27,10 @@ namespace ELORank
 
         public void RecordGame(Game game)
         {
-            foreach (var result in game.GetResults())
-            {
-                GetPlayer(result.Key).AddScore(result.Value);
-            }
+            m_ScoringStrategy.UpdateScores(this, game);
         }
 
-        private Player GetPlayer(string name)
+        internal Player GetPlayer(string name)
         {
             return m_Players.SingleOrDefault(player => player.Name == name);
         }

@@ -18,7 +18,7 @@ namespace ELORank
             }
         }
 
-        public Dictionary<string, double> GetResults()
+        internal Dictionary<string, double> GetResults()
         {
             return m_Scores;
         }

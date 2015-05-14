@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Linq.Expressions;
 using Xunit;
 
 namespace ELORank.UnitTests
@@ -8,7 +9,7 @@ namespace ELORank.UnitTests
         [Fact]
         public void CanAddPlayerToLeague()
         {
-            var league = new League();
+            var league = new League(new SimpleScoringStrategy());
             league.AddPlayer("Foo");
 
             Assert.Contains("Foo", league.GetLeaderBoard().Select(x => x.Name));
@@ -17,7 +18,7 @@ namespace ELORank.UnitTests
         [Fact]
         public void CanRecordSimpleGame()
         {
-            var league = new League();
+            var league = new League(new SimpleScoringStrategy());
             league.AddPlayer("Foo");
             league.AddPlayer("Bar");
 
