@@ -22,8 +22,8 @@ namespace ELORank.UnitTests
             league.AddPlayer("Bar");
 
             var game = new Game();
-            game.Scores.Add("Foo", 5);
-            game.Scores.Add("Bar", 1);
+            game.AddResult("Foo", 5);
+            game.AddResult("Bar", 1);
 
             league.RecordGame(game);
 

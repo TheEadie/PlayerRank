@@ -21,7 +21,7 @@ namespace ELORank
 
         public void RecordGame(Game game)
         {
-            foreach (var result in game.Scores)
+            foreach (var result in game.GetResults())
             {
                 GetPlayer(result.Key).AddScore(result.Value);
             }
