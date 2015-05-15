@@ -33,7 +33,6 @@ namespace ELORank
                     var playerBResult = results[playerBName];
 
                     var playerA = league.GetPlayer(playerAName);
-                    var playerB = league.GetPlayer(playerBName);
 
                     var propabilityOfWinning = ExpectedValue(previousScores[playerAName], previousScores[playerBName]);
                     var ratingChange = RatingChange(propabilityOfWinning, (playerAResult > playerBResult));
