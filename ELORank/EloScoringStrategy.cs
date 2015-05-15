@@ -4,6 +4,8 @@ namespace ELORank
 {
     public class EloScoringStrategy : IScoringStrategy
     {
+        const double k = 32;
+
         public void UpdateScores(League league, Game game)
         {
             var results = game.GetResults();
@@ -31,13 +33,12 @@ namespace ELORank
         private double RatingChange(double expectedValue, bool win)
         {
             var w = (win) ? 1 : 0;
-
-            return 32*(w - expectedValue);
+            return k * (w - expectedValue);
         }
 
         private double ExpectedValue(double ratingA, double ratingB)
         {
-            return 1/(1 + Math.Pow(10.0, (ratingB - ratingA)/400));
+            return 1 / (1 + Math.Pow(10.0, (ratingB - ratingA) / 400));
         }
     }
 }
