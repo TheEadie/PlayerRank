@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ELORank
 {
@@ -6,9 +8,20 @@ namespace ELORank
     {
         const double k = 32;
 
+        public void NewPlayer(Player player)
+        {
+            player.Score = 1400;
+        }
+
         public void UpdateScores(League league, Game game)
         {
             var results = game.GetResults();
+            var previousScores = new Dictionary<string, double>();
+
+            foreach (var playerName in results.Keys)
+            {
+                previousScores.Add(playerName, league.GetPlayer(playerName).Score);
+            }
 
             foreach (var playerAName in results.Keys)
             {
@@ -22,7 +35,7 @@ namespace ELORank
                     var playerA = league.GetPlayer(playerAName);
                     var playerB = league.GetPlayer(playerBName);
 
-                    var propabilityOfWinning = ExpectedValue(playerA.Score, playerB.Score);
+                    var propabilityOfWinning = ExpectedValue(previousScores[playerAName], previousScores[playerBName]);
                     var ratingChange = RatingChange(propabilityOfWinning, (playerAResult > playerBResult));
 
                     playerA.AddScore(ratingChange);
