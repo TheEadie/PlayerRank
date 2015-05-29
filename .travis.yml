@@ -6,7 +6,7 @@ install:
 script:
   - bash ./BuildScripts/tag.sh
   - xbuild /p:Configuration=Release PlayerRank.sln
-  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./UnitTests/bin/Release/ELORank.UnitTests.dll
+  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./UnitTests/bin/Release/PlayerRank.UnitTests.dll
 branches:
   except:
     - /^build.*$/
