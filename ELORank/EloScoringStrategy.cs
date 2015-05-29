@@ -36,8 +36,7 @@ namespace ELORank
 
                     var propabilityOfWinning = ExpectedValue(previousScores[playerAName], previousScores[playerBName]);
                     var ratingChange = RatingChange(propabilityOfWinning, (playerAResult > playerBResult));
-
-                    var ratingChangeAsReal = Math.Round(ratingChange, MidpointRounding.AwayFromZero);
+                    var ratingChangeAsReal = Math.Round(2 * ratingChange / results.Count, MidpointRounding.AwayFromZero);
 
                     playerA.AddScore(ratingChangeAsReal);
                 }
