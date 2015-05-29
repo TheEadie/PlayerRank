@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELORank", "ELORank\ELORank.csproj", "{C098A3F8-D1D7-4BEA-95D6-166A3356D1ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerRank", "ELORank\PlayerRank.csproj", "{C098A3F8-D1D7-4BEA-95D6-166A3356D1ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLine", "CommandLine\CommandLine.csproj", "{1BA9589B-6924-47F7-816B-A2928D649F0F}"
 EndProject

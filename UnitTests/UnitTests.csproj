@@ -56,9 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ELORank\ELORank.csproj">
+    <ProjectReference Include="..\ELORank\PlayerRank.csproj">
       <Project>{c098a3f8-d1d7-4bea-95d6-166a3356d1ed}</Project>
-      <Name>ELORank</Name>
+      <Name>PlayerRank</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
