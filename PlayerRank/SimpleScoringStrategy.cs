@@ -1,4 +1,4 @@
-﻿namespace ELORank
+﻿namespace PlayerRank
 {
     public class SimpleScoringStrategy : IScoringStrategy
     {

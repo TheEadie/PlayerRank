@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Xunit;
 
-namespace ELORank.UnitTests
+namespace PlayerRank.UnitTests
 {
     public class LeagueTests
     {
