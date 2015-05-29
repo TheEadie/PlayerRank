@@ -73,7 +73,7 @@ namespace ELORank.UnitTests
 
                 league.RecordGame(game2);
             }
-            
+
             // Bar won most recently therefore will be slightly ahead
             Assert.Equal(1394, league.GetLeaderBoard().Where(x => x.Name == "Foo").Select(x => x.Score).Single());
             Assert.Equal(1406, league.GetLeaderBoard().Where(x => x.Name == "Bar").Select(x => x.Score).Single());
@@ -133,6 +133,5 @@ namespace ELORank.UnitTests
             Assert.Equal(1394, league.GetLeaderBoard().Where(x => x.Name == "Bob").Select(x => x.Score).Single());
             Assert.Equal(1419, league.GetLeaderBoard().Where(x => x.Name == "Chris").Select(x => x.Score).Single());
         }
-
     }
 }

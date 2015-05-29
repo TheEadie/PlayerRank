@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 
 namespace ELORank
 {
     public class EloScoringStrategy : IScoringStrategy
     {
-        const double k = 32;
+        private const double k = 32;
 
         public void NewPlayer(Player player)
         {
@@ -28,7 +27,7 @@ namespace ELORank
                 foreach (var playerBName in results.Keys)
                 {
                     if (playerAName == playerBName) continue;
-                    
+
                     var playerAResult = results[playerAName];
                     var playerBResult = results[playerBName];
 
@@ -36,7 +35,7 @@ namespace ELORank
 
                     var propabilityOfWinning = ExpectedValue(previousScores[playerAName], previousScores[playerBName]);
                     var ratingChange = RatingChange(propabilityOfWinning, (playerAResult > playerBResult));
-                    var ratingChangeAsReal = Math.Round(2 * ratingChange / results.Count, MidpointRounding.AwayFromZero);
+                    var ratingChangeAsReal = Math.Round(2*ratingChange/results.Count, MidpointRounding.AwayFromZero);
 
                     playerA.AddScore(ratingChangeAsReal);
                 }
@@ -46,12 +45,12 @@ namespace ELORank
         private double RatingChange(double expectedValue, bool win)
         {
             var w = (win) ? 1 : 0;
-            return k * (w - expectedValue);
+            return k*(w - expectedValue);
         }
 
         private double ExpectedValue(double ratingA, double ratingB)
         {
-            return 1 / (1 + Math.Pow(10.0, (ratingB - ratingA) / 400));
+            return 1/(1 + Math.Pow(10.0, (ratingB - ratingA)/400));
         }
     }
 }
