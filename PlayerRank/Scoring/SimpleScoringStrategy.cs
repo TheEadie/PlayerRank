@@ -1,4 +1,4 @@
-﻿namespace PlayerRank
+﻿namespace PlayerRank.Scoring
 {
     public class SimpleScoringStrategy : IScoringStrategy
     {
