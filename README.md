@@ -1,2 +1,2 @@
-# ELORank
-Calculates ELO Rankings for multiplayer games
+# PlayerRank
+Calculates Rankings for multiplayer games
