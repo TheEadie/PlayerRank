@@ -16,8 +16,9 @@ namespace ELORank
         public void AddPlayer(string playerName)
         {
             var player = new Player(playerName);
-
             m_Players.Add(player);
+
+            m_ScoringStrategy.NewPlayer(player);
         }
 
         public List<Player> GetLeaderBoard()
