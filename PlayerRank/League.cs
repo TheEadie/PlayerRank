@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using PlayerRank.Scoring;
 
-namespace ELORank
+namespace PlayerRank
 {
     public class League
     {

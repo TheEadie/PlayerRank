@@ -6,8 +6,8 @@
     <ProjectGuid>{7CDD391B-15FF-4653-A5FE-C785E8B29E6F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ELORank.UnitTests</RootNamespace>
-    <AssemblyName>ELORank.UnitTests</AssemblyName>
+    <RootNamespace>PlayerRank.UnitTests</RootNamespace>
+    <AssemblyName>PlayerRank.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -56,13 +56,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ELORank\ELORank.csproj">
-      <Project>{c098a3f8-d1d7-4bea-95d6-166a3356d1ed}</Project>
-      <Name>ELORank</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\PlayerRank\PlayerRank.csproj">
+      <Project>{c098a3f8-d1d7-4bea-95d6-166a3356d1ed}</Project>
+      <Name>PlayerRank</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

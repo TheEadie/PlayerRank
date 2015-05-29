@@ -1,4 +1,4 @@
-﻿namespace ELORank
+﻿namespace PlayerRank.Scoring
 {
     public interface IScoringStrategy
     {

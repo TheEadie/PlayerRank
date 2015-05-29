@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ELORank
+namespace PlayerRank.Scoring
 {
     public class EloScoringStrategy : IScoringStrategy
     {

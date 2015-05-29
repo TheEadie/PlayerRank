@@ -7,8 +7,8 @@
     <ProjectGuid>{C098A3F8-D1D7-4BEA-95D6-166A3356D1ED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ELORank</RootNamespace>
-    <AssemblyName>ELORank</AssemblyName>
+    <RootNamespace>PlayerRank</RootNamespace>
+    <AssemblyName>PlayerRank</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,13 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IScoringStrategy.cs" />
+    <Compile Include="Scoring\IScoringStrategy.cs" />
     <Compile Include="League.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="EloScoringStrategy.cs" />
-    <Compile Include="SimpleScoringStrategy.cs" />
+    <Compile Include="Scoring\EloScoringStrategy.cs" />
+    <Compile Include="Scoring\SimpleScoringStrategy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

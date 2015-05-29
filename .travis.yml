@@ -1,12 +1,12 @@
 language: csharp
-solution: ELORank.sln
+solution: PlayerRank.sln
 install:
-  - nuget restore ELORank.sln
+  - nuget restore PlayerRank.sln
   - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
 script:
   - bash ./BuildScripts/tag.sh
-  - xbuild /p:Configuration=Release ELORank.sln
-  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./UnitTests/bin/Release/ELORank.UnitTests.dll
+  - xbuild /p:Configuration=Release PlayerRank.sln
+  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./UnitTests/bin/Release/PlayerRank.UnitTests.dll
 branches:
   except:
     - /^build.*$/
