@@ -5,8 +5,8 @@ namespace PlayerRank.Scoring
 {
     public class EloScoringStrategy : IScoringStrategy
     {
-        /// <summary> also known as K in the ELO formula </summary>
-        private const double ratingChangeBaseMultiplier = 32;
+        /// <summary> also known as K in the ELO formula - the max change in rating from one game </summary>
+        private const double ratingChangeBaseMultiplier = 64;
 
         /// <summary> the difference in rating where one person is almost certain to win </summary>
         private const double maximumSkillGap = 400;
@@ -41,7 +41,7 @@ namespace PlayerRank.Scoring
                     var didPlayerAWin = (playerAResult > playerBResult);
                     var ratingChange = RatingChange(chanceOfPlayerAWinning, didPlayerAWin);
                     // adjust for the fact that we're playing against multiple people
-                    var adjustedRatingChange = 2 * ratingChange / results.Count;
+                    var adjustedRatingChange = ratingChange / results.Count;
                     var integerRatingChange = Math.Round(adjustedRatingChange, MidpointRounding.AwayFromZero);
 
                     playerA.AddScore(integerRatingChange);
@@ -59,8 +59,9 @@ namespace PlayerRank.Scoring
         /// the chance of a player with rating <param name="ratingA"/> beating a player with rating <param name="ratingB"/>
         /// </summary>
         /// <remarks>
-        /// See https://www.wolframalpha.com/input/?i=plot+1%2F%281+%2B+Pow%2810%2C+%28y+-+x%29%2F400%29%29%3B 
+        /// See https://www.wolframalpha.com/input/?i=plot+1%2F%281+%2B+Pow%2810%2C+%28y+-+x%29%2F400%29%29%3B
         /// for a graph of this function.
+        /// </remarks>
         private double ChanceOfWinning(double ratingA, double ratingB)
         {
             return 1/(1 + Math.Pow(10.0, (ratingB - ratingA)/maximumSkillGap));
