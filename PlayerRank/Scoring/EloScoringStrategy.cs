@@ -5,7 +5,11 @@ namespace PlayerRank.Scoring
 {
     public class EloScoringStrategy : IScoringStrategy
     {
-        private const double k = 32;
+        /// <summary> also known as K in the ELO formula </summary>
+        private const double ratingChangeBaseMultiplier = 32;
+
+        /// <summary> the difference in rating where one person is almost certain to win </summary>
+        private const double maximumSkillGap = 400;
 
         public void NewPlayer(Player player)
         {
@@ -33,24 +37,33 @@ namespace PlayerRank.Scoring
 
                     var playerA = league.GetPlayer(playerAName);
 
-                    var propabilityOfWinning = ExpectedValue(previousScores[playerAName], previousScores[playerBName]);
-                    var ratingChange = RatingChange(propabilityOfWinning, (playerAResult > playerBResult));
-                    var ratingChangeAsReal = Math.Round(2*ratingChange/results.Count, MidpointRounding.AwayFromZero);
+                    var chanceOfPlayerAWinning = ChanceOfWinning(previousScores[playerAName], previousScores[playerBName]);
+                    var didPlayerAWin = (playerAResult > playerBResult);
+                    var ratingChange = RatingChange(chanceOfPlayerAWinning, didPlayerAWin);
+                    // adjust for the fact that we're playing against multiple people
+                    var adjustedRatingChange = 2 * ratingChange / results.Count;
+                    var integerRatingChange = Math.Round(adjustedRatingChange, MidpointRounding.AwayFromZero);
 
-                    playerA.AddScore(ratingChangeAsReal);
+                    playerA.AddScore(integerRatingChange);
                 }
             }
         }
 
-        private double RatingChange(double expectedValue, bool win)
+        private double RatingChange(double expectedToWin, bool actuallyWon)
         {
-            var w = (win) ? 1 : 0;
-            return k*(w - expectedValue);
+            var w = (actuallyWon) ? 1 : 0;
+            return ratingChangeBaseMultiplier*(w - expectedToWin);
         }
 
-        private double ExpectedValue(double ratingA, double ratingB)
+        /// <summary>
+        /// the chance of a player with rating <param name="ratingA"/> beating a player with rating <param name="ratingB"/>
+        /// </summary>
+        /// <remarks>
+        /// See https://www.wolframalpha.com/input/?i=plot+1%2F%281+%2B+Pow%2810%2C+%28y+-+x%29%2F400%29%29%3B 
+        /// for a graph of this function.
+        private double ChanceOfWinning(double ratingA, double ratingB)
         {
-            return 1/(1 + Math.Pow(10.0, (ratingB - ratingA)/400));
+            return 1/(1 + Math.Pow(10.0, (ratingB - ratingA)/maximumSkillGap));
         }
     }
 }
