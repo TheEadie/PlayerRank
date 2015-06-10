@@ -1,31 +1,27 @@
 #!/bin/bash
 
-if [ -n "$G_TagPrefix" ]
-then
-	buildTagString="$G_TagPrefix"
-else
-	buildTagString="build/"
-fi
+G_BuidNumber=$BUILD_NUMBER
+G_Branch=$BRANCH
+G_PullRequest=$PULL_REQUEST
+buildTagString="build/shippable/"
 
-if [ -n "$G_NextRelease" ]
+if [ "$G_PullRequest" = "false" ] && [ "$G_Branch" = "master" ]
 then
-	nextRelease="$G_NextRelease"
-fi
 
-nextBuildNumber=$TRAVIS_BUILD_NUMBER
-printf -v nextBuildNumber %05d $nextBuildNumber
+	nextBuildNumber=$G_BuidNumber
 
-if [ -z "$nextRelease" ]
-then
 	tag=$buildTagString$nextBuildNumber
-else
-	tag=$buildTagString$nextRelease.$nextBuildNumber
-fi
 
-if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]
-then
-	git tag $tag
 	remote=$(git config --get remote.origin.url)
-	remote=$(echo $remote | sed 's,git://,https://'$token'@,g')
-	git push --tags $remote &> /dev/null
+	remote=$(awk -F/ 'gsub($3,"git@github.com",$0)' <<< "$remote")
+	remote=$(echo $remote | sed 's,/,:,3')
+	remote=$(echo $remote | sed 's,https://,,g')
+
+	echo "Attempting to tag with: "
+	echo $tag
+	echo "to"
+	echo $remote
+	
+	git tag $tag
+	git push --tags $remote
 fi
