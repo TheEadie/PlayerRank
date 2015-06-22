@@ -11,7 +11,15 @@
         {
             foreach (var result in game.GetResults())
             {
+                var player = league.GetPlayer(result.Key);
+
+                if (player == null)
+                {
+                    league.AddPlayer(result.Key);
+                }
+                
                 league.GetPlayer(result.Key).AddScore(result.Value);
+                
             }
         }
     }

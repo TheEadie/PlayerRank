@@ -7,15 +7,6 @@ namespace PlayerRank.UnitTests
     public class LeagueTests
     {
         [Fact]
-        public void CanAddPlayerToLeague()
-        {
-            var league = new League(new SimpleScoringStrategy());
-            league.AddPlayer("Foo");
-
-            Assert.Contains("Foo", league.GetLeaderBoard().Select(x => x.Name));
-        }
-
-        [Fact]
         public void CanRecordSimpleGame()
         {
             var league = new League(new SimpleScoringStrategy());

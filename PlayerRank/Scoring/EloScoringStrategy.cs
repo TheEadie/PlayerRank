@@ -23,6 +23,13 @@ namespace PlayerRank.Scoring
 
             foreach (var playerName in results.Keys)
             {
+                var player = league.GetPlayer(playerName);
+
+                if (player == null)
+                {
+                    league.AddPlayer(playerName);
+                }
+
                 previousScores.Add(playerName, league.GetPlayer(playerName).Score);
             }
 

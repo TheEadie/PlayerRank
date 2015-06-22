@@ -7,7 +7,8 @@ namespace PlayerRank
     public class League
     {
         private readonly IScoringStrategy m_ScoringStrategy;
-        private readonly List<Player> m_Players = new List<Player>();
+        private List<Player> m_Players = new List<Player>();
+        private readonly List<Game> m_Games = new List<Game>(); 
 
         public League(IScoringStrategy scoringStrategy)
         {
@@ -24,12 +25,19 @@ namespace PlayerRank
 
         public List<Player> GetLeaderBoard()
         {
+            m_Players = new List<Player>();
+
+            foreach (var game in m_Games)
+            {
+                m_ScoringStrategy.UpdateScores(this, game);
+            }
+
             return m_Players.OrderBy(x => x.Score).ToList();
         }
 
         public void RecordGame(Game game)
         {
-            m_ScoringStrategy.UpdateScores(this, game);
+            m_Games.Add(game);
         }
 
         internal Player GetPlayer(string name)
