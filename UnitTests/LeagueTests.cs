@@ -10,8 +10,6 @@ namespace PlayerRank.UnitTests
         public void CanRecordSimpleGame()
         {
             var league = new League(new SimpleScoringStrategy());
-            league.AddPlayer("Foo");
-            league.AddPlayer("Bar");
 
             var game = new Game();
             game.AddResult("Foo", 5);
@@ -27,8 +25,6 @@ namespace PlayerRank.UnitTests
         public void CanRecordMultipleSimpleGame()
         {
             var league = new League(new SimpleScoringStrategy());
-            league.AddPlayer("Foo");
-            league.AddPlayer("Bar");
 
             var game = new Game();
             game.AddResult("Foo", 5);

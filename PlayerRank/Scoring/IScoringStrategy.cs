@@ -1,8 +1,9 @@
-﻿namespace PlayerRank.Scoring
+﻿using System.Collections.Generic;
+
+namespace PlayerRank.Scoring
 {
     public interface IScoringStrategy
     {
-        void NewPlayer(Player player);
-        void UpdateScores(League league, Game game);
+        IList<Player> UpdateScores(IList<Player> scoreboard, Game game);
     }
 }

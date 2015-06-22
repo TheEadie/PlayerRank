@@ -1,26 +1,27 @@
-﻿namespace PlayerRank.Scoring
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace PlayerRank.Scoring
 {
     public class SimpleScoringStrategy : IScoringStrategy
     {
-        public void NewPlayer(Player player)
-        {
-            player.Score = 0;
-        }
-
-        public void UpdateScores(League league, Game game)
+        public IList<Player> UpdateScores(IList<Player> scoreboard, Game game)
         {
             foreach (var result in game.GetResults())
             {
-                var player = league.GetPlayer(result.Key);
+                var player = scoreboard.SingleOrDefault(p => p.Name == result.Key);
 
                 if (player == null)
                 {
-                    league.AddPlayer(result.Key);
+                    player = new Player(result.Key);
+                    scoreboard.Add(player);
+                    player.Score = 0;
                 }
                 
-                league.GetPlayer(result.Key).AddScore(result.Value);
-                
+                player.AddScore(result.Value);
             }
+
+            return scoreboard;
         }
     }
 }

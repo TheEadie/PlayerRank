@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PlayerRank.Scoring
 {
@@ -11,26 +12,23 @@ namespace PlayerRank.Scoring
         /// <summary> the difference in rating where one person is almost certain to win </summary>
         private const double maximumSkillGap = 400;
 
-        public void NewPlayer(Player player)
-        {
-            player.Score = 1400;
-        }
-
-        public void UpdateScores(League league, Game game)
+        public IList<Player> UpdateScores(IList<Player> scoreboard, Game game)
         {
             var results = game.GetResults();
             var previousScores = new Dictionary<string, double>();
 
             foreach (var playerName in results.Keys)
             {
-                var player = league.GetPlayer(playerName);
+                var player = scoreboard.SingleOrDefault(p => p.Name == playerName);
 
                 if (player == null)
                 {
-                    league.AddPlayer(playerName);
+                    player = new Player(playerName);
+                    scoreboard.Add(player);
+                    player.Score = 1400;
                 }
 
-                previousScores.Add(playerName, league.GetPlayer(playerName).Score);
+                previousScores.Add(playerName, player.Score);
             }
 
             foreach (var playerAName in results.Keys)
@@ -42,7 +40,7 @@ namespace PlayerRank.Scoring
                     var playerAResult = results[playerAName];
                     var playerBResult = results[playerBName];
 
-                    var playerA = league.GetPlayer(playerAName);
+                    var playerA = scoreboard.Single(p => p.Name == playerAName);
 
                     var chanceOfPlayerAWinning = ChanceOfWinning(previousScores[playerAName], previousScores[playerBName]);
                     var didPlayerAWin = (playerAResult > playerBResult);
@@ -54,6 +52,8 @@ namespace PlayerRank.Scoring
                     playerA.AddScore(integerRatingChange);
                 }
             }
+
+            return scoreboard;
         }
 
         private double RatingChange(double expectedToWin, bool actuallyWon)

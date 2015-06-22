@@ -11,9 +11,6 @@ namespace PlayerRank.UnitTests
         {
             var league = new League(new EloScoringStrategy());
 
-            league.AddPlayer("Foo");
-            league.AddPlayer("Bar");
-
             var game = new Game();
 
             game.AddResult("Foo", 100);
@@ -29,11 +26,6 @@ namespace PlayerRank.UnitTests
         public void FourPlayerGameOneRound()
         {
             var league = new League(new EloScoringStrategy());
-
-            league.AddPlayer("David");
-            league.AddPlayer("Jack");
-            league.AddPlayer("Bob");
-            league.AddPlayer("Chris");
 
             var game = new Game();
 
@@ -54,9 +46,6 @@ namespace PlayerRank.UnitTests
         public void TwoPlayerGame20Rounds()
         {
             var league = new League(new EloScoringStrategy());
-
-            league.AddPlayer("Foo");
-            league.AddPlayer("Bar");
 
             for (var i = 0; i < 10; i++)
             {
@@ -84,11 +73,6 @@ namespace PlayerRank.UnitTests
         public void FourPlayerGame40Rounds()
         {
             var league = new League(new EloScoringStrategy());
-
-            league.AddPlayer("David");
-            league.AddPlayer("Jack");
-            league.AddPlayer("Bob");
-            league.AddPlayer("Chris");
 
             for (var i = 0; i < 10; i++)
             {
