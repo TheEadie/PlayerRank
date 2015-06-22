@@ -6,20 +6,14 @@ namespace PlayerRank
 {
     public class League
     {
-        private readonly IScoringStrategy m_ScoringStrategy;
         private readonly List<Game> m_Games = new List<Game>(); 
         private readonly IList<Player> m_Players = new List<Player>();
 
-        public League(IScoringStrategy scoringStrategy)
-        {
-            m_ScoringStrategy = scoringStrategy;
-        }
-
-        public IEnumerable<Player> GetLeaderBoard()
+        public IEnumerable<Player> GetLeaderBoard(IScoringStrategy scoringStrategy)
         {
             m_Players.Clear();
 
-            m_Games.Aggregate(m_Players, (scoreboard, game) => m_ScoringStrategy.UpdateScores(scoreboard, game));
+            m_Games.Aggregate(m_Players, scoringStrategy.UpdateScores);
 
             return m_Players;
         }
