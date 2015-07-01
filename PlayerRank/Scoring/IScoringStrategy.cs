@@ -4,6 +4,6 @@ namespace PlayerRank.Scoring
 {
     public interface IScoringStrategy
     {
-        IList<Player> UpdateScores(IList<Player> scoreboard, Game game);
+        IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game);
     }
 }

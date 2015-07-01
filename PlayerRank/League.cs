@@ -7,9 +7,9 @@ namespace PlayerRank
     public class League
     {
         private readonly List<Game> m_Games = new List<Game>(); 
-        private readonly IList<Player> m_Players = new List<Player>();
+        private readonly IList<PlayerScore> m_Players = new List<PlayerScore>();
 
-        public IEnumerable<Player> GetLeaderBoard(IScoringStrategy scoringStrategy)
+        public IEnumerable<PlayerScore> GetLeaderBoard(IScoringStrategy scoringStrategy)
         {
             m_Players.Clear();
 

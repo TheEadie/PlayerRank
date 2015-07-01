@@ -12,7 +12,7 @@ namespace PlayerRank.Scoring
         /// <summary> the difference in rating where one person is almost certain to win </summary>
         private const double maximumSkillGap = 400;
 
-        public IList<Player> UpdateScores(IList<Player> scoreboard, Game game)
+        public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
             var results = game.GetResults();
             var previousScores = new Dictionary<string, double>();
@@ -23,7 +23,7 @@ namespace PlayerRank.Scoring
 
                 if (player == null)
                 {
-                    player = new Player(playerName);
+                    player = new PlayerScore(playerName);
                     scoreboard.Add(player);
                     player.Score = 1400;
                 }

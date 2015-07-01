@@ -5,7 +5,7 @@ namespace PlayerRank.Scoring
 {
     public class SimpleScoringStrategy : IScoringStrategy
     {
-        public IList<Player> UpdateScores(IList<Player> scoreboard, Game game)
+        public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
             foreach (var result in game.GetResults())
             {
@@ -13,7 +13,7 @@ namespace PlayerRank.Scoring
 
                 if (player == null)
                 {
-                    player = new Player(result.Key);
+                    player = new PlayerScore(result.Key);
                     scoreboard.Add(player);
                     player.Score = 0;
                 }
