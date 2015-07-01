@@ -6,35 +6,20 @@ namespace PlayerRank
 {
     public class League
     {
-        private readonly IScoringStrategy m_ScoringStrategy;
-        private readonly List<Player> m_Players = new List<Player>();
+        private readonly List<Game> m_Games = new List<Game>(); 
 
-        public League(IScoringStrategy scoringStrategy)
+        public IEnumerable<PlayerScore> GetLeaderBoard(IScoringStrategy scoringStrategy)
         {
-            m_ScoringStrategy = scoringStrategy;
-        }
+            IList<PlayerScore> leaderBoard = new List<PlayerScore>();
 
-        public void AddPlayer(string playerName)
-        {
-            var player = new Player(playerName);
-            m_Players.Add(player);
+            m_Games.Aggregate(leaderBoard, scoringStrategy.UpdateScores);
 
-            m_ScoringStrategy.NewPlayer(player);
-        }
-
-        public List<Player> GetLeaderBoard()
-        {
-            return m_Players.OrderBy(x => x.Score).ToList();
+            return leaderBoard;
         }
 
         public void RecordGame(Game game)
         {
-            m_ScoringStrategy.UpdateScores(this, game);
-        }
-
-        internal Player GetPlayer(string name)
-        {
-            return m_Players.SingleOrDefault(player => player.Name == name);
+            m_Games.Add(game);
         }
     }
 }

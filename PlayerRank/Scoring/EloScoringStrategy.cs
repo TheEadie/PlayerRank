@@ -1,29 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PlayerRank.Scoring
 {
     public class EloScoringStrategy : IScoringStrategy
     {
         /// <summary> also known as K in the ELO formula - the max change in rating from one game </summary>
-        private const double ratingChangeBaseMultiplier = 64;
+        private readonly double m_RatingChangeBaseMultiplier;
 
         /// <summary> the difference in rating where one person is almost certain to win </summary>
-        private const double maximumSkillGap = 400;
+        private readonly double m_MaximumSkillGap;
 
-        public void NewPlayer(Player player)
+        private readonly double m_NewPlayerStartingRating;
+
+        public EloScoringStrategy(double maxRatingChange, double maxSkillGap, double startingRating)
         {
-            player.Score = 1400;
+            m_RatingChangeBaseMultiplier = maxRatingChange;
+            m_MaximumSkillGap = maxSkillGap;
+            m_NewPlayerStartingRating = startingRating;
         }
 
-        public void UpdateScores(League league, Game game)
+        public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
             var results = game.GetResults();
             var previousScores = new Dictionary<string, double>();
 
             foreach (var playerName in results.Keys)
             {
-                previousScores.Add(playerName, league.GetPlayer(playerName).Score);
+                var player = scoreboard.SingleOrDefault(p => p.Name == playerName);
+
+                if (player == null)
+                {
+                    player = new PlayerScore(playerName);
+                    scoreboard.Add(player);
+                    player.Score = m_NewPlayerStartingRating;
+                }
+
+                previousScores.Add(playerName, player.Score);
             }
 
             foreach (var playerAName in results.Keys)
@@ -35,7 +49,7 @@ namespace PlayerRank.Scoring
                     var playerAResult = results[playerAName];
                     var playerBResult = results[playerBName];
 
-                    var playerA = league.GetPlayer(playerAName);
+                    var playerA = scoreboard.Single(p => p.Name == playerAName);
 
                     var chanceOfPlayerAWinning = ChanceOfWinning(previousScores[playerAName], previousScores[playerBName]);
                     var didPlayerAWin = (playerAResult > playerBResult);
@@ -47,12 +61,14 @@ namespace PlayerRank.Scoring
                     playerA.AddScore(integerRatingChange);
                 }
             }
+
+            return scoreboard;
         }
 
         private double RatingChange(double expectedToWin, bool actuallyWon)
         {
             var w = (actuallyWon) ? 1 : 0;
-            return ratingChangeBaseMultiplier*(w - expectedToWin);
+            return m_RatingChangeBaseMultiplier*(w - expectedToWin);
         }
 
         /// <summary>
@@ -64,7 +80,7 @@ namespace PlayerRank.Scoring
         /// </remarks>
         private double ChanceOfWinning(double ratingA, double ratingB)
         {
-            return 1/(1 + Math.Pow(10.0, (ratingB - ratingA)/maximumSkillGap));
+            return 1/(1 + Math.Pow(10.0, (ratingB - ratingA)/m_MaximumSkillGap));
         }
     }
 }

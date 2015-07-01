@@ -1,11 +1,11 @@
 ﻿namespace PlayerRank
 {
-    public class Player
+    public class PlayerScore
     {
         public string Name { get; set; }
         public double Score { get; internal set; }
 
-        public Player(string name)
+        public PlayerScore(string name)
         {
             Name = name;
         }

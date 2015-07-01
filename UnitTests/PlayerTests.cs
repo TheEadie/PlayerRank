@@ -7,14 +7,14 @@ namespace PlayerRank.UnitTests
         [Fact]
         public void CanIncreasePlayersScore()
         {
-            var player = new Player("Foo");
+            var player = new PlayerScore("Foo");
             player.AddScore(100);
         }
 
         [Fact]
         public void CanReducePlayersScore()
         {
-            var player = new Player("Foo");
+            var player = new PlayerScore("Foo");
             player.AddScore(-100);
         }
     }

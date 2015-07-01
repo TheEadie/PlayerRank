@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="Scoring\IScoringStrategy.cs" />
     <Compile Include="League.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="PlayerScore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Scoring\EloScoringStrategy.cs" />
