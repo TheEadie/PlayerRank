@@ -7,15 +7,14 @@ namespace PlayerRank
     public class League
     {
         private readonly List<Game> m_Games = new List<Game>(); 
-        private readonly IList<PlayerScore> m_Players = new List<PlayerScore>();
 
         public IEnumerable<PlayerScore> GetLeaderBoard(IScoringStrategy scoringStrategy)
         {
-            m_Players.Clear();
+            IList<PlayerScore> leaderBoard = new List<PlayerScore>();
 
-            m_Games.Aggregate(m_Players, scoringStrategy.UpdateScores);
+            m_Games.Aggregate(leaderBoard, scoringStrategy.UpdateScores);
 
-            return m_Players;
+            return leaderBoard;
         }
 
         public void RecordGame(Game game)
