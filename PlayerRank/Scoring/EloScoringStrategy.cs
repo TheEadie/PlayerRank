@@ -7,10 +7,19 @@ namespace PlayerRank.Scoring
     public class EloScoringStrategy : IScoringStrategy
     {
         /// <summary> also known as K in the ELO formula - the max change in rating from one game </summary>
-        private const double ratingChangeBaseMultiplier = 64;
+        private readonly double m_RatingChangeBaseMultiplier;
 
         /// <summary> the difference in rating where one person is almost certain to win </summary>
-        private const double maximumSkillGap = 400;
+        private readonly double m_MaximumSkillGap;
+
+        private readonly double m_NewPlayerStartingRating;
+
+        public EloScoringStrategy(double maxRatingChange, double maxSkillGap, double startingRating)
+        {
+            m_RatingChangeBaseMultiplier = maxRatingChange;
+            m_MaximumSkillGap = maxSkillGap;
+            m_NewPlayerStartingRating = startingRating;
+        }
 
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
@@ -25,7 +34,7 @@ namespace PlayerRank.Scoring
                 {
                     player = new PlayerScore(playerName);
                     scoreboard.Add(player);
-                    player.Score = 1400;
+                    player.Score = m_NewPlayerStartingRating;
                 }
 
                 previousScores.Add(playerName, player.Score);
@@ -59,7 +68,7 @@ namespace PlayerRank.Scoring
         private double RatingChange(double expectedToWin, bool actuallyWon)
         {
             var w = (actuallyWon) ? 1 : 0;
-            return ratingChangeBaseMultiplier*(w - expectedToWin);
+            return m_RatingChangeBaseMultiplier*(w - expectedToWin);
         }
 
         /// <summary>
@@ -71,7 +80,7 @@ namespace PlayerRank.Scoring
         /// </remarks>
         private double ChanceOfWinning(double ratingA, double ratingB)
         {
-            return 1/(1 + Math.Pow(10.0, (ratingB - ratingA)/maximumSkillGap));
+            return 1/(1 + Math.Pow(10.0, (ratingB - ratingA)/m_MaximumSkillGap));
         }
     }
 }
