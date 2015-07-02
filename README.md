@@ -9,4 +9,18 @@ Run the following command in Nuget Package Manager Console: `Install-Package Pla
 
 ### Basic usage
 
-`TODO`
+```
+var game = new Game();
+game.AddResult("Foo", 10);
+game.AddResult("Bar", 0);
+
+var league = new League();
+league.RecordGame(game);
+
+var scoringStrategy = new SimpleScoringStrategy();
+
+foreach (var position in league.GetLeaderBoard(scoringStrategy))
+{
+    Console.WriteLine("Name: {0} : Score : {1}", position.Name, position.Score);
+}
+```
