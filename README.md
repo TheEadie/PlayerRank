@@ -2,3 +2,11 @@
 
 # PlayerRank
 Calculates Rankings for multiplayer games
+
+### How to install
+
+Run the following command in Nuget Package Manager Console: `Install-Package PlayerRank`
+
+### Basic usage
+
+`TODO`
