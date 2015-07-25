@@ -52,6 +52,13 @@ namespace PlayerRank.Scoring
                     var playerA = scoreboard.Single(p => p.Name == playerAName);
 
                     var chanceOfPlayerAWinning = ChanceOfWinning(previousScores[playerAName], previousScores[playerBName]);
+
+                    // IF the okayers have drawn then don't update their scores
+                    if (playerAResult == playerBResult)
+                    {
+                        continue;
+                    }
+
                     var didPlayerAWin = (playerAResult > playerBResult);
                     var ratingChange = RatingChange(chanceOfPlayerAWinning, didPlayerAWin);
                     // adjust for the fact that we're playing against multiple people
