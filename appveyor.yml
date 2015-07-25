@@ -1,0 +1,19 @@
+install:
+  - choco install gitversion.portable -pre -y
+
+nuget:
+  account_feed: true
+
+before_build:
+  - nuget restore
+  - ps: gitversion /l console /output buildserver /updateAssemblyInfo
+
+configuration: Release
+
+build:
+  project: PlayerRank.sln
+  verbosity: minimal
+
+after_build:
+  - cmd: nuget pack PlayerRank\PlayerRank.csproj -version "%GitVersion_NuGetVersion%" -prop "target=Release"
+  - cmd: appveyor PushArtifact "PlayerRank.%GitVersion_NuGetVersion%.nupkg"
