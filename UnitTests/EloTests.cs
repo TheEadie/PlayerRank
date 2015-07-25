@@ -24,6 +24,23 @@ namespace PlayerRank.UnitTests
         }
 
         [Fact]
+        public void DrawCausesNoChangeInScores()
+        {
+            var league = new League();
+
+            var game = new Game();
+
+            game.AddResult("Foo", 100);
+            game.AddResult("Bar", 100);
+
+            league.RecordGame(game);
+
+            var eloScoringStrategy = new EloScoringStrategy(64, 400, 1400);
+            Assert.Equal(1400, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
+            Assert.Equal(1400, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
+        }
+
+        [Fact]
         public void FourPlayerGameOneRound()
         {
             var league = new League();
