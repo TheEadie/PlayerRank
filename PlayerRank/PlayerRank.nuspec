@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PlayerRank</id>
+    <version>$version$</version>
+    <title>PlayerRank</title>
+    <authors>David Eadie</authors>
+    <owners>David Eadie</owners>
+    <licenseUrl>https://github.com/TheEadie/PlayerRank/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/TheEadie/PlayerRank</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Calculates rankings for multiplayer games</description>
+    <copyright>Copyright 2015</copyright>
+  </metadata>
+</package>
