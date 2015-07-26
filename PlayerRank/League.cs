@@ -10,6 +10,8 @@ namespace PlayerRank
 
         public IEnumerable<PlayerScore> GetLeaderBoard(IScoringStrategy scoringStrategy)
         {
+            scoringStrategy.Reset();
+
             IList<PlayerScore> leaderBoard = new List<PlayerScore>();
 
             m_Games.Aggregate(leaderBoard, scoringStrategy.UpdateScores);
