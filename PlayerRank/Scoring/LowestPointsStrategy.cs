@@ -22,7 +22,6 @@ namespace PlayerRank.Scoring
 
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
-
             var allResultsPrev = m_allResults.SelectMany(x => x.GetResults()).ToList();
 
             m_allResults.Add(game);
