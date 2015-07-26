@@ -62,6 +62,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="LowestPointsTests.cs" />
     <Compile Include="LeagueTests.cs" />
     <Compile Include="EloTests.cs" />
     <Compile Include="PlayerTests.cs" />
