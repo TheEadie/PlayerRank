@@ -55,9 +55,11 @@ namespace PlayerRank.Scoring
         {
             var allResultsForPlayer = allResultsNow.Where(x => x.Key == player.Name).Select(x => x.Value).OrderByDescending(x => x).ToList();
 
+            if (allResultsForPlayer.Count < m_requiredGames) { return; }
+
             for (int i = 0; i < m_discards; i++)
             {
-                if (allResultsForPlayer.Count > i && allResultsForPlayer.Count >= m_requiredGames)
+                if (allResultsForPlayer.Count > i)
                 {
                     var nextWorstScore = subtract ? -allResultsForPlayer[i] : allResultsForPlayer[i];
                     player.AddScore(nextWorstScore);
