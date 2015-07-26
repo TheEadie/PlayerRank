@@ -6,11 +6,13 @@ namespace PlayerRank.Scoring
     internal class LowestPointsStrategy : IScoringStrategy
     {
         private int m_discards;
+        private int m_requiredGames;
         private IList<Game> m_allResults = new List<Game>();
-
-        public LowestPointsStrategy(int discards = 0)
+        
+        public LowestPointsStrategy(int discards = 0, int requiredGames = 0)
         {
             m_discards = discards;
+            m_requiredGames = requiredGames;
         }
 
         public void Reset()
