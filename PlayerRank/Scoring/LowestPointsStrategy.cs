@@ -1,17 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace PlayerRank.Scoring
 {
     internal class LowestPointsStrategy : IScoringStrategy
     {
-        public LowestPointsStrategy()
-        {
-        }
-
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
-            throw new NotImplementedException();
+            foreach (var result in game.GetResults())
+            {
+                var player = scoreboard.SingleOrDefault(p => p.Name == result.Key);
+
+                if (player == null)
+                {
+                    player = new PlayerScore(result.Key);
+                    scoreboard.Add(player);
+                    player.Score = 0;
+                }
+
+                player.AddScore(result.Value);
+            }
+
+            return scoreboard;
         }
     }
 }
