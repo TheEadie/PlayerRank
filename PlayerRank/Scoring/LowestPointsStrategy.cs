@@ -58,7 +58,7 @@ namespace PlayerRank.Scoring
 
             for (int i = 0; i < m_discards; i++)
             {
-                if (allResultsForPlayer.Count > i)
+                if (allResultsForPlayer.Count > i && allResultsForPlayer.Count >= m_requiredGames)
                 {
                     var nextWorstScore = subtract ? -allResultsForPlayer[i] : allResultsForPlayer[i];
                     player.AddScore(nextWorstScore);
