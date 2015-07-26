@@ -5,6 +5,10 @@ namespace PlayerRank.Scoring
 {
     public class SimpleScoringStrategy : IScoringStrategy
     {
+        public void Reset()
+        {
+        }
+
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
             foreach (var result in game.GetResults())

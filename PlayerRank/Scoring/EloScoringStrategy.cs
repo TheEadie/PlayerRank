@@ -21,6 +21,10 @@ namespace PlayerRank.Scoring
             m_NewPlayerStartingRating = startingRating;
         }
 
+        public void Reset()
+        {
+        }
+
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
             var results = game.GetResults();
