@@ -169,8 +169,8 @@ namespace PlayerRank.UnitTests
             var discard2 = new Discard(2, 4);
 
             var scoringStrategy = new LowestPointsStrategy(discard, discard2);
-            Assert.Equal(6, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
-            Assert.Equal(8, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
+            Assert.Equal(3, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
+            Assert.Equal(3, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
         }
     }
 }
