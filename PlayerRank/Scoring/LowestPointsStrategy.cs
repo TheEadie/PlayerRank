@@ -5,12 +5,12 @@ namespace PlayerRank.Scoring
 {
     internal class LowestPointsStrategy : IScoringStrategy
     {
-        private IList<Game> m_allResults = new List<Game>();
-        private Discard m_Discard;
+        private readonly IList<Game> m_allResults = new List<Game>();
+        private readonly Discard m_Discard;
 
         public LowestPointsStrategy(params Discard[] discards)
         {
-            m_Discard = discards.Any() ? discards[0] : new Discard(0,0);
+            m_Discard = discards.Any() ? discards[0] : new Discard(0, 0);
         }
 
         public void Reset()
@@ -49,13 +49,18 @@ namespace PlayerRank.Scoring
             return scoreboard;
         }
 
-        private void FindWorstResults(IEnumerable<KeyValuePair<string, double>> allResultsNow, PlayerScore player, bool subtract)
+        private void FindWorstResults(IEnumerable<KeyValuePair<string, double>> allResultsNow, PlayerScore player,
+            bool subtract)
         {
-            var allResultsForPlayer = allResultsNow.Where(x => x.Key == player.Name).Select(x => x.Value).OrderByDescending(x => x).ToList();
+            var allResultsForPlayer =
+                allResultsNow.Where(x => x.Key == player.Name).Select(x => x.Value).OrderByDescending(x => x).ToList();
 
-            if (allResultsForPlayer.Count < m_Discard.GamesToBePlayed) { return; }
+            if (allResultsForPlayer.Count < m_Discard.GamesToBePlayed)
+            {
+                return;
+            }
 
-            for (int i = 0; i < m_Discard.NumberOfdiscards; i++)
+            for (var i = 0; i < m_Discard.NumberOfdiscards; i++)
             {
                 if (allResultsForPlayer.Count > i)
                 {
