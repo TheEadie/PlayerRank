@@ -8,14 +8,9 @@ namespace PlayerRank.Scoring
         private IList<Game> m_allResults = new List<Game>();
         private Discard m_Discard;
 
-        public LowestPointsStrategy(Discard discard = null)
+        public LowestPointsStrategy(params Discard[] discards)
         {
-            if (discard == null)
-            {
-                discard = new Discard(0, 0);
-            }
-
-            m_Discard = discard;
+            m_Discard = discards.Any() ? discards[0] : new Discard(0,0);
         }
 
         public void Reset()
