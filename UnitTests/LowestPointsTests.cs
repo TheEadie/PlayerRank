@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Runtime.CompilerServices;
 using PlayerRank.Scoring;
 using Xunit;
 
@@ -53,7 +54,9 @@ namespace PlayerRank.UnitTests
             league.RecordGame(game3);
             league.RecordGame(game4);
 
-            var scoringStrategy = new LowestPointsStrategy(1);
+            var discard = new Discard(1, 0);
+
+            var scoringStrategy = new LowestPointsStrategy(discard);
             Assert.Equal(4, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
             Assert.Equal(4, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
         }
@@ -88,7 +91,9 @@ namespace PlayerRank.UnitTests
             league.RecordGame(game3);
             league.RecordGame(game4);
 
-            var scoringStrategy = new LowestPointsStrategy(2);
+            var discard = new Discard(2, 0);
+
+            var scoringStrategy = new LowestPointsStrategy(discard);
             Assert.Equal(3, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
             Assert.Equal(2, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
         }
@@ -123,7 +128,9 @@ namespace PlayerRank.UnitTests
             league.RecordGame(game3);
             league.RecordGame(game4);
 
-            var scoringStrategy = new LowestPointsStrategy(1, 4);
+            var discard = new Discard(1, 4);
+
+            var scoringStrategy = new LowestPointsStrategy(discard);
             Assert.Equal(6, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
             Assert.Equal(8, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
         }

@@ -5,14 +5,17 @@ namespace PlayerRank.Scoring
 {
     internal class LowestPointsStrategy : IScoringStrategy
     {
-        private int m_discards;
-        private int m_requiredGames;
         private IList<Game> m_allResults = new List<Game>();
-        
-        public LowestPointsStrategy(int discards = 0, int requiredGames = 0)
+        private Discard m_Discard;
+
+        public LowestPointsStrategy(Discard discard = null)
         {
-            m_discards = discards;
-            m_requiredGames = requiredGames;
+            if (discard == null)
+            {
+                discard = new Discard(0, 0);
+            }
+
+            m_Discard = discard;
         }
 
         public void Reset()
@@ -55,9 +58,9 @@ namespace PlayerRank.Scoring
         {
             var allResultsForPlayer = allResultsNow.Where(x => x.Key == player.Name).Select(x => x.Value).OrderByDescending(x => x).ToList();
 
-            if (allResultsForPlayer.Count < m_requiredGames) { return; }
+            if (allResultsForPlayer.Count < m_Discard.GamesToBePlayed) { return; }
 
-            for (int i = 0; i < m_discards; i++)
+            for (int i = 0; i < m_Discard.NumberOfdiscards; i++)
             {
                 if (allResultsForPlayer.Count > i)
                 {
