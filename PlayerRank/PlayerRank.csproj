@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Scoring\Discard.cs" />
     <Compile Include="Scoring\IScoringStrategy.cs" />
     <Compile Include="League.cs" />
     <Compile Include="PlayerScore.cs" />
