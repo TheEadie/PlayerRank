@@ -1,11 +1,11 @@
-﻿namespace PlayerRank.Scoring
+﻿namespace PlayerRank.Scoring.LowestPoints
 {
-    public class Discard
+    public class DiscardPolicy
     {
         public int NumberOfdiscards { get; private set; }
         public int GamesToBePlayed { get; private set; }
         
-        public Discard(int numberOfdiscards, int gamesToBePlayed)
+        public DiscardPolicy(int numberOfdiscards, int gamesToBePlayed)
         {
             NumberOfdiscards = numberOfdiscards;
             GamesToBePlayed = gamesToBePlayed;

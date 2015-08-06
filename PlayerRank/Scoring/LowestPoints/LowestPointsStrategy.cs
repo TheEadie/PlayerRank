@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace PlayerRank.Scoring
+namespace PlayerRank.Scoring.LowestPoints
 {
     internal class LowestPointsStrategy : IScoringStrategy
     {
         private readonly IList<Game> m_allResults = new List<Game>();
-        private readonly IList<Discard> m_Discards;
+        private readonly IList<DiscardPolicy> m_Discards;
 
-        public LowestPointsStrategy(params Discard[] discards)
+        public LowestPointsStrategy(params DiscardPolicy[] discards)
         {
             m_Discards = discards.Any()
                 ? discards.OrderBy(x => x.GamesToBePlayed).ToList()
-                : new List<Discard>();
+                : new List<DiscardPolicy>();
         }
 
         public void Reset()
@@ -61,7 +61,7 @@ namespace PlayerRank.Scoring
                     .OrderByDescending(x => x)
                     .ToList();
 
-            var discardPolicy = new Discard(0, 0);
+            var discardPolicy = new DiscardPolicy(0, 0);
 
             // Find the relavent policy
             foreach (var dp in m_Discards)
