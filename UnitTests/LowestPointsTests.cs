@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Runtime.CompilerServices;
 using PlayerRank.Scoring;
+using PlayerRank.Scoring.LowestPoints;
 using Xunit;
 
 namespace PlayerRank.UnitTests
@@ -54,7 +55,7 @@ namespace PlayerRank.UnitTests
             league.RecordGame(game3);
             league.RecordGame(game4);
 
-            var discard = new Discard(1, 0);
+            var discard = new DiscardPolicy(1, 0);
 
             var scoringStrategy = new LowestPointsStrategy(discard);
             Assert.Equal(4, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
@@ -91,7 +92,7 @@ namespace PlayerRank.UnitTests
             league.RecordGame(game3);
             league.RecordGame(game4);
 
-            var discard = new Discard(2, 0);
+            var discard = new DiscardPolicy(2, 0);
 
             var scoringStrategy = new LowestPointsStrategy(discard);
             Assert.Equal(3, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
@@ -128,7 +129,7 @@ namespace PlayerRank.UnitTests
             league.RecordGame(game3);
             league.RecordGame(game4);
 
-            var discard = new Discard(1, 4);
+            var discard = new DiscardPolicy(1, 4);
 
             var scoringStrategy = new LowestPointsStrategy(discard);
             Assert.Equal(6, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
@@ -165,8 +166,8 @@ namespace PlayerRank.UnitTests
             league.RecordGame(game3);
             league.RecordGame(game4);
 
-            var discard = new Discard(1, 2);
-            var discard2 = new Discard(2, 4);
+            var discard = new DiscardPolicy(1, 2);
+            var discard2 = new DiscardPolicy(2, 4);
 
             var scoringStrategy = new LowestPointsStrategy(discard, discard2);
             Assert.Equal(3, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());

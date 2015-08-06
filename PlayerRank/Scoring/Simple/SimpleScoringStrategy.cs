@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace PlayerRank.Scoring
+namespace PlayerRank.Scoring.Simple
 {
     public class SimpleScoringStrategy : IScoringStrategy
     {

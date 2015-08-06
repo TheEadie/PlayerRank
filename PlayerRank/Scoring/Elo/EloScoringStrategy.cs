@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PlayerRank.Scoring
+namespace PlayerRank.Scoring.Elo
 {
     public class EloScoringStrategy : IScoringStrategy
     {
