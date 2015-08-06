@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace PlayerRank.Scoring
+namespace PlayerRank.Scoring.Simple
 {
     public class SimpleScoringStrategy : IScoringStrategy
     {
+        public void Reset()
+        {
+        }
+
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
             foreach (var result in game.GetResults())

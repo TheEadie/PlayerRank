@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using PlayerRank.Scoring;
+using PlayerRank.Scoring.Simple;
 using Xunit;
 
 namespace PlayerRank.UnitTests

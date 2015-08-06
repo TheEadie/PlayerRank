@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PlayerRank.Scoring
+namespace PlayerRank.Scoring.Elo
 {
     public class EloScoringStrategy : IScoringStrategy
     {
@@ -19,6 +19,10 @@ namespace PlayerRank.Scoring
             m_RatingChangeBaseMultiplier = maxRatingChange;
             m_MaximumSkillGap = maxSkillGap;
             m_NewPlayerStartingRating = startingRating;
+        }
+
+        public void Reset()
+        {
         }
 
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
