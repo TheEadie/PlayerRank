@@ -1,5 +1,5 @@
 install:
-  - choco install gitversion.portable -version v3.0.0-beta0004 -pre -y
+  - choco install gitversion.portable -version 3.0.0-beta0004 -pre -y
 
 nuget:
   account_feed: true
