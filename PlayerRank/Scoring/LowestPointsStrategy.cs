@@ -42,20 +42,21 @@ namespace PlayerRank.Scoring
                 player.AddScore(result.Value);
 
                 // Add back previous worst results
-                FindWorstResults(allResultsPrev, player, false);
+                player.AddScore(SumWorstResults(allResultsPrev, player));
 
                 // Subtract worst results
-                FindWorstResults(allResultsNow, player, true);
+                player.AddScore(-SumWorstResults(allResultsNow, player));
             }
 
             return scoreboard;
         }
 
-        private void FindWorstResults(IEnumerable<KeyValuePair<string, double>> allResultsNow, PlayerScore player,
-            bool subtract)
+        private double SumWorstResults(IEnumerable<KeyValuePair<string, double>> results, PlayerScore player)
         {
+            var totalOfWorstScores = 0.0;
+
             var allResultsForPlayer =
-                allResultsNow.Where(x => x.Key == player.Name)
+                results.Where(x => x.Key == player.Name)
                     .Select(x => x.Value)
                     .OrderByDescending(x => x)
                     .ToList();
@@ -75,10 +76,11 @@ namespace PlayerRank.Scoring
             {
                 if (allResultsForPlayer.Count > i)
                 {
-                    var nextWorstScore = subtract ? -allResultsForPlayer[i] : allResultsForPlayer[i];
-                    player.AddScore(nextWorstScore);
+                    totalOfWorstScores += allResultsForPlayer[i];
                 }
             }
+
+            return totalOfWorstScores;
         }
     }
 }
