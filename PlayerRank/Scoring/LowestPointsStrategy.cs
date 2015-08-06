@@ -6,11 +6,13 @@ namespace PlayerRank.Scoring
     internal class LowestPointsStrategy : IScoringStrategy
     {
         private readonly IList<Game> m_allResults = new List<Game>();
-        private readonly Discard m_Discard;
+        private readonly IList<Discard> m_Discards;
 
         public LowestPointsStrategy(params Discard[] discards)
         {
-            m_Discard = discards.Any() ? discards[0] : new Discard(0, 0);
+            m_Discards = discards.Any()
+                ? discards.OrderBy(x => x.GamesToBePlayed).ToList()
+                : new List<Discard>();
         }
 
         public void Reset()
@@ -53,14 +55,23 @@ namespace PlayerRank.Scoring
             bool subtract)
         {
             var allResultsForPlayer =
-                allResultsNow.Where(x => x.Key == player.Name).Select(x => x.Value).OrderByDescending(x => x).ToList();
+                allResultsNow.Where(x => x.Key == player.Name)
+                    .Select(x => x.Value)
+                    .OrderByDescending(x => x)
+                    .ToList();
 
-            if (allResultsForPlayer.Count < m_Discard.GamesToBePlayed)
+            var discardPolicy = new Discard(0, 0);
+
+            // Find the relavent policy
+            foreach (var dp in m_Discards)
             {
-                return;
+                if (allResultsForPlayer.Count >= dp.GamesToBePlayed)
+                {
+                    discardPolicy = dp;
+                }
             }
 
-            for (var i = 0; i < m_Discard.NumberOfdiscards; i++)
+            for (var i = 0; i < discardPolicy.NumberOfdiscards; i++)
             {
                 if (allResultsForPlayer.Count > i)
                 {
