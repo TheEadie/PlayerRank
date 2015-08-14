@@ -39,13 +39,13 @@ namespace PlayerRank.Scoring.LowestPoints
                     player.Score = 0;
                 }
 
-                player.AddScore(result.Value);
+                player.AddPoints(new Points(result.Value));
 
                 // Add back previous worst results
-                player.AddScore(SumWorstResults(allResultsPrev, player));
+                player.AddPoints(new Points(SumWorstResults(allResultsPrev, player)));
 
                 // Subtract worst results
-                player.AddScore(-SumWorstResults(allResultsNow, player));
+                player.AddPoints(new Points(-SumWorstResults(allResultsNow, player)));
             }
 
             return scoreboard;

@@ -22,7 +22,7 @@ namespace PlayerRank.Scoring.Simple
                     player.Score = 0;
                 }
                 
-                player.AddScore(result.Value);
+                player.AddPoints(new Points(result.Value));
             }
 
             return scoreboard;

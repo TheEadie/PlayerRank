@@ -69,7 +69,7 @@ namespace PlayerRank.Scoring.Elo
                     var adjustedRatingChange = ratingChange / results.Count;
                     var integerRatingChange = Math.Round(adjustedRatingChange, MidpointRounding.AwayFromZero);
 
-                    playerA.AddScore(integerRatingChange);
+                    playerA.AddPoints(new Points(integerRatingChange));
                 }
             }
 

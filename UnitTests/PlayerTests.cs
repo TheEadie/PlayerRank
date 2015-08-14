@@ -23,25 +23,5 @@ namespace PlayerRank.UnitTests
             Assert.Equal(new Points(-100), player.Points);
             Assert.Equal(-100, player.Score);
         }
-
-        [Fact]
-        public void CanIncreasePlayersScoreOld()
-        {
-            var player = new PlayerScore("Foo");
-            player.AddScore(100);
-
-            Assert.Equal(new Points(100), player.Points);
-            Assert.Equal(100, player.Score);
-        }
-
-        [Fact]
-        public void CanReducePlayersScoreOld()
-        {
-            var player = new PlayerScore("Foo");
-            player.AddScore(-100);
-
-            Assert.Equal(new Points(-100), player.Points);
-            Assert.Equal(-100, player.Score);
-        }
     }
 }

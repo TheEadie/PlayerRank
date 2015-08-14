@@ -28,11 +28,5 @@ namespace PlayerRank
             internal set { Points = new Points(value); }
         }
 
-        [Obsolete("Please use AddPoints instead")]
-        internal void AddScore(double score)
-        {
-            Score += score;
-        }
-
     }
 }
