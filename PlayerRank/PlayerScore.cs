@@ -1,12 +1,16 @@
-﻿using System;
-
-namespace PlayerRank
+﻿namespace PlayerRank
 {
     public class PlayerScore
     {
+
         public string Name { get; set; }
-        public double Score { get; internal set; }
         public Score Rating { get; private set; }
+
+        public double Score
+        {
+            get { return Rating.GetValue(); }
+            internal set { Rating = new Score(value); }
+        }
 
         public PlayerScore(string name)
         {
@@ -16,7 +20,7 @@ namespace PlayerRank
 
         internal void AddScore(Score score)
         {
-            Rating = Rating + score;
+            Rating += score;
         }
 
         internal void AddScore(double score)

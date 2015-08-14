@@ -9,6 +9,11 @@
             m_Score = score;
         }
 
+        internal double GetValue()
+        {
+            return m_Score;
+        }
+
         protected bool Equals(Score other)
         {
             return m_Score.Equals(other.m_Score);
