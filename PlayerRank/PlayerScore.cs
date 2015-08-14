@@ -11,11 +11,12 @@ namespace PlayerRank
         public PlayerScore(string name)
         {
             Name = name;
+            Rating = new Score(0);
         }
 
         internal void AddScore(Score score)
         {
-            
+            Rating = Rating + score;
         }
 
         internal void AddScore(double score)
