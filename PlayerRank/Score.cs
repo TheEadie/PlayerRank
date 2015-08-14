@@ -1,4 +1,6 @@
-﻿namespace PlayerRank
+﻿using System;
+
+namespace PlayerRank
 {
     public class Score
     {
@@ -24,6 +26,11 @@
         public override int GetHashCode()
         {
             return m_Score.GetHashCode();
+        }
+
+        public static Score operator +(Score scoreA, Score scoreB)
+        {
+            throw new NotImplementedException();
         }
     }
 }
