@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PlayerRank
+﻿namespace PlayerRank
 {
     public class Score
     {
@@ -30,7 +28,7 @@ namespace PlayerRank
 
         public static Score operator +(Score scoreA, Score scoreB)
         {
-            throw new NotImplementedException();
+            return new Score(scoreA.m_Score + scoreB.m_Score);
         }
     }
 }
