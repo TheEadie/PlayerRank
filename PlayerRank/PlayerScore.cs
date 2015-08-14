@@ -6,7 +6,7 @@ namespace PlayerRank
     public class PlayerScore
     {
         public string Name { get; set; }
-        public Points Points { get; private set; }
+        public Points Points { get; internal set; }
         
         public PlayerScore(string name)
         {
