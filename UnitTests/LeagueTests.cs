@@ -13,13 +13,13 @@ namespace PlayerRank.UnitTests
             var league = new League();
 
             var game = new Game();
-            game.AddResult("Foo", 5);
-            game.AddResult("Bar", 1);
+            game.AddResult("Foo", new Points(5));
+            game.AddResult("Bar", new Points(1));
 
             league.RecordGame(game);
 
-            Assert.Equal(5.0, league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
-            Assert.Equal(1.0, league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
+            Assert.Equal(new Points(5), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
+            Assert.Equal(new Points(1), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
         }
 
         [Fact]
