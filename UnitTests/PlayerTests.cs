@@ -8,9 +8,9 @@ namespace PlayerRank.UnitTests
         public void CanIncreasePlayersScore()
         {
             var player = new PlayerScore("Foo");
-            player.AddScore(new Score(100));
+            player.AddPoints(new Points(100));
 
-            Assert.Equal(new Score(100), player.Rating);
+            Assert.Equal(new Points(100), player.Points);
             Assert.Equal(100, player.Score);
         }
 
@@ -18,9 +18,9 @@ namespace PlayerRank.UnitTests
         public void CanReducePlayersScore()
         {
             var player = new PlayerScore("Foo");
-            player.AddScore(new Score(-100));
+            player.AddPoints(new Points(-100));
 
-            Assert.Equal(new Score(-100), player.Rating);
+            Assert.Equal(new Points(-100), player.Points);
             Assert.Equal(-100, player.Score);
         }
 
@@ -30,7 +30,7 @@ namespace PlayerRank.UnitTests
             var player = new PlayerScore("Foo");
             player.AddScore(100);
 
-            Assert.Equal(new Score(100), player.Rating);
+            Assert.Equal(new Points(100), player.Points);
             Assert.Equal(100, player.Score);
         }
 
@@ -40,7 +40,7 @@ namespace PlayerRank.UnitTests
             var player = new PlayerScore("Foo");
             player.AddScore(-100);
 
-            Assert.Equal(new Score(-100), player.Rating);
+            Assert.Equal(new Points(-100), player.Points);
             Assert.Equal(-100, player.Score);
         }
     }
