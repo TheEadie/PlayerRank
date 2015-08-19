@@ -43,5 +43,35 @@ namespace PlayerRank
         {
             return new Points(pointsA.m_Points - pointsB.m_Points);
         }
+
+        public static double operator /(Points points, double divider)
+        {
+            return points.m_Points / divider;
+        }
+
+        public static bool operator >(Points pointsA, Points pointsB)
+        {
+            return (pointsA.m_Points > pointsB.m_Points);
+        }
+
+        public static bool operator <(Points pointsA, Points pointsB)
+        {
+            return (pointsA.m_Points < pointsB.m_Points);
+        }
+
+        public static bool operator ==(Points pointsA, Points pointsB)
+        {
+            return (pointsA.m_Points == pointsB.m_Points);
+        }
+
+        public static bool operator !=(Points pointsA, Points pointsB)
+        {
+            return !(pointsA == pointsB);
+        }
+
+        public override string ToString()
+        {
+            return m_Points.ToString();
+        }
     }
 }

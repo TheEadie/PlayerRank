@@ -12,13 +12,13 @@ namespace PlayerRank.Scoring.Elo
         /// <summary> the difference in rating where one person is almost certain to win </summary>
         private readonly double m_MaximumSkillGap;
 
-        private readonly double m_NewPlayerStartingRating;
+        private readonly Points m_NewPlayerStartingRating;
 
         public EloScoringStrategy(double maxRatingChange, double maxSkillGap, double startingRating)
         {
             m_RatingChangeBaseMultiplier = maxRatingChange;
             m_MaximumSkillGap = maxSkillGap;
-            m_NewPlayerStartingRating = startingRating;
+            m_NewPlayerStartingRating = new Points(startingRating);
         }
 
         public void Reset()
@@ -27,8 +27,8 @@ namespace PlayerRank.Scoring.Elo
 
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
-            var results = game.GetResults();
-            var previousScores = new Dictionary<string, double>();
+            var results = game.GetGameResults();
+            var previousScores = new Dictionary<string, Points>();
 
             foreach (var playerName in results.Keys)
             {
@@ -38,10 +38,10 @@ namespace PlayerRank.Scoring.Elo
                 {
                     player = new PlayerScore(playerName);
                     scoreboard.Add(player);
-                    player.Score = m_NewPlayerStartingRating;
+                    player.Points = m_NewPlayerStartingRating;
                 }
 
-                previousScores.Add(playerName, player.Score);
+                previousScores.Add(playerName, player.Points);
             }
 
             foreach (var playerAName in results.Keys)
@@ -89,7 +89,7 @@ namespace PlayerRank.Scoring.Elo
         /// See https://www.wolframalpha.com/input/?i=plot+1%2F%281+%2B+Pow%2810%2C+%28y+-+x%29%2F400%29%29%3B
         /// for a graph of this function.
         /// </remarks>
-        private double ChanceOfWinning(double ratingA, double ratingB)
+        private double ChanceOfWinning(Points ratingA, Points ratingB)
         {
             return 1/(1 + Math.Pow(10.0, (ratingB - ratingA)/m_MaximumSkillGap));
         }
