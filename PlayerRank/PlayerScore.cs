@@ -19,6 +19,11 @@ namespace PlayerRank
             Points += points;
         }
 
+        internal void SubtractPoints(Points points)
+        {
+            Points -= points;
+        }
+
         /// Obsolete V1 API
 
         [Obsolete("Please use Points instead")]
