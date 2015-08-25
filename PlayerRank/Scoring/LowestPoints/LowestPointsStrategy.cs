@@ -22,13 +22,13 @@ namespace PlayerRank.Scoring.LowestPoints
 
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
-            var allResultsPrev = m_allResults.SelectMany(x => x.GetResults()).ToList();
+            var allResultsPrev = m_allResults.SelectMany(x => x.GetGameResults()).ToList();
 
             m_allResults.Add(game);
 
-            var allResultsNow = m_allResults.SelectMany(x => x.GetResults());
+            var allResultsNow = m_allResults.SelectMany(x => x.GetGameResults()).ToList();
 
-            foreach (var result in game.GetResults())
+            foreach (var result in game.GetGameResults())
             {
                 var player = scoreboard.SingleOrDefault(p => p.Name == result.Key);
 
@@ -36,24 +36,24 @@ namespace PlayerRank.Scoring.LowestPoints
                 {
                     player = new PlayerScore(result.Key);
                     scoreboard.Add(player);
-                    player.Score = 0;
+                    player.Points = new Points(0);
                 }
 
-                player.AddScore(result.Value);
+                player.AddPoints(result.Value);
 
                 // Add back previous worst results
-                player.AddScore(SumWorstResults(allResultsPrev, player));
+                player.AddPoints(SumWorstResults(allResultsPrev, player));
 
                 // Subtract worst results
-                player.AddScore(-SumWorstResults(allResultsNow, player));
+                player.SubtractPoints(SumWorstResults(allResultsNow, player));
             }
 
             return scoreboard;
         }
 
-        private double SumWorstResults(IEnumerable<KeyValuePair<string, double>> results, PlayerScore player)
+        private Points SumWorstResults(IEnumerable<KeyValuePair<string, Points>> results, PlayerScore player)
         {
-            var totalOfWorstScores = 0.0;
+            var totalOfWorstScores = new Points(0.0);
 
             var allResultsForPlayer =
                 results.Where(x => x.Key == player.Name)

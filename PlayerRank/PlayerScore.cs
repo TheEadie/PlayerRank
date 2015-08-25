@@ -1,18 +1,37 @@
-﻿namespace PlayerRank
+﻿using System;
+using System.Runtime.InteropServices;
+
+namespace PlayerRank
 {
     public class PlayerScore
     {
         public string Name { get; set; }
-        public double Score { get; internal set; }
-
+        public Points Points { get; internal set; }
+        
         public PlayerScore(string name)
         {
             Name = name;
+            Points = new Points(0);
         }
 
-        internal void AddScore(double score)
+        internal void AddPoints(Points points)
         {
-            Score += score;
+            Points += points;
         }
+
+        internal void SubtractPoints(Points points)
+        {
+            Points -= points;
+        }
+
+        /// Obsolete V1 API
+
+        [Obsolete("Please use Points instead")]
+        public double Score
+        {
+            get { return Points.GetValue(); }
+            internal set { Points = new Points(value); }
+        }
+
     }
 }

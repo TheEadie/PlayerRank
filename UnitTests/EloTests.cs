@@ -14,14 +14,14 @@ namespace PlayerRank.UnitTests
 
             var game = new Game();
 
-            game.AddResult("Foo", 100);
-            game.AddResult("Bar", 0);
+            game.AddResult("Foo", new Points(100));
+            game.AddResult("Bar", new Points(0));
 
             league.RecordGame(game);
 
-            var eloScoringStrategy = new EloScoringStrategy(64, 400, 1400);
-            Assert.Equal(1400 + 16, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
-            Assert.Equal(1400 - 16, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
+            var eloScoringStrategy = new EloScoringStrategy(new Points(64), new Points(400), new Points(1400));
+            Assert.Equal(new Points(1400 + 16), league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
+            Assert.Equal(new Points(1400 - 16), league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
         }
 
         [Fact]
@@ -31,14 +31,14 @@ namespace PlayerRank.UnitTests
 
             var game = new Game();
 
-            game.AddResult("Foo", 100);
-            game.AddResult("Bar", 100);
+            game.AddResult("Foo", new Points(100));
+            game.AddResult("Bar", new Points(100));
 
             league.RecordGame(game);
 
-            var eloScoringStrategy = new EloScoringStrategy(64, 400, 1400);
-            Assert.Equal(1400, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
-            Assert.Equal(1400, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
+            var eloScoringStrategy = new EloScoringStrategy(new Points(64), new Points(400), new Points(1400));
+            Assert.Equal(new Points(1400), league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
+            Assert.Equal(new Points(1400), league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
         }
 
         [Fact]
@@ -48,18 +48,18 @@ namespace PlayerRank.UnitTests
 
             var game = new Game();
 
-            game.AddResult("David", 100);
-            game.AddResult("Jack", 50);
-            game.AddResult("Bob", 25);
-            game.AddResult("Chris", 0);
+            game.AddResult("David", new Points(100));
+            game.AddResult("Jack", new Points(50));
+            game.AddResult("Bob", new Points(25));
+            game.AddResult("Chris", new Points(0));
 
             league.RecordGame(game);
 
-            var eloScoringStrategy = new EloScoringStrategy(64, 400, 1400);
-            Assert.Equal(1424, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "David").Select(x => x.Score).Single());
-            Assert.Equal(1408, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Jack").Select(x => x.Score).Single());
-            Assert.Equal(1392, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Bob").Select(x => x.Score).Single());
-            Assert.Equal(1376, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Chris").Select(x => x.Score).Single());
+            var eloScoringStrategy = new EloScoringStrategy(new Points(64), new Points(400), new Points(1400));
+            Assert.Equal(new Points(1424), league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "David").Select(x => x.Points).Single());
+            Assert.Equal(new Points(1408), league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Jack").Select(x => x.Points).Single());
+            Assert.Equal(new Points(1392), league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Bob").Select(x => x.Points).Single());
+            Assert.Equal(new Points(1376), league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Chris").Select(x => x.Points).Single());
         }
 
         [Fact]
@@ -71,24 +71,24 @@ namespace PlayerRank.UnitTests
             {
                 var game = new Game();
 
-                game.AddResult("Foo", 100);
-                game.AddResult("Bar", 0);
+                game.AddResult("Foo", new Points(100));
+                game.AddResult("Bar", new Points(0));
 
                 league.RecordGame(game);
 
                 var game2 = new Game();
 
-                game2.AddResult("Foo", 0);
-                game2.AddResult("Bar", 100);
+                game2.AddResult("Foo", new Points(0));
+                game2.AddResult("Bar", new Points(100));
 
                 league.RecordGame(game2);
             }
 
-            var eloScoringStrategy = new EloScoringStrategy(64, 400, 1400);
+            var eloScoringStrategy = new EloScoringStrategy(new Points(64), new Points(400), new Points(1400));
 
             // Bar won most recently therefore will be slightly ahead
-            Assert.Equal(1394, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
-            Assert.Equal(1406, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
+            Assert.Equal(new Points(1394), league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
+            Assert.Equal(new Points(1406), league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
         }
 
         [Fact]
@@ -100,47 +100,47 @@ namespace PlayerRank.UnitTests
             {
                 var game = new Game();
 
-                game.AddResult("David", 100);
-                game.AddResult("Jack", 50);
-                game.AddResult("Bob", 25);
-                game.AddResult("Chris", 0);
+                game.AddResult("David", new Points(100));
+                game.AddResult("Jack", new Points(50));
+                game.AddResult("Bob", new Points(25));
+                game.AddResult("Chris", new Points(0));
 
                 league.RecordGame(game);
 
                 var game2 = new Game();
 
-                game2.AddResult("David", 0);
-                game2.AddResult("Jack", 100);
-                game2.AddResult("Bob", 50);
-                game2.AddResult("Chris", 25);
+                game2.AddResult("David", new Points(0));
+                game2.AddResult("Jack", new Points(100));
+                game2.AddResult("Bob", new Points(50));
+                game2.AddResult("Chris", new Points(25));
 
                 league.RecordGame(game2);
 
                 var game3 = new Game();
 
-                game3.AddResult("David", 25);
-                game3.AddResult("Jack", 0);
-                game3.AddResult("Bob", 100);
-                game3.AddResult("Chris", 50);
+                game3.AddResult("David", new Points(25));
+                game3.AddResult("Jack", new Points(0));
+                game3.AddResult("Bob", new Points(100));
+                game3.AddResult("Chris", new Points(50));
 
                 league.RecordGame(game3);
 
                 var game4 = new Game();
 
-                game4.AddResult("David", 50);
-                game4.AddResult("Jack", 25);
-                game4.AddResult("Bob", 0);
-                game4.AddResult("Chris", 100);
+                game4.AddResult("David", new Points(50));
+                game4.AddResult("Jack", new Points(25));
+                game4.AddResult("Bob", new Points(0));
+                game4.AddResult("Chris", new Points(100));
 
                 league.RecordGame(game4);
             }
 
-            var eloScoringStrategy = new EloScoringStrategy(64, 400, 1400);
+            var eloScoringStrategy = new EloScoringStrategy(new Points(64), new Points(400), new Points(1400));
 
-            Assert.Equal(1397, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "David").Select(x => x.Score).Single());
-            Assert.Equal(1390, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Jack").Select(x => x.Score).Single());
-            Assert.Equal(1394, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Bob").Select(x => x.Score).Single());
-            Assert.Equal(1419, league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Chris").Select(x => x.Score).Single());
+            Assert.Equal(new Points(1397), league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "David").Select(x => x.Points).Single());
+            Assert.Equal(new Points(1390), league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Jack").Select(x => x.Points).Single());
+            Assert.Equal(new Points(1394), league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Bob").Select(x => x.Points).Single());
+            Assert.Equal(new Points(1419), league.GetLeaderBoard(eloScoringStrategy).Where(x => x.Name == "Chris").Select(x => x.Points).Single());
         }
     }
 }

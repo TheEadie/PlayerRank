@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Points.cs" />
     <Compile Include="Scoring\Elo\EloScoringStrategy.cs" />
     <Compile Include="Scoring\IScoringStrategy.cs" />
     <Compile Include="League.cs" />
