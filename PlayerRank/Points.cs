@@ -77,6 +77,21 @@ namespace PlayerRank
 
         public static bool operator ==(Points pointsA, Points pointsB)
         {
+            if (ReferenceEquals(pointsA, null) && ReferenceEquals(pointsB, null))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(pointsA, null))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(pointsB, null))
+            {
+                return false;
+            }
+
             return (pointsA.m_Points == pointsB.m_Points);
         }
 
