@@ -18,7 +18,7 @@ namespace PlayerRank.UnitTests
         public void CanReducePlayersScore()
         {
             var player = new PlayerScore("Foo");
-            player.AddPoints(new Points(-100));
+            player.SubtractPoints(new Points(100));
 
             Assert.Equal(new Points(-100), player.Points);
             Assert.Equal(-100, player.Score);
