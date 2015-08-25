@@ -15,14 +15,14 @@ namespace PlayerRank.UnitTests
 
             var game = new Game();
 
-            game.AddResult("Foo", 1);
-            game.AddResult("Bar", 2);
+            game.AddResult("Foo", new Points(1));
+            game.AddResult("Bar", new Points(2));
 
             league.RecordGame(game);
 
             var scoringStrategy = new LowestPointsStrategy();
-            Assert.Equal(1, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
-            Assert.Equal(2, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
+            Assert.Equal(new Points(1), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
+            Assert.Equal(new Points(2), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
         }
 
         [Fact]
@@ -32,23 +32,23 @@ namespace PlayerRank.UnitTests
 
             var game = new Game();
 
-            game.AddResult("Foo", 1);
-            game.AddResult("Bar", 2);
+            game.AddResult("Foo", new Points(1));
+            game.AddResult("Bar", new Points(2));
 
             var game2 = new Game();
 
-            game2.AddResult("Foo", 1);
-            game2.AddResult("Bar", 5);
+            game2.AddResult("Foo", new Points(1));
+            game2.AddResult("Bar", new Points(5));
 
             var game3 = new Game();
 
-            game3.AddResult("Foo", 2);
-            game3.AddResult("Bar", 1);
+            game3.AddResult("Foo", new Points(2));
+            game3.AddResult("Bar", new Points(1));
 
             var game4 = new Game();
 
-            game4.AddResult("Foo", 3);
-            game4.AddResult("Bar", 1);
+            game4.AddResult("Foo", new Points(3));
+            game4.AddResult("Bar", new Points(1));
 
             league.RecordGame(game);
             league.RecordGame(game2);
@@ -58,8 +58,8 @@ namespace PlayerRank.UnitTests
             var discard = new DiscardPolicy(1, 0);
 
             var scoringStrategy = new LowestPointsStrategy(discard);
-            Assert.Equal(4, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
-            Assert.Equal(4, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
+            Assert.Equal(new Points(4), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
+            Assert.Equal(new Points(4), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
         }
 
         [Fact]
@@ -69,23 +69,23 @@ namespace PlayerRank.UnitTests
 
             var game = new Game();
 
-            game.AddResult("Foo", 1);
-            game.AddResult("Bar", 2);
+            game.AddResult("Foo", new Points(1));
+            game.AddResult("Bar", new Points(2));
 
             var game2 = new Game();
 
-            game2.AddResult("Foo", 2);
-            game2.AddResult("Bar", 5);
+            game2.AddResult("Foo", new Points(2));
+            game2.AddResult("Bar", new Points(5));
 
             var game3 = new Game();
 
-            game3.AddResult("Foo", 4);
-            game3.AddResult("Bar", 1);
+            game3.AddResult("Foo", new Points(4));
+            game3.AddResult("Bar", new Points(1));
 
             var game4 = new Game();
 
-            game4.AddResult("Foo", 3);
-            game4.AddResult("Bar", 1);
+            game4.AddResult("Foo", new Points(3));
+            game4.AddResult("Bar", new Points(1));
 
             league.RecordGame(game);
             league.RecordGame(game2);
@@ -95,8 +95,8 @@ namespace PlayerRank.UnitTests
             var discard = new DiscardPolicy(2, 0);
 
             var scoringStrategy = new LowestPointsStrategy(discard);
-            Assert.Equal(3, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
-            Assert.Equal(2, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
+            Assert.Equal(new Points(3), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
+            Assert.Equal(new Points(2), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
         }
 
         [Fact]
@@ -106,23 +106,23 @@ namespace PlayerRank.UnitTests
 
             var game = new Game();
 
-            game.AddResult("Foo", 1);
-            game.AddResult("Bar", 2);
+            game.AddResult("Foo", new Points(1));
+            game.AddResult("Bar", new Points(2));
 
             var game2 = new Game();
 
-            game2.AddResult("Foo", 2);
-            game2.AddResult("Bar", 5);
+            game2.AddResult("Foo", new Points(2));
+            game2.AddResult("Bar", new Points(5));
 
             var game3 = new Game();
 
-            game3.AddResult("Foo", 4);
-            game3.AddResult("Bar", 1);
+            game3.AddResult("Foo", new Points(4));
+            game3.AddResult("Bar", new Points(1));
 
             var game4 = new Game();
 
-            game4.AddResult("Foo", 3);
-            game4.AddResult("Bar2", 1);
+            game4.AddResult("Foo", new Points(3));
+            game4.AddResult("Bar2", new Points(1));
 
             league.RecordGame(game);
             league.RecordGame(game2);
@@ -132,8 +132,8 @@ namespace PlayerRank.UnitTests
             var discard = new DiscardPolicy(1, 4);
 
             var scoringStrategy = new LowestPointsStrategy(discard);
-            Assert.Equal(6, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
-            Assert.Equal(8, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
+            Assert.Equal(new Points(6), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
+            Assert.Equal(new Points(8), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
         }
 
         [Fact]
@@ -143,23 +143,23 @@ namespace PlayerRank.UnitTests
 
             var game = new Game();
 
-            game.AddResult("Foo", 1);
-            game.AddResult("Bar", 2);
+            game.AddResult("Foo", new Points(1));
+            game.AddResult("Bar", new Points(2));
 
             var game2 = new Game();
 
-            game2.AddResult("Foo", 2);
-            game2.AddResult("Bar", 5);
+            game2.AddResult("Foo", new Points(2));
+            game2.AddResult("Bar", new Points(5));
 
             var game3 = new Game();
 
-            game3.AddResult("Foo", 4);
-            game3.AddResult("Bar", 1);
+            game3.AddResult("Foo", new Points(4));
+            game3.AddResult("Bar", new Points(1));
 
             var game4 = new Game();
 
-            game4.AddResult("Foo", 3);
-            game4.AddResult("Bar2", 1);
+            game4.AddResult("Foo", new Points(3));
+            game4.AddResult("Bar2", new Points(1));
 
             league.RecordGame(game);
             league.RecordGame(game2);
@@ -170,8 +170,8 @@ namespace PlayerRank.UnitTests
             var discard2 = new DiscardPolicy(2, 4);
 
             var scoringStrategy = new LowestPointsStrategy(discard, discard2);
-            Assert.Equal(3, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Score).Single());
-            Assert.Equal(3, league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Score).Single());
+            Assert.Equal(new Points(3), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
+            Assert.Equal(new Points(3), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
         }
     }
 }
