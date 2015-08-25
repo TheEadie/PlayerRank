@@ -60,9 +60,19 @@ namespace PlayerRank
             return new Points(pointsA.m_Points - pointsB.m_Points);
         }
 
+        public static Points operator /(Points points, Points divider)
+        {
+            return new Points(points.m_Points / divider.m_Points);
+        }
+
         public static double operator /(Points points, double divider)
         {
             return points.m_Points / divider;
+        }
+
+        public static Points operator *(Points points, Points divider)
+        {
+            return new Points(points.m_Points * divider.m_Points);
         }
 
         public static bool operator >(Points pointsA, Points pointsB)
@@ -98,6 +108,11 @@ namespace PlayerRank
         public static bool operator !=(Points pointsA, Points pointsB)
         {
             return !(pointsA == pointsB);
+        }
+
+        public static double Pow(double doubleA, Points pointsB)
+        {
+            return Math.Pow(doubleA, pointsB.m_Points);
         }
 
         public override string ToString()

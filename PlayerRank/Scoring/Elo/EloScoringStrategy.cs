@@ -7,17 +7,26 @@ namespace PlayerRank.Scoring.Elo
     public class EloScoringStrategy : IScoringStrategy
     {
         /// <summary> also known as K in the ELO formula - the max change in rating from one game </summary>
-        private readonly double m_RatingChangeBaseMultiplier;
+        private readonly Points m_RatingChangeBaseMultiplier;
 
         /// <summary> the difference in rating where one person is almost certain to win </summary>
-        private readonly double m_MaximumSkillGap;
+        private readonly Points m_MaximumSkillGap;
 
         private readonly Points m_NewPlayerStartingRating;
 
-        public EloScoringStrategy(double maxRatingChange, double maxSkillGap, double startingRating)
+        public EloScoringStrategy(Points maxRatingChange, Points maxSkillGap, Points startingRating)
         {
             m_RatingChangeBaseMultiplier = maxRatingChange;
             m_MaximumSkillGap = maxSkillGap;
+            m_NewPlayerStartingRating = startingRating;
+        }
+
+        [Obsolete("This cconstructor will be removed in a later version. " +
+                  "Please use EloScoringStrategy(Points, Points, Points) instead")]
+        public EloScoringStrategy(double maxRatingChange, double maxSkillGap, double startingRating)
+        {
+            m_RatingChangeBaseMultiplier = new Points(maxRatingChange);
+            m_MaximumSkillGap = new Points(maxSkillGap);
             m_NewPlayerStartingRating = new Points(startingRating);
         }
 
@@ -76,10 +85,10 @@ namespace PlayerRank.Scoring.Elo
             return scoreboard;
         }
 
-        private double RatingChange(double expectedToWin, bool actuallyWon)
+        private Points RatingChange(double expectedToWin, bool actuallyWon)
         {
             var w = (actuallyWon) ? 1 : 0;
-            return m_RatingChangeBaseMultiplier*(w - expectedToWin);
+            return m_RatingChangeBaseMultiplier * new Points(w - expectedToWin);
         }
 
         /// <summary>
@@ -91,7 +100,7 @@ namespace PlayerRank.Scoring.Elo
         /// </remarks>
         private double ChanceOfWinning(Points ratingA, Points ratingB)
         {
-            return 1/(1 + Math.Pow(10.0, (ratingB - ratingA)/m_MaximumSkillGap));
+            return 1 /(1 + Points.Pow(10.0, ((ratingB - ratingA) / m_MaximumSkillGap)));
         }
     }
 }
