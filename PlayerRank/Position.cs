@@ -2,9 +2,28 @@
 {
     public class Position
     {
-        public Position(int i)
+        private readonly int m_Position;
+        
+        public Position(int position)
         {
-            throw new System.NotImplementedException();
+            m_Position = position;
+        }
+
+        protected bool Equals(Position other)
+        {
+            return m_Position.Equals(other.m_Position);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((Position)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return m_Position.GetHashCode();
         }
     }
 }
