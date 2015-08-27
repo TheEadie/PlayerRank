@@ -19,7 +19,12 @@ namespace PlayerRank
                 m_Points.Add(name, points);
             }
         }
-        
+
+        public void AddResult(string name, Position points)
+        {
+            throw new NotImplementedException();
+        }
+
         internal Dictionary<string, Points> GetGameResults()
         {
             return m_Points;

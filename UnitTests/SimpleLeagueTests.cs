@@ -8,7 +8,7 @@ namespace PlayerRank.UnitTests
     public class SimpleLeagueTests
     {
         [Fact]
-        public void CanRecordSimpleGame()
+        public void CanRecordSimpleGameByScores()
         {
             var league = new League();
 
@@ -20,6 +20,21 @@ namespace PlayerRank.UnitTests
 
             Assert.Equal(new Points(5), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
             Assert.Equal(new Points(1), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
+        }
+
+        [Fact]
+        public void CanRecordSimpleGameByPositions()
+        {
+            var league = new League();
+
+            var game = new Game();
+            game.AddResult("Foo", new Position(2));
+            game.AddResult("Bar", new Position(1));
+
+            league.RecordGame(game);
+
+            Assert.Equal(new Points(0), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
+            Assert.Equal(new Points(0), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
         }
 
         [Fact]
