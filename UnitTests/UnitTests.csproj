@@ -63,6 +63,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="LowestPointsTests.cs" />
+    <Compile Include="PositionTests.cs" />
     <Compile Include="SimpleLeagueTests.cs" />
     <Compile Include="EloTests.cs" />
     <Compile Include="PlayerTests.cs" />

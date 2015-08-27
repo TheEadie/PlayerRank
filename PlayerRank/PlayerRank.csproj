@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Points.cs" />
+    <Compile Include="Position.cs" />
     <Compile Include="Scoring\Elo\EloScoringStrategy.cs" />
     <Compile Include="Scoring\IScoringStrategy.cs" />
     <Compile Include="League.cs" />
