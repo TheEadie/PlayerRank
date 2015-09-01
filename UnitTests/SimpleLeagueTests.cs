@@ -33,8 +33,8 @@ namespace PlayerRank.UnitTests
 
             league.RecordGame(game);
 
-            Assert.Equal(new Points(0), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
-            Assert.Equal(new Points(0), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
+            Assert.Equal(new Position(2), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Foo").Select(x => x.Position).Single());
+            Assert.Equal(new Position(1), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Bar").Select(x => x.Position).Single());
         }
 
         [Fact]
