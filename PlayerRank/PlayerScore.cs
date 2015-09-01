@@ -7,11 +7,24 @@ namespace PlayerRank
     {
         public string Name { get; set; }
         public Points Points { get; internal set; }
-        
+        public Position Position { get; internal set; }
+
         public PlayerScore(string name)
         {
             Name = name;
             Points = new Points(0);
+        }
+
+        public PlayerScore(string name, Position position)
+        {
+            Name = name;
+            Points = new Points(0);
+            Position = position;
+        }
+
+        public PlayerScore(string name, Points points) : this(name)
+        {
+            this.Points = points;
         }
 
         internal void AddPoints(Points points)

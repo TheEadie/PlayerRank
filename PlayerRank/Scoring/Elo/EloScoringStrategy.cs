@@ -36,10 +36,10 @@ namespace PlayerRank.Scoring.Elo
 
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
-            var results = game.GetGameResults();
+            var results = game.GetResults();
             var previousScores = new Dictionary<string, Points>();
 
-            foreach (var playerName in results.Keys)
+            foreach (var playerName in results.Select(x => x.Name))
             {
                 var player = scoreboard.SingleOrDefault(p => p.Name == playerName);
 
@@ -53,14 +53,14 @@ namespace PlayerRank.Scoring.Elo
                 previousScores.Add(playerName, player.Points);
             }
 
-            foreach (var playerAName in results.Keys)
+            foreach (var playerAName in results.Select(x => x.Name))
             {
-                foreach (var playerBName in results.Keys)
+                foreach (var playerBName in results.Select(x => x.Name))
                 {
                     if (playerAName == playerBName) continue;
 
-                    var playerAResult = results[playerAName];
-                    var playerBResult = results[playerBName];
+                    var playerAResult = results.Single(x => x.Name == playerAName).Points;
+                    var playerBResult = results.Single(x => x.Name == playerBName).Points;
 
                     var playerA = scoreboard.Single(p => p.Name == playerAName);
 

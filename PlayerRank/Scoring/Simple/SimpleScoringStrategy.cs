@@ -11,18 +11,18 @@ namespace PlayerRank.Scoring.Simple
 
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
-            foreach (var result in game.GetGameResults())
+            foreach (var result in game.GetResults())
             {
-                var player = scoreboard.SingleOrDefault(p => p.Name == result.Key);
+                var player = scoreboard.SingleOrDefault(p => p.Name == result.Name);
 
                 if (player == null)
                 {
-                    player = new PlayerScore(result.Key);
+                    player = new PlayerScore(result.Name);
                     scoreboard.Add(player);
                     player.Points = new Points(0);
                 }
                 
-                player.AddPoints(result.Value);
+                player.AddPoints(result.Points);
             }
 
             return scoreboard;

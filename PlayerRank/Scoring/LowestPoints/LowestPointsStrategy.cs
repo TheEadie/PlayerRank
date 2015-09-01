@@ -22,24 +22,24 @@ namespace PlayerRank.Scoring.LowestPoints
 
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
-            var allResultsPrev = m_allResults.SelectMany(x => x.GetGameResults()).ToList();
+            var allResultsPrev = m_allResults.SelectMany(x => x.GetResults()).ToList();
 
             m_allResults.Add(game);
 
-            var allResultsNow = m_allResults.SelectMany(x => x.GetGameResults()).ToList();
+            var allResultsNow = m_allResults.SelectMany(x => x.GetResults()).ToList();
 
-            foreach (var result in game.GetGameResults())
+            foreach (var result in game.GetResults())
             {
-                var player = scoreboard.SingleOrDefault(p => p.Name == result.Key);
+                var player = scoreboard.SingleOrDefault(p => p.Name == result.Name);
 
                 if (player == null)
                 {
-                    player = new PlayerScore(result.Key);
+                    player = new PlayerScore(result.Name);
                     scoreboard.Add(player);
                     player.Points = new Points(0);
                 }
 
-                player.AddPoints(result.Value);
+                player.AddPoints(result.Points);
 
                 // Add back previous worst results
                 player.AddPoints(SumWorstResults(allResultsPrev, player));
@@ -51,13 +51,13 @@ namespace PlayerRank.Scoring.LowestPoints
             return scoreboard;
         }
 
-        private Points SumWorstResults(IEnumerable<KeyValuePair<string, Points>> results, PlayerScore player)
+        private Points SumWorstResults(IEnumerable<PlayerScore> results, PlayerScore player)
         {
             var totalOfWorstScores = new Points(0.0);
 
             var allResultsForPlayer =
-                results.Where(x => x.Key == player.Name)
-                    .Select(x => x.Value)
+                results.Where(x => x.Name == player.Name)
+                    .Select(x => x.Points)
                     .OrderByDescending(x => x)
                     .ToList();
 

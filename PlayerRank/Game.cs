@@ -6,28 +6,39 @@ namespace PlayerRank
 {
     public class Game
     {
-        private readonly Dictionary<string, Points> m_Points = new Dictionary<string, Points>();
-        
+        private readonly ICollection<PlayerScore> m_Leaderboard = new List<PlayerScore>(); 
+
         public void AddResult(string name, Points points)
         {
-            if (m_Points.ContainsKey(name))
+            var player = m_Leaderboard.SingleOrDefault(x => x.Name == name);
+
+            if (player != null)
             {
-                m_Points[name] = points;
+                player.Points = points;
             }
             else
             {
-                m_Points.Add(name, points);
+                m_Leaderboard.Add(new PlayerScore(name, points));
             }
         }
 
-        public void AddResult(string name, Position points)
+        public void AddResult(string name, Position position)
         {
-            throw new NotImplementedException();
+            var player = m_Leaderboard.SingleOrDefault(x => x.Name == name);
+
+            if (player != null)
+            {
+                player.Position = position;
+            }
+            else
+            {
+                m_Leaderboard.Add(new PlayerScore(name, position));
+            }
         }
 
-        internal Dictionary<string, Points> GetGameResults()
+        internal ICollection<PlayerScore> GetResults()
         {
-            return m_Points;
+            return m_Leaderboard;
         }
 
         /// Obsolete V1 API
@@ -35,25 +46,7 @@ namespace PlayerRank
         [Obsolete("Please use AddResult(string, Points) instead")]
         public void AddResult(string name, double score)
         {
-            if (m_Points.ContainsKey(name))
-            {
-                m_Points[name] = new Points(score);
-            }
-            else
-            {
-                m_Points.Add(name, new Points(score));
-            }
-        }
-        
-        [Obsolete("Please use GetGameResults() instead")]
-        internal Dictionary<string, double> GetResults()
-        {
-            var oldResults = new Dictionary<string, double>();
-            foreach (var score in m_Points)
-            {
-                oldResults.Add(score.Key, score.Value.GetValue());
-            }
-            return oldResults;
+            AddResult(name, new Points(score));
         }
     }
 }
