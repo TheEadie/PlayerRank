@@ -82,6 +82,13 @@ namespace PlayerRank.Scoring.Elo
                 }
             }
 
+            scoreboard = scoreboard.OrderByDescending(p => p.Points).ToList();
+
+            for (var i = 0; i < scoreboard.Count; i++)
+            {
+                scoreboard[i].Position = new Position(i + 1);
+            }
+
             return scoreboard;
         }
 
