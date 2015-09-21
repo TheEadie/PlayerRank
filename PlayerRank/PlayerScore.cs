@@ -13,18 +13,17 @@ namespace PlayerRank
         {
             Name = name;
             Points = new Points(0);
+            Position = new Position(0);
         }
 
-        public PlayerScore(string name, Position position)
+        public PlayerScore(string name, Position position) : this(name)
         {
-            Name = name;
-            Points = new Points(0);
             Position = position;
         }
 
         public PlayerScore(string name, Points points) : this(name)
         {
-            this.Points = points;
+            Points = points;
         }
 
         internal void AddPoints(Points points)
