@@ -6,7 +6,7 @@ namespace PlayerRank.Scoring.Simple
 {
     public class SimpleScoringStrategy : IScoringStrategy
     {
-        private Dictionary<Position, Points> m_PositionToPoints = new Dictionary<Position, Points>();
+        private readonly Dictionary<Position, Points> m_PositionToPoints = new Dictionary<Position, Points>();
 
         public SimpleScoringStrategy()
         {
