@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace PlayerRank.Scoring.Simple
 {
@@ -20,9 +21,25 @@ namespace PlayerRank.Scoring.Simple
                     player = new PlayerScore(result.Name);
                     scoreboard.Add(player);
                     player.Points = new Points(0);
+                    player.Position = new Position(0);
                 }
-                
-                player.AddPoints(result.Points);
+
+                if (result.Points == new Points(0) &&
+                    result.Position != new Position(0))
+                {
+                    player.AddPoints(result.Position.GetEquivalentPoints());
+                }
+                else
+                {
+                    player.AddPoints(result.Points);
+                }
+            }
+
+            scoreboard = scoreboard.OrderByDescending(p => p.Points).ToList();
+
+            for (var i = 0; i < scoreboard.Count; i++)
+            {
+                scoreboard[i].Position = new Position(i+1);
             }
 
             return scoreboard;
