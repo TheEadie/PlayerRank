@@ -10,12 +10,7 @@ namespace PlayerRank
         {
             m_Position = position;
         }
-
-        internal Points GetEquivalentPoints()
-        {
-            return new Points(1000 - m_Position);
-        }
-
+        
         protected bool Equals(Position other)
         {
             return m_Position.Equals(other.m_Position);

@@ -6,6 +6,22 @@ namespace PlayerRank.Scoring.Simple
 {
     public class SimpleScoringStrategy : IScoringStrategy
     {
+        private Dictionary<Position, Points> m_PositionToPoints = new Dictionary<Position, Points>();
+
+        public SimpleScoringStrategy()
+        {
+            m_PositionToPoints.Add(new Position(1), new Points(10));
+            m_PositionToPoints.Add(new Position(2), new Points(9));
+            m_PositionToPoints.Add(new Position(3), new Points(8));
+            m_PositionToPoints.Add(new Position(4), new Points(7));
+            m_PositionToPoints.Add(new Position(5), new Points(6));
+            m_PositionToPoints.Add(new Position(6), new Points(5));
+            m_PositionToPoints.Add(new Position(7), new Points(4));
+            m_PositionToPoints.Add(new Position(8), new Points(3));
+            m_PositionToPoints.Add(new Position(9), new Points(2));
+            m_PositionToPoints.Add(new Position(10), new Points(1));
+        }
+
         public void Reset()
         {
         }
@@ -27,7 +43,11 @@ namespace PlayerRank.Scoring.Simple
                 if (result.Points == new Points(0) &&
                     result.Position != new Position(0))
                 {
-                    player.AddPoints(result.Position.GetEquivalentPoints());
+                    var pointsToAdd = m_PositionToPoints.ContainsKey(result.Position)
+                        ? m_PositionToPoints[result.Position]
+                        : new Points(0);
+
+                    player.AddPoints(pointsToAdd);
                 }
                 else
                 {
