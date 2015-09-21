@@ -74,7 +74,7 @@ namespace PlayerRank.Scoring.Elo
                         continue;
                     }
 
-                    var didPlayerAWin = DidPlayerAWin(playerAResult, playerBResult);
+                    var didPlayerAWin = PlayerAWon(playerAResult, playerBResult);
                     var ratingChange = RatingChange(chanceOfPlayerAWinning, didPlayerAWin);
                     // adjust for the fact that we're playing against multiple people
                     var adjustedRatingChange = ratingChange / results.Count;
@@ -87,7 +87,7 @@ namespace PlayerRank.Scoring.Elo
             return scoreboard;
         }
 
-        private static bool DidPlayerAWin(PlayerScore playerAResult, PlayerScore playerBResult)
+        private static bool PlayerAWon(PlayerScore playerAResult, PlayerScore playerBResult)
         {
             if (playerAResult.Points == new Points(0) &&
                 playerAResult.Position != new Position(0))
