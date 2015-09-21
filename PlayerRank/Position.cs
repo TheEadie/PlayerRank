@@ -13,7 +13,7 @@ namespace PlayerRank
 
         internal Points GetEquivalentPoints()
         {
-            return new Points(int.MaxValue - m_Position);
+            return new Points(1000 - m_Position);
         }
 
         protected bool Equals(Position other)
