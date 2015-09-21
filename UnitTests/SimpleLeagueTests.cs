@@ -38,7 +38,7 @@ namespace PlayerRank.UnitTests
         }
 
         [Fact]
-        public void CanRecordMultipleSimpleGame()
+        public void CanRecordMultipleSimpleGames()
         {
             var league = new League();
 
@@ -55,6 +55,31 @@ namespace PlayerRank.UnitTests
 
             Assert.Equal(new Points(8), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
             Assert.Equal(new Points(3), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
+        }
+
+        [Fact]
+        public void CanRecordMultipleSimpleGamesByPositions()
+        {
+            var league = new League();
+
+            var game = new Game();
+            game.AddResult("Foo", new Position(2));
+            game.AddResult("Bar", new Position(1));
+
+            var game2 = new Game();
+            game2.AddResult("Foo", new Position(1));
+            game2.AddResult("Bar", new Position(2));
+
+            var game3 = new Game();
+            game3.AddResult("Foo", new Position(1));
+            game3.AddResult("Bar", new Position(2));
+
+            league.RecordGame(game);
+            league.RecordGame(game2);
+            league.RecordGame(game3);
+
+            Assert.Equal(new Position(1), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Foo").Select(x => x.Position).Single());
+            Assert.Equal(new Position(2), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Bar").Select(x => x.Position).Single());
         }
     }
 }
