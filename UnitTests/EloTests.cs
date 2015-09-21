@@ -76,9 +76,13 @@ namespace PlayerRank.UnitTests
             var chrisResult = leaderboard.Single(x => x.Name == "Chris");
 
             Assert.Equal(new Points(1424), davidResult.Points);
+            Assert.Equal(new Position(1), davidResult.Position);
             Assert.Equal(new Points(1408), jackResult.Points);
+            Assert.Equal(new Position(2), jackResult.Position);
             Assert.Equal(new Points(1392), bobResult.Points);
+            Assert.Equal(new Position(3), bobResult.Position);
             Assert.Equal(new Points(1376), chrisResult.Points);
+            Assert.Equal(new Position(4), chrisResult.Position);
         }
 
         [Fact]
@@ -110,7 +114,9 @@ namespace PlayerRank.UnitTests
 
             // Bar won most recently therefore will be slightly ahead
             Assert.Equal(new Points(1394), fooResult.Points);
+            Assert.Equal(new Position(2), fooResult.Position);
             Assert.Equal(new Points(1406), barResult.Points);
+            Assert.Equal(new Position(1), barResult.Position);
         }
 
         [Fact]
@@ -165,9 +171,13 @@ namespace PlayerRank.UnitTests
             var chrisResult = leaderboard.Single(x => x.Name == "Chris");
 
             Assert.Equal(new Points(1397), davidResult.Points);
+            Assert.Equal(new Position(2), davidResult.Position);
             Assert.Equal(new Points(1390), jackResult.Points);
+            Assert.Equal(new Position(4), jackResult.Position);
             Assert.Equal(new Points(1394), bobResult.Points);
+            Assert.Equal(new Position(3), bobResult.Position);
             Assert.Equal(new Points(1419), chrisResult.Points);
+            Assert.Equal(new Position(1), chrisResult.Position);
         }
     }
 }
