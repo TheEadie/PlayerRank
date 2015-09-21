@@ -26,7 +26,9 @@ namespace PlayerRank.UnitTests
             var barResult = leaderboard.Single(x => x.Name == "Bar");
 
             Assert.Equal(new Points(1400 + 16), fooResult.Points);
+            Assert.Equal(new Position(1), fooResult.Position);
             Assert.Equal(new Points(1400 - 16), barResult.Points);
+            Assert.Equal(new Position(2), barResult.Position);
         }
 
         [Fact]
