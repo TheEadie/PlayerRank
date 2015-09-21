@@ -68,8 +68,7 @@ namespace PlayerRank.Scoring.Elo
                     var chanceOfPlayerAWinning = ChanceOfWinning(previousScores[playerAName], previousScores[playerBName]);
 
                     // If the players have drawn then don't update their scores
-                    if (playerAResult.Position == new Position(0) && 
-                        playerAResult.Points == playerBResult.Points)
+                    if (PlayersDraw(playerAResult, playerBResult))
                     {
                         continue;
                     }
@@ -85,6 +84,19 @@ namespace PlayerRank.Scoring.Elo
             }
 
             return scoreboard;
+        }
+
+        private static bool PlayersDraw(PlayerScore playerAResult, PlayerScore playerBResult)
+        {
+            if (playerAResult.Points == new Points(0) &&
+                playerAResult.Position != new Position(0))
+            {
+                return (playerAResult.Position == playerBResult.Position);
+            }
+            else
+            {
+                return (playerAResult.Points == playerBResult.Points);
+            }
         }
 
         private static bool PlayerAWon(PlayerScore playerAResult, PlayerScore playerBResult)
