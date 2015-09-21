@@ -66,7 +66,7 @@ namespace PlayerRank.Scoring.Elo
 
                     var chanceOfPlayerAWinning = ChanceOfWinning(previousScores[playerAName], previousScores[playerBName]);
 
-                    // IF the okayers have drawn then don't update their scores
+                    // If the players have drawn then don't update their scores
                     if (playerAResult == playerBResult)
                     {
                         continue;
