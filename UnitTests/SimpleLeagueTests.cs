@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using PlayerRank.Scoring;
 using PlayerRank.Scoring.Simple;
 using Xunit;
@@ -18,8 +19,14 @@ namespace PlayerRank.UnitTests
 
             league.RecordGame(game);
 
-            Assert.Equal(new Points(5), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
-            Assert.Equal(new Points(1), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
+            var leaderboard = league.GetLeaderBoard(new SimpleScoringStrategy()).ToList();
+            var fooResult = leaderboard.Single(x => x.Name == "Foo");
+            var barResult = leaderboard.Single(x => x.Name == "Bar");
+
+            Assert.Equal(new Points(5), fooResult.Points);
+            Assert.Equal(new Position(1), fooResult.Position);
+            Assert.Equal(new Points(1), barResult.Points);
+            Assert.Equal(new Position(2), barResult.Position);
         }
 
         [Fact]
@@ -33,8 +40,12 @@ namespace PlayerRank.UnitTests
 
             league.RecordGame(game);
 
-            Assert.Equal(new Position(2), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Foo").Select(x => x.Position).Single());
-            Assert.Equal(new Position(1), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Bar").Select(x => x.Position).Single());
+            var leaderboard = league.GetLeaderBoard(new SimpleScoringStrategy()).ToList();
+            var fooResult = leaderboard.Single(x => x.Name == "Foo");
+            var barResult = leaderboard.Single(x => x.Name == "Bar");
+
+            Assert.Equal(new Position(2), fooResult.Position);
+            Assert.Equal(new Position(1), barResult.Position);
         }
 
         [Fact]
@@ -53,8 +64,14 @@ namespace PlayerRank.UnitTests
             league.RecordGame(game);
             league.RecordGame(game2);
 
-            Assert.Equal(new Points(8), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
-            Assert.Equal(new Points(3), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
+            var leaderboard = league.GetLeaderBoard(new SimpleScoringStrategy()).ToList();
+            var fooResult = leaderboard.Single(x => x.Name == "Foo");
+            var barResult = leaderboard.Single(x => x.Name == "Bar");
+
+            Assert.Equal(new Points(8), fooResult.Points);
+            Assert.Equal(new Position(1), fooResult.Position);
+            Assert.Equal(new Points(3), barResult.Points);
+            Assert.Equal(new Position(2), barResult.Position);
         }
 
         [Fact]
@@ -78,8 +95,12 @@ namespace PlayerRank.UnitTests
             league.RecordGame(game2);
             league.RecordGame(game3);
 
-            Assert.Equal(new Position(1), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Foo").Select(x => x.Position).Single());
-            Assert.Equal(new Position(2), league.GetLeaderBoard(new SimpleScoringStrategy()).Where(x => x.Name == "Bar").Select(x => x.Position).Single());
+            var leaderboard = league.GetLeaderBoard(new SimpleScoringStrategy()).ToList();
+            var fooResult = leaderboard.Single(x => x.Name == "Foo");
+            var barResult = leaderboard.Single(x => x.Name == "Bar");
+
+            Assert.Equal(new Position(1), fooResult.Position);
+            Assert.Equal(new Position(2), barResult.Position);
         }
     }
 }
