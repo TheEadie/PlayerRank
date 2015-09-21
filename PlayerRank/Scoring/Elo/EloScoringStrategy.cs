@@ -48,6 +48,7 @@ namespace PlayerRank.Scoring.Elo
                     player = new PlayerScore(playerName);
                     scoreboard.Add(player);
                     player.Points = m_NewPlayerStartingRating;
+                    player.Position = new Position(0);
                 }
 
                 previousScores.Add(playerName, player.Points);
@@ -59,20 +60,21 @@ namespace PlayerRank.Scoring.Elo
                 {
                     if (playerAName == playerBName) continue;
 
-                    var playerAResult = results.Single(x => x.Name == playerAName).Points;
-                    var playerBResult = results.Single(x => x.Name == playerBName).Points;
+                    var playerAResult = results.Single(x => x.Name == playerAName);
+                    var playerBResult = results.Single(x => x.Name == playerBName);
 
                     var playerA = scoreboard.Single(p => p.Name == playerAName);
 
                     var chanceOfPlayerAWinning = ChanceOfWinning(previousScores[playerAName], previousScores[playerBName]);
 
                     // If the players have drawn then don't update their scores
-                    if (playerAResult == playerBResult)
+                    if (playerAResult.Position == new Position(0) && 
+                        playerAResult.Points == playerBResult.Points)
                     {
                         continue;
                     }
 
-                    var didPlayerAWin = (playerAResult > playerBResult);
+                    var didPlayerAWin = DidPlayerAWin(playerAResult, playerBResult);
                     var ratingChange = RatingChange(chanceOfPlayerAWinning, didPlayerAWin);
                     // adjust for the fact that we're playing against multiple people
                     var adjustedRatingChange = ratingChange / results.Count;
@@ -83,6 +85,20 @@ namespace PlayerRank.Scoring.Elo
             }
 
             return scoreboard;
+        }
+
+        private static bool DidPlayerAWin(PlayerScore playerAResult, PlayerScore playerBResult)
+        {
+            if (playerAResult.Points == new Points(0) &&
+                playerAResult.Position != new Position(0))
+            {
+                return (playerAResult.Position < playerBResult.Position);
+            }
+            else
+            {
+                return (playerAResult.Points > playerBResult.Points);
+            }
+            
         }
 
         private Points RatingChange(double expectedToWin, bool actuallyWon)
