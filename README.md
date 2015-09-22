@@ -11,8 +11,8 @@ Run the following command in Nuget Package Manager Console: `Install-Package Pla
 
 ```
 var game = new Game();
-game.AddResult("Foo", 10);
-game.AddResult("Bar", 0);
+game.AddResult("Foo", new Points(10));
+game.AddResult("Bar", new Points(0));
 
 var league = new League();
 league.RecordGame(game);
@@ -21,6 +21,6 @@ var scoringStrategy = new SimpleScoringStrategy();
 
 foreach (var position in league.GetLeaderBoard(scoringStrategy))
 {
-    Console.WriteLine("Name: {0} : Score : {1}", position.Name, position.Score);
+    Console.WriteLine("Position: {0}, Name: {1}, Score: {2}", position.Position, position.Name, position.Points);
 }
 ```
