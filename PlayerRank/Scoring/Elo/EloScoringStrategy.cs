@@ -118,7 +118,7 @@ namespace PlayerRank.Scoring.Elo
             if (playerAResult.Points == new Points(0) &&
                 playerAResult.Position != new Position(0))
             {
-                return (playerAResult.Position < playerBResult.Position);
+                return (playerAResult.Position > playerBResult.Position);
             }
             else
             {

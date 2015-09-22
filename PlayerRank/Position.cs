@@ -46,12 +46,12 @@ namespace PlayerRank
 
         public static bool operator >(Position pointsA, Position pointsB)
         {
-            return (pointsA.m_Position > pointsB.m_Position);
+            return (pointsA.m_Position < pointsB.m_Position);
         }
 
         public static bool operator <(Position pointsA, Position pointsB)
         {
-            return (pointsA.m_Position < pointsB.m_Position);
+            return (pointsA.m_Position > pointsB.m_Position);
         }
 
         public static bool operator ==(Position positionA, Position positionB)

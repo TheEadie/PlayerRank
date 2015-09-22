@@ -25,7 +25,7 @@ namespace PlayerRank.UnitTests
             var positions = new List<Position> {positionSecond, positionFirst, positionThird};
             var positionsOrdered = new List<Position> { positionFirst, positionSecond, positionThird };
 
-            var positionsFromTest = positions.OrderBy(x => x);
+            var positionsFromTest = positions.OrderByDescending(x => x);
 
             Assert.Equal(positionsOrdered, positionsFromTest);
         }
