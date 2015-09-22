@@ -25,8 +25,7 @@ deploy:
     artifact: /.*\.nupkg/
     draft: false
     prerelease: false
-    release: v$(GitVersion_NuGetVersion)
-    description: 'Placeholder'
+    description: ''
     on:
       appveyor_repo_tag: true
   - provider: NuGet
