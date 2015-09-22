@@ -21,6 +21,7 @@ var scoringStrategy = new SimpleScoringStrategy();
 
 foreach (var position in league.GetLeaderBoard(scoringStrategy))
 {
-    Console.WriteLine("Position: {0}, Name: {1}, Score: {2}", position.Position, position.Name, position.Points);
+    Console.WriteLine("Position: {0}, Name: {1}, Score: {2}",
+        position.Position, position.Name, position.Points);
 }
 ```
