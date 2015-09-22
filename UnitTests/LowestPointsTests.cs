@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using PlayerRank.Scoring;
 using PlayerRank.Scoring.LowestPoints;
@@ -20,9 +21,12 @@ namespace PlayerRank.UnitTests
 
             league.RecordGame(game);
 
-            var scoringStrategy = new LowestPointsStrategy();
-            Assert.Equal(new Points(1), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
-            Assert.Equal(new Points(2), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
+            var leaderboard = league.GetLeaderBoard(new LowestPointsStrategy()).ToList();
+            var fooResult = leaderboard.Single(x => x.Name == "Foo");
+            var barResult = leaderboard.Single(x => x.Name == "Bar");
+
+            Assert.Equal(new Points(1), fooResult.Points);
+            Assert.Equal(new Points(2), barResult.Points);
         }
 
         [Fact]
@@ -56,10 +60,14 @@ namespace PlayerRank.UnitTests
             league.RecordGame(game4);
 
             var discard = new DiscardPolicy(1, 0);
-
             var scoringStrategy = new LowestPointsStrategy(discard);
-            Assert.Equal(new Points(4), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
-            Assert.Equal(new Points(4), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
+
+            var leaderboard = league.GetLeaderBoard(scoringStrategy).ToList();
+            var fooResult = leaderboard.Single(x => x.Name == "Foo");
+            var barResult = leaderboard.Single(x => x.Name == "Bar");
+
+            Assert.Equal(new Points(4), fooResult.Points);
+            Assert.Equal(new Points(4), barResult.Points);
         }
 
         [Fact]
@@ -130,10 +138,14 @@ namespace PlayerRank.UnitTests
             league.RecordGame(game4);
 
             var discard = new DiscardPolicy(1, 4);
-
             var scoringStrategy = new LowestPointsStrategy(discard);
-            Assert.Equal(new Points(6), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
-            Assert.Equal(new Points(8), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
+
+            var leaderboard = league.GetLeaderBoard(scoringStrategy).ToList();
+            var fooResult = leaderboard.Single(x => x.Name == "Foo");
+            var barResult = leaderboard.Single(x => x.Name == "Bar");
+
+            Assert.Equal(new Points(6), fooResult.Points);
+            Assert.Equal(new Points(8), barResult.Points);
         }
 
         [Fact]
@@ -168,10 +180,14 @@ namespace PlayerRank.UnitTests
 
             var discard = new DiscardPolicy(1, 2);
             var discard2 = new DiscardPolicy(2, 4);
-
             var scoringStrategy = new LowestPointsStrategy(discard, discard2);
-            Assert.Equal(new Points(3), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
-            Assert.Equal(new Points(3), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
+
+            var leaderboard = league.GetLeaderBoard(scoringStrategy).ToList();
+            var fooResult = leaderboard.Single(x => x.Name == "Foo");
+            var barResult = leaderboard.Single(x => x.Name == "Bar");
+
+            Assert.Equal(new Points(3), fooResult.Points);
+            Assert.Equal(new Points(3), barResult.Points);
         }
     }
 }
