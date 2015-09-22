@@ -32,6 +32,28 @@ namespace PlayerRank.UnitTests
         }
 
         [Fact]
+        public void TwoPlayerGameOneRoundByPosition()
+        {
+            var league = new League();
+
+            var game = new Game();
+
+            game.AddResult("Foo", new Position(1));
+            game.AddResult("Bar", new Position(2));
+
+            league.RecordGame(game);
+
+            var leaderboard = league.GetLeaderBoard(new LowestPointsStrategy()).ToList();
+            var fooResult = leaderboard.Single(x => x.Name == "Foo");
+            var barResult = leaderboard.Single(x => x.Name == "Bar");
+
+            Assert.Equal(new Points(1), fooResult.Points);
+            Assert.Equal(new Position(1), fooResult.Position);
+            Assert.Equal(new Points(2), barResult.Points);
+            Assert.Equal(new Position(2), barResult.Position);
+        }
+
+        [Fact]
         public void TwoPlayerGameFourRoundsWithOneDiscard()
         {
             var league = new League();
