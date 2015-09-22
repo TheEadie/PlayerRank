@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace PlayerRank.Scoring.LowestPoints
 {
-    internal class LowestPointsStrategy : IScoringStrategy
+    public class LowestPointsStrategy : IScoringStrategy
     {
         private readonly IList<Game> m_allResults = new List<Game>();
         private readonly IList<DiscardPolicy> m_Discards;
