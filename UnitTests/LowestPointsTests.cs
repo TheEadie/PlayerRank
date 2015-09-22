@@ -91,7 +91,9 @@ namespace PlayerRank.UnitTests
             var barResult = leaderboard.Single(x => x.Name == "Bar");
 
             Assert.Equal(new Points(4), fooResult.Points);
+            Assert.Equal(new Position(1), fooResult.Position);
             Assert.Equal(new Points(4), barResult.Points);
+            Assert.Equal(new Position(1), barResult.Position);
         }
 
         [Fact]
@@ -125,10 +127,16 @@ namespace PlayerRank.UnitTests
             league.RecordGame(game4);
 
             var discard = new DiscardPolicy(2, 0);
-
             var scoringStrategy = new LowestPointsStrategy(discard);
-            Assert.Equal(new Points(3), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Foo").Select(x => x.Points).Single());
-            Assert.Equal(new Points(2), league.GetLeaderBoard(scoringStrategy).Where(x => x.Name == "Bar").Select(x => x.Points).Single());
+
+            var leaderboard = league.GetLeaderBoard(scoringStrategy).ToList();
+            var fooResult = leaderboard.Single(x => x.Name == "Foo");
+            var barResult = leaderboard.Single(x => x.Name == "Bar");
+
+            Assert.Equal(new Points(3), fooResult.Points);
+            Assert.Equal(new Position(2), fooResult.Position);
+            Assert.Equal(new Points(2), barResult.Points);
+            Assert.Equal(new Position(1), barResult.Position);
         }
 
         [Fact]
@@ -169,7 +177,9 @@ namespace PlayerRank.UnitTests
             var barResult = leaderboard.Single(x => x.Name == "Bar");
 
             Assert.Equal(new Points(6), fooResult.Points);
+            Assert.Equal(new Position(2), fooResult.Position);
             Assert.Equal(new Points(8), barResult.Points);
+            Assert.Equal(new Position(3), barResult.Position);
         }
 
         [Fact]
@@ -211,7 +221,9 @@ namespace PlayerRank.UnitTests
             var barResult = leaderboard.Single(x => x.Name == "Bar");
 
             Assert.Equal(new Points(3), fooResult.Points);
+            Assert.Equal(new Position(2), fooResult.Position);
             Assert.Equal(new Points(3), barResult.Points);
+            Assert.Equal(new Position(2), barResult.Position);
         }
     }
 }
