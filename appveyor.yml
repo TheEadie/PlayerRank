@@ -18,7 +18,7 @@ after_build:
   - cmd: nuget pack PlayerRank\PlayerRank.csproj -version "%GitVersion_NuGetVersion%" -prop "target=Release"
   - cmd: appveyor PushArtifact "PlayerRank.%GitVersion_NuGetVersion%.nupkg"
   
-  deploy:
+deploy:
   - provider: GitHub
     auth_token:
       secure: A7+/5adwhz9NXkJeVJpckt7wIcfIOVr1M8KPMHrOD+TknNaV6CX2XrKR21+QS9ko
