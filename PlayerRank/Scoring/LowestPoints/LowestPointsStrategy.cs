@@ -14,11 +14,6 @@ namespace PlayerRank.Scoring.LowestPoints
             m_Discards = discards.Any()
                 ? discards.OrderBy(x => x.GamesToBePlayed).ToList()
                 : new List<DiscardPolicy>();
-            
-            for (var i = 0; i < 50; i++)
-            {
-                m_PositionToPoints.Add(new Position(i), new Points(i));
-            }
         }
 
         public void Reset()
@@ -57,6 +52,9 @@ namespace PlayerRank.Scoring.LowestPoints
                     player = new PlayerScore(result.Name);
                     scoreboard.Add(player);
                     player.Points = new Points(0);
+                    player.Position = new Position(0);
+
+                    m_PositionToPoints.Add(new Position(scoreboard.Count), new Points(scoreboard.Count));
                 }
 
                 if (result.Points == new Points(0) &&
