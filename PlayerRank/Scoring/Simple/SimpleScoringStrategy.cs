@@ -26,6 +26,20 @@ namespace PlayerRank.Scoring.Simple
         {
         }
 
+        public void SetPositions(IList<PlayerScore> leaderBoard)
+        {
+            leaderBoard = leaderBoard.OrderByDescending(p => p.Points).ToList();
+
+            for (var i = 0; i < leaderBoard.Count; i++)
+            {
+                var position = (i > 0 && leaderBoard[i].Points == leaderBoard[i - 1].Points)
+                    ? new Position(i)
+                    : new Position(i + 1);
+
+                leaderBoard[i].Position = position;
+            }
+        }
+
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
             foreach (var result in game.GetResults())

@@ -20,6 +20,11 @@ namespace PlayerRank.Scoring.LowestPoints
             m_allResults.Clear();
         }
 
+        public void SetPositions(IList<PlayerScore> leaderBoard)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
             var allResultsPrev = m_allResults.SelectMany(x => x.GetResults()).ToList();

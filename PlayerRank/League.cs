@@ -16,16 +16,7 @@ namespace PlayerRank
 
             m_Games.Aggregate(leaderBoard, scoringStrategy.UpdateScores);
 
-            leaderBoard = leaderBoard.OrderByDescending(p => p.Points).ToList();
-            
-            for (var i = 0; i < leaderBoard.Count; i++)
-            {
-                var position = (i > 0 && leaderBoard[i].Points == leaderBoard[i - 1].Points)
-                    ? new Position(i)
-                    : new Position(i + 1);
-
-                leaderBoard[i].Position = position;
-            }
+            scoringStrategy.SetPositions(leaderBoard);
 
             return leaderBoard;
         }
