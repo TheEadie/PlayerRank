@@ -34,12 +34,26 @@ namespace PlayerRank.Scoring.Elo
         {
         }
 
+        public void SetPositions(IList<PlayerScore> leaderBoard)
+        {
+            leaderBoard = leaderBoard.OrderByDescending(p => p.Points).ToList();
+
+            for (var i = 0; i < leaderBoard.Count; i++)
+            {
+                var position = (i > 0 && leaderBoard[i].Points == leaderBoard[i - 1].Points)
+                    ? new Position(i)
+                    : new Position(i + 1);
+
+                leaderBoard[i].Position = position;
+            }
+        }
+
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
-            var results = game.GetGameResults();
+            var results = game.GetResults();
             var previousScores = new Dictionary<string, Points>();
 
-            foreach (var playerName in results.Keys)
+            foreach (var playerName in results.Select(x => x.Name))
             {
                 var player = scoreboard.SingleOrDefault(p => p.Name == playerName);
 
@@ -48,31 +62,32 @@ namespace PlayerRank.Scoring.Elo
                     player = new PlayerScore(playerName);
                     scoreboard.Add(player);
                     player.Points = m_NewPlayerStartingRating;
+                    player.Position = new Position(0);
                 }
 
                 previousScores.Add(playerName, player.Points);
             }
 
-            foreach (var playerAName in results.Keys)
+            foreach (var playerAName in results.Select(x => x.Name))
             {
-                foreach (var playerBName in results.Keys)
+                foreach (var playerBName in results.Select(x => x.Name))
                 {
                     if (playerAName == playerBName) continue;
 
-                    var playerAResult = results[playerAName];
-                    var playerBResult = results[playerBName];
+                    var playerAResult = results.Single(x => x.Name == playerAName);
+                    var playerBResult = results.Single(x => x.Name == playerBName);
 
                     var playerA = scoreboard.Single(p => p.Name == playerAName);
 
                     var chanceOfPlayerAWinning = ChanceOfWinning(previousScores[playerAName], previousScores[playerBName]);
 
-                    // IF the okayers have drawn then don't update their scores
-                    if (playerAResult == playerBResult)
+                    // If the players have drawn then don't update their scores
+                    if (PlayersDraw(playerAResult, playerBResult))
                     {
                         continue;
                     }
 
-                    var didPlayerAWin = (playerAResult > playerBResult);
+                    var didPlayerAWin = PlayerAWon(playerAResult, playerBResult);
                     var ratingChange = RatingChange(chanceOfPlayerAWinning, didPlayerAWin);
                     // adjust for the fact that we're playing against multiple people
                     var adjustedRatingChange = ratingChange / results.Count;
@@ -83,6 +98,33 @@ namespace PlayerRank.Scoring.Elo
             }
 
             return scoreboard;
+        }
+
+        private static bool PlayersDraw(PlayerScore playerAResult, PlayerScore playerBResult)
+        {
+            if (playerAResult.Points == new Points(0) &&
+                playerAResult.Position != new Position(0))
+            {
+                return (playerAResult.Position == playerBResult.Position);
+            }
+            else
+            {
+                return (playerAResult.Points == playerBResult.Points);
+            }
+        }
+
+        private static bool PlayerAWon(PlayerScore playerAResult, PlayerScore playerBResult)
+        {
+            if (playerAResult.Points == new Points(0) &&
+                playerAResult.Position != new Position(0))
+            {
+                return (playerAResult.Position > playerBResult.Position);
+            }
+            else
+            {
+                return (playerAResult.Points > playerBResult.Points);
+            }
+            
         }
 
         private Points RatingChange(double expectedToWin, bool actuallyWon)

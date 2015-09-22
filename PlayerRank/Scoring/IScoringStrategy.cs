@@ -6,5 +6,6 @@ namespace PlayerRank.Scoring
     {
         IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game);
         void Reset();
+        void SetPositions(IList<PlayerScore> leaderBoard);
     }
 }

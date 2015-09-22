@@ -16,6 +16,8 @@ namespace PlayerRank
 
             m_Games.Aggregate(leaderBoard, scoringStrategy.UpdateScores);
 
+            scoringStrategy.SetPositions(leaderBoard);
+
             return leaderBoard;
         }
 

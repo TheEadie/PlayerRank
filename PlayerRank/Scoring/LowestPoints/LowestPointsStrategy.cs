@@ -3,8 +3,9 @@ using System.Linq;
 
 namespace PlayerRank.Scoring.LowestPoints
 {
-    internal class LowestPointsStrategy : IScoringStrategy
+    public class LowestPointsStrategy : IScoringStrategy
     {
+        private readonly Dictionary<Position, Points> m_PositionToPoints = new Dictionary<Position, Points>();
         private readonly IList<Game> m_allResults = new List<Game>();
         private readonly IList<DiscardPolicy> m_Discards;
 
@@ -20,26 +21,55 @@ namespace PlayerRank.Scoring.LowestPoints
             m_allResults.Clear();
         }
 
+        public void SetPositions(IList<PlayerScore> leaderBoard)
+        {
+            leaderBoard = leaderBoard.OrderBy(p => p.Points).ToList();
+
+            for (var i = 0; i < leaderBoard.Count; i++)
+            {
+                var position = (i > 0 && leaderBoard[i].Points == leaderBoard[i - 1].Points)
+                    ? new Position(i)
+                    : new Position(i + 1);
+
+                leaderBoard[i].Position = position;
+            }
+        }
+
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
-            var allResultsPrev = m_allResults.SelectMany(x => x.GetGameResults()).ToList();
+            var allResultsPrev = m_allResults.SelectMany(x => x.GetResults()).ToList();
 
             m_allResults.Add(game);
 
-            var allResultsNow = m_allResults.SelectMany(x => x.GetGameResults()).ToList();
+            var allResultsNow = m_allResults.SelectMany(x => x.GetResults()).ToList();
 
-            foreach (var result in game.GetGameResults())
+            foreach (var result in game.GetResults())
             {
-                var player = scoreboard.SingleOrDefault(p => p.Name == result.Key);
+                var player = scoreboard.SingleOrDefault(p => p.Name == result.Name);
 
                 if (player == null)
                 {
-                    player = new PlayerScore(result.Key);
+                    player = new PlayerScore(result.Name);
                     scoreboard.Add(player);
                     player.Points = new Points(0);
+                    player.Position = new Position(0);
+
+                    m_PositionToPoints.Add(new Position(scoreboard.Count), new Points(scoreboard.Count));
                 }
 
-                player.AddPoints(result.Value);
+                if (result.Points == new Points(0) &&
+                    result.Position != new Position(0))
+                {
+                    var pointsToAdd = m_PositionToPoints.ContainsKey(result.Position)
+                        ? m_PositionToPoints[result.Position]
+                        : new Points(0);
+
+                    player.AddPoints(pointsToAdd);
+                }
+                else
+                {
+                    player.AddPoints(result.Points);
+                }
 
                 // Add back previous worst results
                 player.AddPoints(SumWorstResults(allResultsPrev, player));
@@ -51,13 +81,13 @@ namespace PlayerRank.Scoring.LowestPoints
             return scoreboard;
         }
 
-        private Points SumWorstResults(IEnumerable<KeyValuePair<string, Points>> results, PlayerScore player)
+        private Points SumWorstResults(IEnumerable<PlayerScore> results, PlayerScore player)
         {
             var totalOfWorstScores = new Points(0.0);
 
             var allResultsForPlayer =
-                results.Where(x => x.Key == player.Name)
-                    .Select(x => x.Value)
+                results.Where(x => x.Name == player.Name)
+                    .Select(x => x.Points)
                     .OrderByDescending(x => x)
                     .ToList();
 
