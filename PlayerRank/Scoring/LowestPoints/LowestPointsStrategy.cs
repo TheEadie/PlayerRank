@@ -5,6 +5,7 @@ namespace PlayerRank.Scoring.LowestPoints
 {
     public class LowestPointsStrategy : IScoringStrategy
     {
+        private readonly Dictionary<Position, Points> m_PositionToPoints = new Dictionary<Position, Points>();
         private readonly IList<Game> m_allResults = new List<Game>();
         private readonly IList<DiscardPolicy> m_Discards;
 
@@ -13,6 +14,11 @@ namespace PlayerRank.Scoring.LowestPoints
             m_Discards = discards.Any()
                 ? discards.OrderBy(x => x.GamesToBePlayed).ToList()
                 : new List<DiscardPolicy>();
+            
+            for (var i = 0; i < 50; i++)
+            {
+                m_PositionToPoints.Add(new Position(i), new Points(i));
+            }
         }
 
         public void Reset()
@@ -53,7 +59,19 @@ namespace PlayerRank.Scoring.LowestPoints
                     player.Points = new Points(0);
                 }
 
-                player.AddPoints(result.Points);
+                if (result.Points == new Points(0) &&
+                    result.Position != new Position(0))
+                {
+                    var pointsToAdd = m_PositionToPoints.ContainsKey(result.Position)
+                        ? m_PositionToPoints[result.Position]
+                        : new Points(0);
+
+                    player.AddPoints(pointsToAdd);
+                }
+                else
+                {
+                    player.AddPoints(result.Points);
+                }
 
                 // Add back previous worst results
                 player.AddPoints(SumWorstResults(allResultsPrev, player));
