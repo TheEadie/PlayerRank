@@ -4,6 +4,18 @@ namespace PlayerRank
 {
     public class Position : IComparable
     {
+        // Helper properties for more fluent api
+        public static Position First = new Position(1);
+        public static Position Second = new Position(2);
+        public static Position Third = new Position(3);
+        public static Position Fourth = new Position(4);
+        public static Position Fifth = new Position(5);
+        public static Position Sixth = new Position(6);
+        public static Position Seventh = new Position(7);
+        public static Position Eighth = new Position(8);
+        public static Position Ninth = new Position(9);
+        public static Position Tenth = new Position(10);
+
         private readonly int m_Position;
         
         public Position(int position)
