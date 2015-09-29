@@ -3,6 +3,10 @@ using System.Runtime.InteropServices;
 
 namespace PlayerRank
 {
+    /// <summary>
+    /// A single line on a scoreboard
+    /// Stores a players name, points and position
+    /// </summary>
     public class PlayerScore
     {
         public string Name { get; set; }
