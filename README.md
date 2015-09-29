@@ -1,7 +1,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/ilqrc64go61cilog/branch/master?svg=true)](https://ci.appveyor.com/project/TheEadie/playerrank/branch/master)
 
 # PlayerRank
-Calculates Rankings for multiplayer games
+Calculates rankings for multiplayer games
 
 ### How to install
 
@@ -26,12 +26,12 @@ foreach (var position in league.GetLeaderBoard(scoringStrategy))
 }
 ```
 
-### More Detail
+### Documentation
 
-[Recording Games](Docs/RecordingAGame.md)
-[Simple Scoring Strategy](Docs/SimpleStrategy.md)
-[Elo Scoring Strategy](Docs/EloStrategy.md)
+- [Recording Games](Docs/RecordingAGame.md)
+- [Simple Scoring Strategy](Docs/SimpleStrategy.md)
+- [Elo Scoring Strategy](Docs/EloStrategy.md)
 
 ### Report an issue or suggest an improvement
 
-Feel free to add to the issue tracker here on GitHub or send me a Pull Request with your improvements.
+Please add to the issue tracker here on GitHub or send me a Pull Request with your improvements.
