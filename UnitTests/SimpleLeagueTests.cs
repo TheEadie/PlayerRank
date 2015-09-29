@@ -102,5 +102,33 @@ namespace PlayerRank.UnitTests
             Assert.Equal(new Position(1), fooResult.Position);
             Assert.Equal(new Position(2), barResult.Position);
         }
+
+        [Fact]
+        public void CanUseCustomPositionToPointsMap()
+        {
+            var league = new League();
+
+            var game = new Game();
+            game.AddResult("Foo", Position.First);
+            game.AddResult("Bar", Position.Second);
+
+            league.RecordGame(game);
+
+            var map = new Dictionary<Position, Points>
+            {
+                {Position.First, new Points(100)},
+                {Position.Second, new Points(1)}
+            };
+
+            var simpleScoringStrategy = new SimpleScoringStrategy(map);
+            var leaderboard = league.GetLeaderBoard(simpleScoringStrategy).ToList();
+            var fooResult = leaderboard.Single(x => x.Name == "Foo");
+            var barResult = leaderboard.Single(x => x.Name == "Bar");
+
+            Assert.Equal(new Points(100), fooResult.Points);
+            Assert.Equal(new Position(1), fooResult.Position);
+            Assert.Equal(new Points(1), barResult.Points);
+            Assert.Equal(new Position(2), barResult.Position);
+        }
     }
 }
