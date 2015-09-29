@@ -25,3 +25,13 @@ foreach (var position in league.GetLeaderBoard(scoringStrategy))
         position.Position, position.Name, position.Points);
 }
 ```
+
+### More Detail
+
+[Recording Games](Docs/RecordingAGame.md)
+[Simple Scoring Strategy](Docs/SimpleStrategy.md)
+[Elo Scoring Strategy](Docs/EloStrategy.md)
+
+### Report an issue or suggest an improvement
+
+Feel free to add to the issue tracker here on GitHub or send me a Pull Request with your improvements.
