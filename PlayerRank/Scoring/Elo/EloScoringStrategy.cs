@@ -6,17 +6,34 @@ namespace PlayerRank.Scoring.Elo
 {
     public class EloScoringStrategy : IScoringStrategy
     {
-        /// <summary> also known as K in the ELO formula - the max change in rating from one game </summary>
-        private readonly Points m_RatingChangeBaseMultiplier;
+        /// <summary> 
+        /// Also known as K in the ELO formula - the max change in rating from one game 
+        /// </summary>
+        private readonly Points m_MaxRatingChange;
 
-        /// <summary> the difference in rating where one person is almost certain to win </summary>
+        /// <summary>
+        /// The difference in rating where one person is almost certain to win 
+        /// </summary>
         private readonly Points m_MaximumSkillGap;
-
+        
+        /// <summary>
+        /// The number of points a new player will start with when they join the league
+        /// </summary>
         private readonly Points m_NewPlayerStartingRating;
 
+        /// <summary>
+        /// Creates a new scoring strategy based on the Elo methodology used in chess rankings
+        /// See: https://en.wikipedia.org/wiki/Elo_rating_system
+        /// This strategy has been adapted to work for game with more than 2 players by resolving 
+        /// all pairwise games and dividing the proposed rating change by the number of players in the game.
+        /// See Approach 3 in this article: http://www.gautamnarula.com/rating/
+        /// </summary>
+        /// <param name="maxRatingChange">The total change in points that can happen in a single game</param>
+        /// <param name="maxSkillGap">The number of points difference between players before A should always beat B</param>
+        /// <param name="startingRating">The number of points a new player will start with</param>
         public EloScoringStrategy(Points maxRatingChange, Points maxSkillGap, Points startingRating)
         {
-            m_RatingChangeBaseMultiplier = maxRatingChange;
+            m_MaxRatingChange = maxRatingChange;
             m_MaximumSkillGap = maxSkillGap;
             m_NewPlayerStartingRating = startingRating;
         }
@@ -25,15 +42,21 @@ namespace PlayerRank.Scoring.Elo
                   "Please use EloScoringStrategy(Points, Points, Points) instead")]
         public EloScoringStrategy(double maxRatingChange, double maxSkillGap, double startingRating)
         {
-            m_RatingChangeBaseMultiplier = new Points(maxRatingChange);
+            m_MaxRatingChange = new Points(maxRatingChange);
             m_MaximumSkillGap = new Points(maxSkillGap);
             m_NewPlayerStartingRating = new Points(startingRating);
         }
 
+        /// <summary>
+        /// Does nothing in this scoring strategy
+        /// </summary>
         public void Reset()
         {
         }
 
+        /// <summary>
+        /// Sets player's <see cref="Position"/>s based on who has the most points
+        /// </summary>
         public void SetPositions(IList<PlayerScore> leaderBoard)
         {
             leaderBoard = leaderBoard.OrderByDescending(p => p.Points).ToList();
@@ -48,6 +71,11 @@ namespace PlayerRank.Scoring.Elo
             }
         }
 
+        /// <summary>
+        /// Updates the provided scoreboard with the results of a <see cref="Game"/>
+        /// A player will gain up to <see cref="m_MaxRatingChange"/> based on their probablity
+        /// of winning against each other player.
+        /// </summary>
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
             var results = game.GetResults();
@@ -98,6 +126,9 @@ namespace PlayerRank.Scoring.Elo
             return scoreboard;
         }
 
+        /// <summary>
+        /// Did player A and player B draw in this game
+        /// </summary>
         private static bool PlayersDraw(PlayerScore playerAResult, PlayerScore playerBResult)
         {
             if (playerAResult.Points == new Points(0) &&
@@ -111,6 +142,9 @@ namespace PlayerRank.Scoring.Elo
             }
         }
 
+        /// <summary>
+        /// Did player A beat player B in this game
+        /// </summary>
         private static bool PlayerAWon(PlayerScore playerAResult, PlayerScore playerBResult)
         {
             if (playerAResult.Points == new Points(0) &&
@@ -125,6 +159,9 @@ namespace PlayerRank.Scoring.Elo
             
         }
 
+        /// <summary>
+        /// Get the number of points to add or remove from a player
+        /// </summary>
         private double RatingChange(double expectedToWin, bool actuallyWon, int totalPlayers)
         {
             var w = (actuallyWon) ? 1 : 0;
