@@ -88,9 +88,7 @@ namespace PlayerRank.Scoring.Elo
                     }
 
                     var didPlayerAWin = PlayerAWon(playerAResult, playerBResult);
-                    var ratingChange = RatingChange(chanceOfPlayerAWinning, didPlayerAWin);
-                    // adjust for the fact that we're playing against multiple people
-                    var adjustedRatingChange = ratingChange / results.Count;
+                    var adjustedRatingChange = RatingChange(chanceOfPlayerAWinning, didPlayerAWin, results.Count);
                     var integerRatingChange = Math.Round(adjustedRatingChange, MidpointRounding.AwayFromZero);
 
                     playerA.AddPoints(new Points(integerRatingChange));
@@ -127,10 +125,10 @@ namespace PlayerRank.Scoring.Elo
             
         }
 
-        private Points RatingChange(double expectedToWin, bool actuallyWon)
+        private double RatingChange(double expectedToWin, bool actuallyWon, int totalPlayers)
         {
             var w = (actuallyWon) ? 1 : 0;
-            return m_RatingChangeBaseMultiplier * new Points(w - expectedToWin);
+            return m_MaxRatingChange * new Points(w - expectedToWin) / totalPlayers;
         }
 
         /// <summary>
