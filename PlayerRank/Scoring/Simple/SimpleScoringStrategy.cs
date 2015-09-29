@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace PlayerRank.Scoring.Simple
 {
     public class SimpleScoringStrategy : IScoringStrategy
     {
-        private readonly Dictionary<Position, Points> m_PositionToPoints = new Dictionary<Position, Points>();
+        private readonly IDictionary<Position, Points> m_PositionToPoints = new Dictionary<Position, Points>();
 
         public SimpleScoringStrategy()
         {
@@ -20,6 +19,11 @@ namespace PlayerRank.Scoring.Simple
             m_PositionToPoints.Add(new Position(8), new Points(3));
             m_PositionToPoints.Add(new Position(9), new Points(2));
             m_PositionToPoints.Add(new Position(10), new Points(1));
+        }
+
+        public SimpleScoringStrategy(IDictionary<Position, Points> pointsMap)
+        {
+            m_PositionToPoints = pointsMap;
         }
 
         public void Reset()
