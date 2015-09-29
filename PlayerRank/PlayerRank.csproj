@@ -47,8 +47,6 @@
     <Compile Include="PlayerScore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Scoring\LowestPoints\LowestPointsStrategy.cs" />
-    <Compile Include="Scoring\LowestPoints\DiscardPolicy.cs" />
     <Compile Include="Scoring\Simple\SimpleScoringStrategy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
