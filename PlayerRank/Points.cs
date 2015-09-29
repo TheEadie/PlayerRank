@@ -11,12 +11,6 @@ namespace PlayerRank
             m_Points = points;
         }
 
-        [Obsolete("This getter will be removed in a future version")]
-        internal double GetValue()
-        {
-            return m_Points;
-        }
-
         protected bool Equals(Points other)
         {
             return m_Points.Equals(other.m_Points);

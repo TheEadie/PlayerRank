@@ -39,15 +39,5 @@ namespace PlayerRank
         {
             Points -= points;
         }
-
-        /// Obsolete V1 API
-
-        [Obsolete("Please use Points instead")]
-        public double Score
-        {
-            get { return Points.GetValue(); }
-            internal set { Points = new Points(value); }
-        }
-
     }
 }
