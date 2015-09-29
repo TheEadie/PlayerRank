@@ -11,7 +11,6 @@ namespace PlayerRank.UnitTests
             player.AddPoints(new Points(100));
 
             Assert.Equal(new Points(100), player.Points);
-            Assert.Equal(100, player.Score);
         }
 
         [Fact]
@@ -21,7 +20,6 @@ namespace PlayerRank.UnitTests
             player.SubtractPoints(new Points(100));
 
             Assert.Equal(new Points(-100), player.Points);
-            Assert.Equal(-100, player.Score);
         }
     }
 }

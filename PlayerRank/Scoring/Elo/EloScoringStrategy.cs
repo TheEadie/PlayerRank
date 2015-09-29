@@ -38,15 +38,6 @@ namespace PlayerRank.Scoring.Elo
             m_NewPlayerStartingRating = startingRating;
         }
 
-        [Obsolete("This cconstructor will be removed in a later version. " +
-                  "Please use EloScoringStrategy(Points, Points, Points) instead")]
-        public EloScoringStrategy(double maxRatingChange, double maxSkillGap, double startingRating)
-        {
-            m_MaxRatingChange = new Points(maxRatingChange);
-            m_MaximumSkillGap = new Points(maxSkillGap);
-            m_NewPlayerStartingRating = new Points(startingRating);
-        }
-
         /// <summary>
         /// Does nothing in this scoring strategy
         /// </summary>

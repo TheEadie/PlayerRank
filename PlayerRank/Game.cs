@@ -55,13 +55,5 @@ namespace PlayerRank
         {
             return m_Leaderboard;
         }
-
-        /// Obsolete V1 API
-
-        [Obsolete("Please use AddResult(string, Points) instead")]
-        public void AddResult(string name, double score)
-        {
-            AddResult(name, new Points(score));
-        }
     }
 }
