@@ -5,8 +5,16 @@ namespace PlayerRank.Scoring.Simple
 {
     public class SimpleScoringStrategy : IScoringStrategy
     {
+        /// <summary>
+        /// Maps each <see cref="Position"/> a player can finish to a number of <see cref="Points"/>
+        /// </summary>
         private readonly IDictionary<Position, Points> m_PositionToPoints = new Dictionary<Position, Points>();
 
+        /// <summary>
+        /// Creates a new scoring strategy where each player scores points based on their position. 
+        /// The player with the largest number of points is considered to be winning.
+        /// 10 <see cref="Points"/> are awarded for 1st place down to 1 point for 10th.
+        /// </summary>
         public SimpleScoringStrategy()
         {
             m_PositionToPoints.Add(new Position(1), new Points(10));
@@ -21,15 +29,26 @@ namespace PlayerRank.Scoring.Simple
             m_PositionToPoints.Add(new Position(10), new Points(1));
         }
 
+        /// <summary>
+        /// Creates a new scoring strategy where each player scores points based on their position. 
+        /// The player with the largest number of points is considered to be winning.
+        /// <see cref="Points"/> are awarded based on the mapping provided.
+        /// </summary>
         public SimpleScoringStrategy(IDictionary<Position, Points> pointsMap)
         {
             m_PositionToPoints = pointsMap;
         }
 
+        /// <summary>
+        /// Does nothing in this scoring strategy
+        /// </summary>
         public void Reset()
         {
         }
-
+        
+        /// <summary>
+        /// Sets player's <see cref="Position"/>s based on who has the most points
+        /// </summary>
         public void SetPositions(IList<PlayerScore> leaderBoard)
         {
             leaderBoard = leaderBoard.OrderByDescending(p => p.Points).ToList();
@@ -44,6 +63,11 @@ namespace PlayerRank.Scoring.Simple
             }
         }
 
+        /// <summary>
+        /// Updates the provided scoreboard with the results of a <see cref="Game"/>
+        /// A player will gain the number of points specified or a number based on their
+        /// position as specified in the constructor.
+        /// </summary>
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
         {
             foreach (var result in game.GetResults())
