@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using PlayerRank.Scoring;
+﻿using System.Linq;
 using PlayerRank.Scoring.Elo;
 using Xunit;
 
@@ -25,9 +23,9 @@ namespace PlayerRank.UnitTests
             var fooResult = leaderboard.Single(x => x.Name == "Foo");
             var barResult = leaderboard.Single(x => x.Name == "Bar");
 
-            Assert.Equal(new Points(1400 + 16), fooResult.Points);
+            Assert.Equal(new Points(1400 + 32), fooResult.Points);
             Assert.Equal(new Position(1), fooResult.Position);
-            Assert.Equal(new Points(1400 - 16), barResult.Points);
+            Assert.Equal(new Points(1400 - 32), barResult.Points);
             Assert.Equal(new Position(2), barResult.Position);
         }
 
@@ -48,9 +46,9 @@ namespace PlayerRank.UnitTests
             var fooResult = leaderboard.Single(x => x.Name == "Foo");
             var barResult = leaderboard.Single(x => x.Name == "Bar");
 
-            Assert.Equal(new Points(1400 + 16), fooResult.Points);
+            Assert.Equal(new Points(1400 + 32), fooResult.Points);
             Assert.Equal(new Position(1), fooResult.Position);
-            Assert.Equal(new Points(1400 - 16), barResult.Points);
+            Assert.Equal(new Points(1400 - 32), barResult.Points);
             Assert.Equal(new Position(2), barResult.Position);
         }
 
@@ -121,13 +119,13 @@ namespace PlayerRank.UnitTests
             var bobResult = leaderboard.Single(x => x.Name == "Bob");
             var chrisResult = leaderboard.Single(x => x.Name == "Chris");
 
-            Assert.Equal(new Points(1424), davidResult.Points);
+            Assert.Equal(new Points(1433), davidResult.Points);
             Assert.Equal(new Position(1), davidResult.Position);
-            Assert.Equal(new Points(1408), jackResult.Points);
+            Assert.Equal(new Points(1411), jackResult.Points);
             Assert.Equal(new Position(2), jackResult.Position);
-            Assert.Equal(new Points(1392), bobResult.Points);
+            Assert.Equal(new Points(1389), bobResult.Points);
             Assert.Equal(new Position(3), bobResult.Position);
-            Assert.Equal(new Points(1376), chrisResult.Points);
+            Assert.Equal(new Points(1367), chrisResult.Points);
             Assert.Equal(new Position(4), chrisResult.Position);
         }
 
@@ -159,9 +157,9 @@ namespace PlayerRank.UnitTests
             var barResult = leaderboard.Single(x => x.Name == "Bar");
 
             // Bar won most recently therefore will be slightly ahead
-            Assert.Equal(new Points(1394), fooResult.Points);
+            Assert.Equal(new Points(1384), fooResult.Points);
             Assert.Equal(new Position(2), fooResult.Position);
-            Assert.Equal(new Points(1406), barResult.Points);
+            Assert.Equal(new Points(1416), barResult.Points);
             Assert.Equal(new Position(1), barResult.Position);
         }
 
@@ -216,13 +214,13 @@ namespace PlayerRank.UnitTests
             var bobResult = leaderboard.Single(x => x.Name == "Bob");
             var chrisResult = leaderboard.Single(x => x.Name == "Chris");
 
-            Assert.Equal(new Points(1397), davidResult.Points);
+            Assert.Equal(new Points(1396), davidResult.Points);
             Assert.Equal(new Position(2), davidResult.Position);
-            Assert.Equal(new Points(1390), jackResult.Points);
+            Assert.Equal(new Points(1383), jackResult.Points);
             Assert.Equal(new Position(4), jackResult.Position);
             Assert.Equal(new Points(1394), bobResult.Points);
             Assert.Equal(new Position(3), bobResult.Position);
-            Assert.Equal(new Points(1419), chrisResult.Points);
+            Assert.Equal(new Points(1427), chrisResult.Points);
             Assert.Equal(new Position(1), chrisResult.Position);
         }
     }
