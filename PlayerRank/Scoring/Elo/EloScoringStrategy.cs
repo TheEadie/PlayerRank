@@ -165,7 +165,7 @@ namespace PlayerRank.Scoring.Elo
         private double RatingChange(double expectedToWin, bool actuallyWon, int totalPlayers)
         {
             var w = (actuallyWon) ? 1 : 0;
-            return m_MaxRatingChange * new Points(w - expectedToWin) / totalPlayers;
+            return m_MaxRatingChange * new Points(w - expectedToWin) / (totalPlayers - 1);
         }
 
         /// <summary>
