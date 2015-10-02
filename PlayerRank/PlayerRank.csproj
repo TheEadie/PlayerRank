@@ -42,6 +42,8 @@
     <Compile Include="History.cs" />
     <Compile Include="Points.cs" />
     <Compile Include="Position.cs" />
+    <Compile Include="Stats\ResultChangeStats.cs" />
+    <Compile Include="Stats\ResultsChange.cs" />
     <Compile Include="Scoring\Elo\EloScoringStrategy.cs" />
     <Compile Include="Scoring\IScoringStrategy.cs" />
     <Compile Include="League.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="Scoring\Simple\SimpleScoringStrategy.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
