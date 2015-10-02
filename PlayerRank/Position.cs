@@ -22,7 +22,12 @@ namespace PlayerRank
         {
             m_Position = position;
         }
-        
+
+        public int GetValue()
+        {
+            return m_Position;
+        }
+
         protected bool Equals(Position other)
         {
             return m_Position.Equals(other.m_Position);
