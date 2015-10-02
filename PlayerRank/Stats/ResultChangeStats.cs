@@ -28,7 +28,7 @@ namespace PlayerRank.Stats
                 var positionChange = (resultA.Position.GetValue() - resultB.Position.GetValue());
                 var pointsChange = (resultA.Points - resultB.Points).GetValue();
 
-                changes.Add(new ResultsChange(player, positionChange, pointsChange));
+                changes.Add(new ResultsChange(player, resultA.Position, positionChange, resultA.Points, pointsChange));
             }
 
             return changes;
