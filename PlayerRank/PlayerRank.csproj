@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="History.cs" />
     <Compile Include="Points.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Scoring\Elo\EloScoringStrategy.cs" />
