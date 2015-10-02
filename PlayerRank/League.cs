@@ -39,7 +39,7 @@ namespace PlayerRank
             {
                 scoringStrategy.UpdateScores(leaderBoard, game);
                 scoringStrategy.SetPositions(leaderBoard);
-                history.Add(new History(game, leaderBoard));
+                history.Add(new History(game, leaderBoard.Select(item => (PlayerScore)item.Clone()).ToList()));
             }
 
             return history;
