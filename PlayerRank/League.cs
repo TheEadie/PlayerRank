@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using PlayerRank.Scoring;
 
@@ -25,6 +26,23 @@ namespace PlayerRank
             scoringStrategy.SetPositions(leaderBoard);
 
             return leaderBoard;
+        }
+
+        public IEnumerable<History> GetLeaderBoardHistory(IScoringStrategy scoringStrategy)
+        {
+            scoringStrategy.Reset();
+
+            var history = new List<History>();
+            IList<PlayerScore> leaderBoard = new List<PlayerScore>();
+
+            foreach (var game in m_Games)
+            {
+                scoringStrategy.UpdateScores(leaderBoard, game);
+                scoringStrategy.SetPositions(leaderBoard);
+                history.Add(new History(game, leaderBoard.Select(item => (PlayerScore)item.Clone()).ToList()));
+            }
+
+            return history;
         }
 
         /// <summary>

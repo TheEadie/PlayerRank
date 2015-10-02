@@ -7,7 +7,7 @@ namespace PlayerRank
     /// A single line on a scoreboard
     /// Stores a players name, points and position
     /// </summary>
-    public class PlayerScore
+    public class PlayerScore : ICloneable
     {
         public string Name { get; set; }
         public Points Points { get; internal set; }
@@ -38,6 +38,15 @@ namespace PlayerRank
         internal void SubtractPoints(Points points)
         {
             Points -= points;
+        }
+
+        public object Clone()
+        {
+            return new PlayerScore(Name)
+            {
+                Points = Points,
+                Position = Position
+            };
         }
     }
 }
