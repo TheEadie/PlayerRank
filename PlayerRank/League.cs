@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using PlayerRank.Scoring;
@@ -31,7 +30,19 @@ namespace PlayerRank
 
         public IEnumerable<History> GetLeaderBoardHistory(IScoringStrategy scoringStrategy)
         {
-            throw new NotImplementedException();
+            scoringStrategy.Reset();
+
+            var history = new List<History>();
+            IList<PlayerScore> leaderBoard = new List<PlayerScore>();
+
+            foreach (var game in m_Games)
+            {
+                scoringStrategy.UpdateScores(leaderBoard, game);
+                scoringStrategy.SetPositions(leaderBoard);
+                history.Add(new History(game, leaderBoard));
+            }
+
+            return history;
         }
 
         /// <summary>
