@@ -24,8 +24,10 @@ namespace PlayerRank.UnitTests
 
             var history = league.GetLeaderBoardHistory(new SimpleScoringStrategy()).ToList();
             var fooAfterFiveGames = history[4].Leaderboard.Single(x => x.Name == "Foo");
+            var fooMostRecentGame = history.Last().Leaderboard.Single(x => x.Name == "Foo");
 
-            Assert.Equal(new Points(50), fooAfterFiveGames.Points);
+            Assert.Equal(new Points(25), fooAfterFiveGames.Points);
+            Assert.Equal(new Points(50), fooMostRecentGame.Points);
         }
     }
 }
