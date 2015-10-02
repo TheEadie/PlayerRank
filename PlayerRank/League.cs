@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using PlayerRank.Scoring;
 
@@ -25,6 +27,11 @@ namespace PlayerRank
             scoringStrategy.SetPositions(leaderBoard);
 
             return leaderBoard;
+        }
+
+        public IEnumerable<History> GetLeaderBoardHistory(IScoringStrategy scoringStrategy)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
