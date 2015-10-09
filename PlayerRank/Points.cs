@@ -11,6 +11,11 @@ namespace PlayerRank
             m_Points = points;
         }
 
+        public double GetValue()
+        {
+            return m_Points;
+        }
+
         protected bool Equals(Points other)
         {
             return m_Points.Equals(other.m_Points);

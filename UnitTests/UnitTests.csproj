@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="PositionTests.cs" />
     <Compile Include="HistoryTests.cs" />
+    <Compile Include="ResultChangeStatsTests.cs" />
     <Compile Include="SimpleLeagueTests.cs" />
     <Compile Include="EloTests.cs" />
     <Compile Include="PlayerTests.cs" />
