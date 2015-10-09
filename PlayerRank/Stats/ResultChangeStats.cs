@@ -20,13 +20,20 @@ namespace PlayerRank.Stats
                 var resultA = leaderboardA.Single(x => x.Name == player);
                 var resultB = leaderboardB.SingleOrDefault(x => x.Name == player);
 
+                int positionChange;
+                double pointsChange;
+
                 if (resultB == null)
                 {
-                    resultB = new PlayerScore(player) {Points = new Points(0), Position = new Position(0)};
+                    positionChange = 0;
+                    pointsChange = 0;
                 }
-
-                var positionChange = (resultA.Position.GetValue() - resultB.Position.GetValue());
-                var pointsChange = (resultA.Points - resultB.Points).GetValue();
+                else
+                {
+                    positionChange = (resultA.Position.GetValue() - resultB.Position.GetValue());
+                    pointsChange = (resultA.Points - resultB.Points).GetValue();
+                }
+                
 
                 changes.Add(new ResultsChange(player, resultA.Position, positionChange, resultA.Points, pointsChange));
             }
