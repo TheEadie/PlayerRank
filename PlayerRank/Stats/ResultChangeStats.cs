@@ -18,23 +18,11 @@ namespace PlayerRank.Stats
             foreach (var player in players)
             {
                 var resultA = leaderboardA.Single(x => x.Name == player);
-                var resultB = leaderboardB.SingleOrDefault(x => x.Name == player);
+                var resultB = leaderboardB.Single(x => x.Name == player);
 
-                int positionChange;
-                double pointsChange;
-
-                if (resultB == null)
-                {
-                    positionChange = 0;
-                    pointsChange = 0;
-                }
-                else
-                {
-                    positionChange = (resultA.Position.GetValue() - resultB.Position.GetValue());
-                    pointsChange = (resultA.Points - resultB.Points).GetValue();
-                }
+                var positionChange = -(resultA.Position.GetValue() - resultB.Position.GetValue());
+                var pointsChange = (resultA.Points - resultB.Points).GetValue();
                 
-
                 changes.Add(new ResultsChange(player, resultA.Position, positionChange, resultA.Points, pointsChange));
             }
 
