@@ -52,11 +52,13 @@ namespace PlayerRank.Scoring.Elo
         {
             leaderBoard = leaderBoard.OrderByDescending(p => p.Points).ToList();
 
+            var j = 0;
+
             for (var i = 0; i < leaderBoard.Count; i++)
             {
                 var position = (i > 0 && leaderBoard[i].Points == leaderBoard[i - 1].Points)
-                    ? new Position(i)
-                    : new Position(i + 1);
+                    ? new Position(j)
+                    : new Position(++j);
 
                 leaderBoard[i].Position = position;
             }
