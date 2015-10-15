@@ -30,7 +30,7 @@ namespace PlayerRank.Stats
                 }
                 else
                 {
-                    positionChange = (resultA.Position.GetValue() - resultB.Position.GetValue());
+                    positionChange = -(resultA.Position.GetValue() - resultB.Position.GetValue());
                     pointsChange = (resultA.Points - resultB.Points).GetValue();
                 }
                 

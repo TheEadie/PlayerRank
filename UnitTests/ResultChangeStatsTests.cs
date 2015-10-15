@@ -36,14 +36,11 @@ namespace PlayerRank.UnitTests
         {
             var league = new League();
 
-            for (var i = 0; i < 10; i++)
-            {
-                var game = new Game();
-                game.AddResult("Foo", new Points(5));
-                game.AddResult("Bar", new Points(1));
+            var game = new Game();
+            game.AddResult("Foo", new Points(5));
+            game.AddResult("Bar", new Points(1));
 
-                league.RecordGame(game);
-            }
+            league.RecordGame(game);
 
             var game2 = new Game();
             game2.AddResult("Foo", new Points(5));
