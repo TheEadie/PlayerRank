@@ -11,6 +11,7 @@ namespace PlayerRank
     public class League
     {
         private readonly List<Game> m_Games = new List<Game>(); 
+        private readonly List<string> m_Players = new List<string>(); 
 
         /// <summary>
         /// Gets the current leader board for this league based on a specifed scoring strategy
@@ -32,10 +33,20 @@ namespace PlayerRank
         {
             scoringStrategy.Reset();
 
+            var initialGame = new Game();
+
+            foreach (var player in m_Players)
+            {
+                initialGame.AddResult(player, new Points(0));
+            }
+
+            var games = new List<Game> {initialGame};
+            games.AddRange(m_Games);
+
             var history = new List<History>();
             IList<PlayerScore> leaderBoard = new List<PlayerScore>();
 
-            foreach (var game in m_Games)
+            foreach (var game in games)
             {
                 scoringStrategy.UpdateScores(leaderBoard, game);
                 scoringStrategy.SetPositions(leaderBoard);
@@ -51,6 +62,14 @@ namespace PlayerRank
         public void RecordGame(Game game)
         {
             m_Games.Add(game);
+
+            foreach (var player in game.GetResults().Select(x => x.Name))
+            {
+                if (!m_Players.Contains(player))
+                {
+                    m_Players.Add(player);
+                }
+            }
         }
     }
 }
