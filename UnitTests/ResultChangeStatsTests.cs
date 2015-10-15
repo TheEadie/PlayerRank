@@ -47,8 +47,8 @@ namespace PlayerRank.UnitTests
 
             var game2 = new Game();
             game2.AddResult("Foo", new Points(5));
-            game2.AddResult("Bar", new Points(3));
-            game2.AddResult("Bar2", new Points(1));
+            game2.AddResult("Bar", new Points(1));
+            game2.AddResult("Bar2", new Points(3));
 
             league.RecordGame(game2);
 
@@ -58,8 +58,8 @@ namespace PlayerRank.UnitTests
 
             var resultsChangeForFoo = change.Single(x => x.Name == "Bar2");
 
-            Assert.Equal(0, resultsChangeForFoo.PositionChange);
-            Assert.Equal(0, resultsChangeForFoo.PointsChange);
+            Assert.Equal(1, resultsChangeForFoo.PositionChange);
+            Assert.Equal(3, resultsChangeForFoo.PointsChange);
         }
     }
 }
