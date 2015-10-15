@@ -61,6 +61,7 @@ namespace PlayerRank.UnitTests
 
             game.AddResult("Foo", new Points(100));
             game.AddResult("Bar", new Points(100));
+            game.AddResult("Bar2", new Points(100));
 
             league.RecordGame(game);
 
@@ -68,11 +69,14 @@ namespace PlayerRank.UnitTests
             var leaderboard = league.GetLeaderBoard(eloScoringStrategy).ToList();
             var fooResult = leaderboard.Single(x => x.Name == "Foo");
             var barResult = leaderboard.Single(x => x.Name == "Bar");
+            var bar2Result = leaderboard.Single(x => x.Name == "Bar2");
 
             Assert.Equal(new Points(1400), fooResult.Points);
             Assert.Equal(new Position(1), fooResult.Position);
             Assert.Equal(new Points(1400), barResult.Points);
             Assert.Equal(new Position(1), barResult.Position);
+            Assert.Equal(new Points(1400), bar2Result.Points);
+            Assert.Equal(new Position(1), bar2Result.Position);
         }
 
         [Fact]
