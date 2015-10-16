@@ -1,12 +1,8 @@
-install:
-  - choco install gitversion.portable -version 3.0.0-beta0004 -pre -y
-
 nuget:
   account_feed: true
 
 before_build:
   - nuget restore
-  - ps: gitversion /l console /output buildserver /updateAssemblyInfo
 
 configuration: Release
 
