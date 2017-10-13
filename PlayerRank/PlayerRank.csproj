@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.0.1.0</Version>
+
+    <PackageVersion>0.0.1-local</PackageVersion>
+    <Authors>David Eadie</Authors>
+    <Description>Calculates rankings for multiplayer games</Description>
+    <Copyright>David Eadie</Copyright>
+    <PackageLicenseUrl>https://github.com/TheEadie/PlayerRank/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/TheEadie/PlayerRank</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TheEadie/PlayerRank</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
