@@ -19,8 +19,8 @@ build:
   verbosity: minimal
 
 after_build:
-  - cmd: dotnet pack PlayerRank\PlayerRank.csproj -c Release
-  - cmd: appveyor PushArtifact "PlayerRank\bin\release\PlayerRank.%GitVersion_NuGetVersion%.nupkg"
+  - cmd: dotnet pack src\PlayerRank\PlayerRank.csproj -c Release
+  - cmd: appveyor PushArtifact "src\PlayerRank\bin\release\PlayerRank.%GitVersion_NuGetVersion%.nupkg"
 
 deploy:
   - provider: GitHub
