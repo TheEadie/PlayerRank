@@ -1,25 +1,15 @@
-configuration: Release
-image: Visual Studio 2017 Preview
+image: Visual Studio 2017
 
 install:
   - choco install GitVersion.Portable
   - GitVersion /output buildserver
 
-dotnet_csproj:
-  patch: true
-  file: '**\*.csproj'
-  version: '%GitVersion_MajorMinorPatch%'
-  package_version: '%GitVersion_NuGetVersion%'
-
-before_build:
+build_script:
   - dotnet restore
-
-build:
-  project: PlayerRank.sln
-  verbosity: minimal
+  - dotnet build -c Release /p:Version=%GitVersion_MajorMinorPatch%
 
 after_build:
-  - cmd: dotnet pack src\PlayerRank\PlayerRank.csproj -c Release
+  - cmd: dotnet pack src\PlayerRank\PlayerRank.csproj -c Release /p:Version=%GitVersion_MajorMinorPatch% /p:PackageVersion=%GitVersion_NuGetVersion%
   - cmd: appveyor PushArtifact "src\PlayerRank\bin\release\PlayerRank.%GitVersion_NuGetVersion%.nupkg"
 
 deploy:
