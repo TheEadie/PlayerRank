@@ -2,6 +2,8 @@ image: Visual Studio 2017
 
 install:
   - choco install GitVersion.Portable
+  - choco install opencover.Portable
+  - choco install codecov
   - GitVersion /output buildserver
 
 build_script:
@@ -11,6 +13,10 @@ build_script:
 after_build:
   - cmd: dotnet pack src\PlayerRank\PlayerRank.csproj -c Release /p:Version=%GitVersion_MajorMinorPatch% /p:PackageVersion=%GitVersion_NuGetVersion%
   - cmd: appveyor PushArtifact "src\PlayerRank\bin\release\PlayerRank.%GitVersion_NuGetVersion%.nupkg"
+
+test_script:
+  - OpenCover.Console.exe -oldstyle -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:" test ""src\PlayerRank.Tests\PlayerRank.Tests.csproj"" -f netcoreapp2.0" -filter:"+[*]* -[*.Tests*]*" -returntargetcode -output:coverage.xml
+  - codecov -f "coverage.xml"
 
 deploy:
   - provider: GitHub
