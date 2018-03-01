@@ -17,8 +17,6 @@ namespace PlayerRank
         /// </summary>
         public IEnumerable<PlayerScore> GetLeaderBoard(IScoringStrategy scoringStrategy)
         {
-            scoringStrategy.Reset();
-
             IList<PlayerScore> leaderBoard = new List<PlayerScore>();
 
             leaderBoard = _games.Aggregate(leaderBoard, scoringStrategy.UpdateScores);
@@ -30,8 +28,6 @@ namespace PlayerRank
 
         public IEnumerable<History> GetLeaderBoardHistory(IScoringStrategy scoringStrategy)
         {
-            scoringStrategy.Reset();
-
             var initialGame = new Game();
 
             foreach (var player in _players)

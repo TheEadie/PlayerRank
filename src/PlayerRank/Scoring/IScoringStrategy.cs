@@ -10,12 +10,6 @@ namespace PlayerRank.Scoring
         IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game);
 
         /// <summary>
-        /// Resets any state that may be stored in the strategy
-        /// This should be called before calculating a fresh leaderboard
-        /// </summary>
-        void Reset();
-
-        /// <summary>
         /// Sets the <see cref="Position"/> of each player based on the strategy
         /// </summary>
         /// <param name="leaderBoard"></param>

@@ -39,13 +39,6 @@ namespace PlayerRank.Scoring.Elo
         }
 
         /// <summary>
-        /// Does nothing in this scoring strategy
-        /// </summary>
-        public void Reset()
-        {
-        }
-
-        /// <summary>
         /// Sets player's <see cref="Position"/>s based on who has the most points
         /// </summary>
         public void SetPositions(IList<PlayerScore> leaderBoard)
