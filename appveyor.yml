@@ -3,20 +3,31 @@ image: Visual Studio 2017
 install:
   - choco install GitVersion.Portable
   - choco install opencover.Portable
-  - choco install codecov
+  - choco install msbuild-sonarqube-runner
   - GitVersion /output buildserver
 
 build_script:
-  - dotnet restore
-  - dotnet build -c Release /p:Version=%GitVersion_MajorMinorPatch%
+  - ps: |
+      Write-Host "INFO APPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH = $($env:APPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH)"
+      Write-Host "INFO APPVEYOR_REPO_BRANCH = $($env:APPVEYOR_REPO_BRANCH)"
+      if($env:APPVEYOR_REPO_BRANCH -eq "master" -and $env:APPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH)
+      {
+        $branchName = $env:APPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH
+      }else{
+        $branchName = $env:APPVEYOR_REPO_BRANCH
+      }
+      Write-Host "INFO branchName = $($branchName)"
+      . SonarQube.Scanner.MSBuild.exe begin /k:"PlayerRank" /d:sonar.organization="theeadie-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="e8e208620fa374d16e3b12a9e56af8d3ca0895d3" /v:$env:GitVersion_MajorMinorPatch /d:sonar.branch.name="$branchName" /d:sonar.cs.opencover.reportsPaths="$env:CD\coverage.xml"
+      dotnet restore
+      dotnet build -c Release /p:Version=$env:GitVersion_MajorMinorPatch
 
 after_build:
-  - cmd: dotnet pack src\PlayerRank\PlayerRank.csproj -c Release /p:Version=%GitVersion_MajorMinorPatch% /p:PackageVersion=%GitVersion_NuGetVersion%
-  - cmd: appveyor PushArtifact "src\PlayerRank\bin\release\PlayerRank.%GitVersion_NuGetVersion%.nupkg"
+  - dotnet pack src\PlayerRank\PlayerRank.csproj -c Release /p:Version=%GitVersion_MajorMinorPatch% /p:PackageVersion=%GitVersion_NuGetVersion%
+  - appveyor PushArtifact "src\PlayerRank\bin\release\PlayerRank.%GitVersion_NuGetVersion%.nupkg"
 
 test_script:
-  - OpenCover.Console.exe -oldstyle -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:" test ""src\PlayerRank.Tests\PlayerRank.Tests.csproj"" -f netcoreapp2.0" -filter:"+[*]* -[*.Tests*]*" -returntargetcode -output:coverage.xml
-  - codecov -f "coverage.xml"
+  - OpenCover.Console.exe -oldstyle -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:" test ""src\PlayerRank.Tests\PlayerRank.Tests.csproj"" /p:DebugType=full /p:DebugSymbols=true -f netcoreapp2.0" -filter:"+[*]* -[*.Tests*]*" -returntargetcode -output:coverage.xml
+  - SonarQube.Scanner.MSBuild.exe end /d:sonar.login="e8e208620fa374d16e3b12a9e56af8d3ca0895d3"
 
 deploy:
   - provider: GitHub
