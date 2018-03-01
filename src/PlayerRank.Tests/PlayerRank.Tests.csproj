@@ -14,9 +14,10 @@
     <ProjectReference Include="..\PlayerRank\PlayerRank.csproj" />
   </ItemGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
+  <ItemGroup>
+    <SonarQubeSetting Include="sonar.coverage.exclusions">
+      <Value>**\*</Value>
+    </SonarQubeSetting>
+  </ItemGroup>
 
 </Project>
