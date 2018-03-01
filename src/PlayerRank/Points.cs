@@ -4,21 +4,21 @@ namespace PlayerRank
 {
     public class Points : IComparable
     {
-        private readonly double m_Points;
+        private readonly double _points;
 
         public Points(double points)
         {
-            m_Points = points;
+            _points = points;
         }
 
         public double GetValue()
         {
-            return m_Points;
+            return _points;
         }
 
         protected bool Equals(Points other)
         {
-            return m_Points.Equals(other.m_Points);
+            return _points.Equals(other._points);
         }
 
         public override bool Equals(object obj)
@@ -30,7 +30,7 @@ namespace PlayerRank
 
         public override int GetHashCode()
         {
-            return m_Points.GetHashCode();
+            return _points.GetHashCode();
         }
 
         public int CompareTo(object obj)
@@ -51,37 +51,37 @@ namespace PlayerRank
 
         public static Points operator +(Points pointsA, Points pointsB)
         {
-            return new Points(pointsA.m_Points + pointsB.m_Points);
+            return new Points(pointsA._points + pointsB._points);
         }
 
         public static Points operator -(Points pointsA, Points pointsB)
         {
-            return new Points(pointsA.m_Points - pointsB.m_Points);
+            return new Points(pointsA._points - pointsB._points);
         }
 
         public static Points operator /(Points points, Points divider)
         {
-            return new Points(points.m_Points / divider.m_Points);
+            return new Points(points._points / divider._points);
         }
 
         public static double operator /(Points points, double divider)
         {
-            return points.m_Points / divider;
+            return points._points / divider;
         }
 
         public static Points operator *(Points points, Points divider)
         {
-            return new Points(points.m_Points * divider.m_Points);
+            return new Points(points._points * divider._points);
         }
 
         public static bool operator >(Points pointsA, Points pointsB)
         {
-            return (pointsA.m_Points > pointsB.m_Points);
+            return (pointsA._points > pointsB._points);
         }
 
         public static bool operator <(Points pointsA, Points pointsB)
         {
-            return (pointsA.m_Points < pointsB.m_Points);
+            return (pointsA._points < pointsB._points);
         }
 
         public static bool operator ==(Points pointsA, Points pointsB)
@@ -101,7 +101,7 @@ namespace PlayerRank
                 return false;
             }
 
-            return (pointsA.m_Points == pointsB.m_Points);
+            return (pointsA._points == pointsB._points);
         }
 
         public static bool operator !=(Points pointsA, Points pointsB)
@@ -111,12 +111,12 @@ namespace PlayerRank
 
         public static double Pow(double doubleA, Points pointsB)
         {
-            return Math.Pow(doubleA, pointsB.m_Points);
+            return Math.Pow(doubleA, pointsB._points);
         }
 
         public override string ToString()
         {
-            return m_Points.ToString();
+            return _points.ToString();
         }
     }
 }

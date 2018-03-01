@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
-
-namespace PlayerRank
+﻿namespace PlayerRank
 {
     /// <summary>
     /// A single line on a scoreboard
@@ -9,7 +6,7 @@ namespace PlayerRank
     /// </summary>
     public class PlayerScore
     {
-        public string Name { get; set; }
+        public string Name { get; }
         public Points Points { get; internal set; }
         public Position Position { get; internal set; }
 

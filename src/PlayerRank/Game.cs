@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace PlayerRank
@@ -9,7 +8,7 @@ namespace PlayerRank
     /// </summary>
     public class Game
     {
-        private readonly ICollection<PlayerScore> m_Leaderboard = new List<PlayerScore>(); 
+        private readonly ICollection<PlayerScore> _leaderboard = new List<PlayerScore>();
 
         /// <summary>
         /// Records the result of the given player based on <see cref="Points"/>.
@@ -17,7 +16,7 @@ namespace PlayerRank
         /// </summary>
         public void AddResult(string name, Points points)
         {
-            var player = m_Leaderboard.SingleOrDefault(x => x.Name == name);
+            var player = _leaderboard.SingleOrDefault(x => x.Name == name);
 
             if (player != null)
             {
@@ -25,7 +24,7 @@ namespace PlayerRank
             }
             else
             {
-                m_Leaderboard.Add(new PlayerScore(name, points));
+                _leaderboard.Add(new PlayerScore(name, points));
             }
         }
 
@@ -35,7 +34,7 @@ namespace PlayerRank
         /// </summary>
         public void AddResult(string name, Position position)
         {
-            var player = m_Leaderboard.SingleOrDefault(x => x.Name == name);
+            var player = _leaderboard.SingleOrDefault(x => x.Name == name);
 
             if (player != null)
             {
@@ -43,7 +42,7 @@ namespace PlayerRank
             }
             else
             {
-                m_Leaderboard.Add(new PlayerScore(name, position));
+                _leaderboard.Add(new PlayerScore(name, position));
             }
         }
 
@@ -53,7 +52,7 @@ namespace PlayerRank
         /// <returns></returns>
         internal ICollection<PlayerScore> GetResults()
         {
-            return m_Leaderboard;
+            return _leaderboard;
         }
     }
 }

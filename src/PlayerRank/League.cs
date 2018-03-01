@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using PlayerRank.Scoring;
 
@@ -10,19 +9,17 @@ namespace PlayerRank
     /// </summary>
     public class League
     {
-        private readonly List<Game> m_Games = new List<Game>(); 
-        private readonly List<string> m_Players = new List<string>(); 
+        private readonly List<Game> _games = new List<Game>(); 
+        private readonly List<string> _players = new List<string>(); 
 
         /// <summary>
         /// Gets the current leader board for this league based on a specifed scoring strategy
         /// </summary>
         public IEnumerable<PlayerScore> GetLeaderBoard(IScoringStrategy scoringStrategy)
         {
-            scoringStrategy.Reset();
-
             IList<PlayerScore> leaderBoard = new List<PlayerScore>();
 
-            m_Games.Aggregate(leaderBoard, scoringStrategy.UpdateScores);
+            leaderBoard = _games.Aggregate(leaderBoard, scoringStrategy.UpdateScores);
 
             scoringStrategy.SetPositions(leaderBoard);
 
@@ -31,17 +28,15 @@ namespace PlayerRank
 
         public IEnumerable<History> GetLeaderBoardHistory(IScoringStrategy scoringStrategy)
         {
-            scoringStrategy.Reset();
-
             var initialGame = new Game();
 
-            foreach (var player in m_Players)
+            foreach (var player in _players)
             {
                 initialGame.AddResult(player, new Points(0));
             }
 
             var games = new List<Game> {initialGame};
-            games.AddRange(m_Games);
+            games.AddRange(_games);
 
             var history = new List<History>();
             IList<PlayerScore> leaderBoard = new List<PlayerScore>();
@@ -61,13 +56,13 @@ namespace PlayerRank
         /// </summary>
         public void RecordGame(Game game)
         {
-            m_Games.Add(game);
+            _games.Add(game);
 
             foreach (var player in game.GetResults().Select(x => x.Name))
             {
-                if (!m_Players.Contains(player))
+                if (!_players.Contains(player))
                 {
-                    m_Players.Add(player);
+                    _players.Add(player);
                 }
             }
         }

@@ -5,32 +5,32 @@ namespace PlayerRank
     public class Position : IComparable
     {
         // Helper properties for more fluent api
-        public static Position First = new Position(1);
-        public static Position Second = new Position(2);
-        public static Position Third = new Position(3);
-        public static Position Fourth = new Position(4);
-        public static Position Fifth = new Position(5);
-        public static Position Sixth = new Position(6);
-        public static Position Seventh = new Position(7);
-        public static Position Eighth = new Position(8);
-        public static Position Ninth = new Position(9);
-        public static Position Tenth = new Position(10);
+        public static readonly Position First = new Position(1);
+        public static readonly Position Second = new Position(2);
+        public static readonly Position Third = new Position(3);
+        public static readonly Position Fourth = new Position(4);
+        public static readonly Position Fifth = new Position(5);
+        public static readonly Position Sixth = new Position(6);
+        public static readonly Position Seventh = new Position(7);
+        public static readonly Position Eighth = new Position(8);
+        public static readonly Position Ninth = new Position(9);
+        public static readonly Position Tenth = new Position(10);
 
-        private readonly int m_Position;
+        private readonly int _position;
         
         public Position(int position)
         {
-            m_Position = position;
+            _position = position;
         }
 
         public int GetValue()
         {
-            return m_Position;
+            return _position;
         }
 
         protected bool Equals(Position other)
         {
-            return m_Position.Equals(other.m_Position);
+            return _position.Equals(other._position);
         }
 
         public override bool Equals(object obj)
@@ -42,7 +42,7 @@ namespace PlayerRank
 
         public override int GetHashCode()
         {
-            return m_Position.GetHashCode();
+            return _position.GetHashCode();
         }
 
         public int CompareTo(object obj)
@@ -63,12 +63,12 @@ namespace PlayerRank
 
         public static bool operator >(Position pointsA, Position pointsB)
         {
-            return (pointsA.m_Position < pointsB.m_Position);
+            return (pointsA._position < pointsB._position);
         }
 
         public static bool operator <(Position pointsA, Position pointsB)
         {
-            return (pointsA.m_Position > pointsB.m_Position);
+            return (pointsA._position > pointsB._position);
         }
 
         public static bool operator ==(Position positionA, Position positionB)
@@ -88,7 +88,7 @@ namespace PlayerRank
                 return false;
             }
 
-            return (positionA.m_Position == positionB.m_Position);
+            return (positionA._position == positionB._position);
         }
 
         public static bool operator !=(Position positionA, Position positionB)
@@ -98,7 +98,7 @@ namespace PlayerRank
 
         public override string ToString()
         {
-            return m_Position.ToString();
+            return _position.ToString();
         }
     }
 }

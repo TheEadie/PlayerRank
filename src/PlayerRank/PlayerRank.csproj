@@ -13,9 +13,4 @@
     <RepositoryUrl>https://github.com/TheEadie/PlayerRank</RepositoryUrl>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-
 </Project>

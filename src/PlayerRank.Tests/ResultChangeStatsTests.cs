@@ -3,7 +3,7 @@ using PlayerRank.Scoring.Simple;
 using PlayerRank.Stats;
 using Xunit;
 
-namespace PlayerRank.UnitTests
+namespace PlayerRank.Tests
 {
     public class ResultChangeStatsTests
     {

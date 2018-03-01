@@ -2,11 +2,11 @@
 {
     public class ResultsChange
     {
-        public string Name { get; private set; }
-        public Position Position { get; private set; }
-        public int PositionChange { get; private set; }
-        public Points Points { get; private set; }
-        public double PointsChange { get; private set; }
+        public string Name { get; }
+        public Position Position { get; }
+        public int PositionChange { get; }
+        public Points Points { get; }
+        public double PointsChange { get; }
 
         public ResultsChange(string name, Position position, int positionChange, Points points, double pointsChange)
         {
