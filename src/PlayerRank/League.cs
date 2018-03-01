@@ -21,7 +21,7 @@ namespace PlayerRank
 
             IList<PlayerScore> leaderBoard = new List<PlayerScore>();
 
-            _games.Aggregate(leaderBoard, scoringStrategy.UpdateScores);
+            leaderBoard = _games.Aggregate(leaderBoard, scoringStrategy.UpdateScores);
 
             scoringStrategy.SetPositions(leaderBoard);
 
