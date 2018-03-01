@@ -2,7 +2,7 @@
 using PlayerRank.Scoring.Simple;
 using Xunit;
 
-namespace PlayerRank.UnitTests
+namespace PlayerRank.Tests
 {
     public class HistoryTests
     {

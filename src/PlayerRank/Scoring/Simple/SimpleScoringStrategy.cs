@@ -8,7 +8,7 @@ namespace PlayerRank.Scoring.Simple
         /// <summary>
         /// Maps each <see cref="Position"/> a player can finish to a number of <see cref="Points"/>
         /// </summary>
-        private readonly IDictionary<Position, Points> m_PositionToPoints = new Dictionary<Position, Points>();
+        private readonly IDictionary<Position, Points> _positionToPoints = new Dictionary<Position, Points>();
 
         /// <summary>
         /// Creates a new scoring strategy where each player scores points based on their position. 
@@ -17,16 +17,16 @@ namespace PlayerRank.Scoring.Simple
         /// </summary>
         public SimpleScoringStrategy()
         {
-            m_PositionToPoints.Add(new Position(1), new Points(10));
-            m_PositionToPoints.Add(new Position(2), new Points(9));
-            m_PositionToPoints.Add(new Position(3), new Points(8));
-            m_PositionToPoints.Add(new Position(4), new Points(7));
-            m_PositionToPoints.Add(new Position(5), new Points(6));
-            m_PositionToPoints.Add(new Position(6), new Points(5));
-            m_PositionToPoints.Add(new Position(7), new Points(4));
-            m_PositionToPoints.Add(new Position(8), new Points(3));
-            m_PositionToPoints.Add(new Position(9), new Points(2));
-            m_PositionToPoints.Add(new Position(10), new Points(1));
+            _positionToPoints.Add(new Position(1), new Points(10));
+            _positionToPoints.Add(new Position(2), new Points(9));
+            _positionToPoints.Add(new Position(3), new Points(8));
+            _positionToPoints.Add(new Position(4), new Points(7));
+            _positionToPoints.Add(new Position(5), new Points(6));
+            _positionToPoints.Add(new Position(6), new Points(5));
+            _positionToPoints.Add(new Position(7), new Points(4));
+            _positionToPoints.Add(new Position(8), new Points(3));
+            _positionToPoints.Add(new Position(9), new Points(2));
+            _positionToPoints.Add(new Position(10), new Points(1));
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace PlayerRank.Scoring.Simple
         /// </summary>
         public SimpleScoringStrategy(IDictionary<Position, Points> pointsMap)
         {
-            m_PositionToPoints = pointsMap;
+            _positionToPoints = pointsMap;
         }
 
         /// <summary>
@@ -85,8 +85,8 @@ namespace PlayerRank.Scoring.Simple
                 if (result.Points == new Points(0) &&
                     result.Position != new Position(0))
                 {
-                    var pointsToAdd = m_PositionToPoints.ContainsKey(result.Position)
-                        ? m_PositionToPoints[result.Position]
+                    var pointsToAdd = _positionToPoints.ContainsKey(result.Position)
+                        ? _positionToPoints[result.Position]
                         : new Points(0);
 
                     player.AddPoints(pointsToAdd);

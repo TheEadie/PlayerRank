@@ -16,21 +16,21 @@ namespace PlayerRank
         public static Position Ninth = new Position(9);
         public static Position Tenth = new Position(10);
 
-        private readonly int m_Position;
+        private readonly int _position;
         
         public Position(int position)
         {
-            m_Position = position;
+            _position = position;
         }
 
         public int GetValue()
         {
-            return m_Position;
+            return _position;
         }
 
         protected bool Equals(Position other)
         {
-            return m_Position.Equals(other.m_Position);
+            return _position.Equals(other._position);
         }
 
         public override bool Equals(object obj)
@@ -42,7 +42,7 @@ namespace PlayerRank
 
         public override int GetHashCode()
         {
-            return m_Position.GetHashCode();
+            return _position.GetHashCode();
         }
 
         public int CompareTo(object obj)
@@ -63,12 +63,12 @@ namespace PlayerRank
 
         public static bool operator >(Position pointsA, Position pointsB)
         {
-            return (pointsA.m_Position < pointsB.m_Position);
+            return (pointsA._position < pointsB._position);
         }
 
         public static bool operator <(Position pointsA, Position pointsB)
         {
-            return (pointsA.m_Position > pointsB.m_Position);
+            return (pointsA._position > pointsB._position);
         }
 
         public static bool operator ==(Position positionA, Position positionB)
@@ -88,7 +88,7 @@ namespace PlayerRank
                 return false;
             }
 
-            return (positionA.m_Position == positionB.m_Position);
+            return (positionA._position == positionB._position);
         }
 
         public static bool operator !=(Position positionA, Position positionB)
@@ -98,7 +98,7 @@ namespace PlayerRank
 
         public override string ToString()
         {
-            return m_Position.ToString();
+            return _position.ToString();
         }
     }
 }

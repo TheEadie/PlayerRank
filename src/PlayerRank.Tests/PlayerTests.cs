@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace PlayerRank.UnitTests
+namespace PlayerRank.Tests
 {
     public class PlayerTests
     {

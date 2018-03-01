@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using PlayerRank.Scoring;
 using PlayerRank.Scoring.Simple;
 using Xunit;
 
-namespace PlayerRank.UnitTests
+namespace PlayerRank.Tests
 {
     public class SimpleLeagueTests
     {

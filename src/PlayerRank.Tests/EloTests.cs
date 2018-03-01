@@ -2,7 +2,7 @@
 using PlayerRank.Scoring.Elo;
 using Xunit;
 
-namespace PlayerRank.UnitTests
+namespace PlayerRank.Tests
 {
     public class EloTests
     {

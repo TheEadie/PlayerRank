@@ -9,17 +9,17 @@ namespace PlayerRank.Scoring.Elo
         /// <summary> 
         /// Also known as K in the ELO formula - the max change in rating from one game 
         /// </summary>
-        private readonly Points m_MaxRatingChange;
+        private readonly Points _maxRatingChange;
 
         /// <summary>
         /// The difference in rating where one person is almost certain to win 
         /// </summary>
-        private readonly Points m_MaximumSkillGap;
+        private readonly Points _maximumSkillGap;
         
         /// <summary>
         /// The number of points a new player will start with when they join the league
         /// </summary>
-        private readonly Points m_NewPlayerStartingRating;
+        private readonly Points _newPlayerStartingRating;
 
         /// <summary>
         /// Creates a new scoring strategy based on the Elo methodology used in chess rankings
@@ -33,9 +33,9 @@ namespace PlayerRank.Scoring.Elo
         /// <param name="startingRating">The number of points a new player will start with</param>
         public EloScoringStrategy(Points maxRatingChange, Points maxSkillGap, Points startingRating)
         {
-            m_MaxRatingChange = maxRatingChange;
-            m_MaximumSkillGap = maxSkillGap;
-            m_NewPlayerStartingRating = startingRating;
+            _maxRatingChange = maxRatingChange;
+            _maximumSkillGap = maxSkillGap;
+            _newPlayerStartingRating = startingRating;
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace PlayerRank.Scoring.Elo
 
         /// <summary>
         /// Updates the provided scoreboard with the results of a <see cref="Game"/>
-        /// A player will gain up to <see cref="m_MaxRatingChange"/> based on their probablity
+        /// A player will gain up to <see cref="_maxRatingChange"/> based on their probablity
         /// of winning against each other player.
         /// </summary>
         public IList<PlayerScore> UpdateScores(IList<PlayerScore> scoreboard, Game game)
@@ -82,7 +82,7 @@ namespace PlayerRank.Scoring.Elo
                 {
                     player = new PlayerScore(playerName);
                     scoreboard.Add(player);
-                    player.Points = m_NewPlayerStartingRating;
+                    player.Points = _newPlayerStartingRating;
                     player.Position = new Position(0);
                 }
 
@@ -127,12 +127,10 @@ namespace PlayerRank.Scoring.Elo
             if (playerAResult.Points == new Points(0) &&
                 playerAResult.Position != new Position(0))
             {
-                return (playerAResult.Position == playerBResult.Position);
+                return playerAResult.Position == playerBResult.Position;
             }
-            else
-            {
-                return (playerAResult.Points == playerBResult.Points);
-            }
+
+            return playerAResult.Points == playerBResult.Points;
         }
 
         /// <summary>
@@ -143,13 +141,11 @@ namespace PlayerRank.Scoring.Elo
             if (playerAResult.Points == new Points(0) &&
                 playerAResult.Position != new Position(0))
             {
-                return (playerAResult.Position > playerBResult.Position);
+                return playerAResult.Position > playerBResult.Position;
             }
-            else
-            {
-                return (playerAResult.Points > playerBResult.Points);
-            }
-            
+
+            return playerAResult.Points > playerBResult.Points;
+
         }
 
         /// <summary>
@@ -158,7 +154,7 @@ namespace PlayerRank.Scoring.Elo
         private double RatingChange(double expectedToWin, bool actuallyWon, int totalPlayers)
         {
             var w = (actuallyWon) ? 1 : 0;
-            return m_MaxRatingChange * new Points(w - expectedToWin) / (totalPlayers - 1);
+            return _maxRatingChange * new Points(w - expectedToWin) / (totalPlayers - 1);
         }
 
         /// <summary>
@@ -170,7 +166,7 @@ namespace PlayerRank.Scoring.Elo
         /// </remarks>
         private double ChanceOfWinning(Points ratingA, Points ratingB)
         {
-            return 1 /(1 + Points.Pow(10.0, ((ratingB - ratingA) / m_MaximumSkillGap)));
+            return 1 /(1 + Points.Pow(10.0, ((ratingB - ratingA) / _maximumSkillGap)));
         }
     }
 }
