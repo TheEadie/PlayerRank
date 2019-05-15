@@ -17,7 +17,7 @@ build_script:
         $branchName = $env:APPVEYOR_REPO_BRANCH
       }
       Write-Host "INFO branchName = $($branchName)"
-      . SonarQube.Scanner.MSBuild.exe begin /k:"PlayerRank" /d:sonar.organization="theeadie-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="e8e208620fa374d16e3b12a9e56af8d3ca0895d3" /v:$env:GitVersion_MajorMinorPatch /d:sonar.branch.name="$branchName" /d:sonar.cs.opencover.reportsPaths="$env:CD\coverage.xml"
+      . SonarScanner.MSBuild.exe begin /k:"PlayerRank" /o:"theeadie-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="e8e208620fa374d16e3b12a9e56af8d3ca0895d3" /v:$env:GitVersion_MajorMinorPatch /d:sonar.branch.name="$branchName" /d:sonar.cs.opencover.reportsPaths="$env:CD\coverage.xml"
       dotnet restore
       dotnet build -c Release /p:Version=$env:GitVersion_MajorMinorPatch
 
