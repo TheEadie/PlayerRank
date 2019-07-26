@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/ilqrc64go61cilog/branch/master?svg=true)](https://ci.appveyor.com/project/TheEadie/playerrank/branch/master)
+[![Build Status](https://eadie.visualstudio.com/PlayerRank/_apis/build/status/PlayerRank%20-%20Build?branchName=master)](https://eadie.visualstudio.com/PlayerRank/_build/latest?definitionId=4&branchName=master)
 
 # PlayerRank
 Calculates rankings for multiplayer games
