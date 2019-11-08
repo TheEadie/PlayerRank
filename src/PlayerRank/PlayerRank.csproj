@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
@@ -11,6 +11,9 @@
     <PackageLicenseUrl>https://github.com/TheEadie/PlayerRank/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/TheEadie/PlayerRank</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TheEadie/PlayerRank</RepositoryUrl>
+
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
 </Project>

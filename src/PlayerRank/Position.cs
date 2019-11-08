@@ -2,7 +2,7 @@
 
 namespace PlayerRank
 {
-    public class Position : IComparable
+    public class Position : IComparable<Position>
     {
         // Helper properties for more fluent api
         public static readonly Position First = new Position(1);
@@ -45,20 +45,11 @@ namespace PlayerRank
             return _position.GetHashCode();
         }
 
-        public int CompareTo(object obj)
+        public int CompareTo(Position other)
         {
-            var other = obj as Position;
-
-            if (other == null)
-                throw new ArgumentException("Can not compare Points to other type");
-
             if (other > this)
                 return -1;
-            if (other < this)
-                return 1;
-
-            return 0;
-
+            return other < this ? 1 : 0;
         }
 
         public static bool operator >(Position pointsA, Position pointsB)

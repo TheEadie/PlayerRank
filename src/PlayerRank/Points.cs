@@ -2,7 +2,7 @@
 
 namespace PlayerRank
 {
-    public class Points : IComparable
+    public class Points : IComparable<Points>
     {
         private readonly double _points;
 
@@ -33,20 +33,11 @@ namespace PlayerRank
             return _points.GetHashCode();
         }
 
-        public int CompareTo(object obj)
+        public int CompareTo(Points other)
         {
-            var other = obj as Points;
-
-            if (other == null)
-                throw new ArgumentException("Can not compare Points to other type");
-
             if (other > this)
                 return -1;
-            if (other < this)
-                return 1;
-
-            return 0;
-
+            return other < this ? 1 : 0;
         }
 
         public static Points operator +(Points pointsA, Points pointsB)
