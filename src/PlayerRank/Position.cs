@@ -33,9 +33,9 @@ namespace PlayerRank
             return _position.Equals(other._position);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == GetType() && Equals((Position)obj);
         }
@@ -64,21 +64,6 @@ namespace PlayerRank
 
         public static bool operator ==(Position positionA, Position positionB)
         {
-            if (ReferenceEquals(positionA, null) && ReferenceEquals(positionB, null))
-            {
-                return true;
-            }
-
-            if (ReferenceEquals(positionA, null))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(positionB, null))
-            {
-                return false;
-            }
-
             return (positionA._position == positionB._position);
         }
 

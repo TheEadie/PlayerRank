@@ -21,9 +21,9 @@ namespace PlayerRank
             return _points.Equals(other._points);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == GetType() && Equals((Points) obj);
         }
@@ -77,21 +77,6 @@ namespace PlayerRank
 
         public static bool operator ==(Points pointsA, Points pointsB)
         {
-            if (ReferenceEquals(pointsA, null) && ReferenceEquals(pointsB, null))
-            {
-                return true;
-            }
-
-            if (ReferenceEquals(pointsA, null))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(pointsB, null))
-            {
-                return false;
-            }
-
             return (pointsA._points == pointsB._points);
         }
 
