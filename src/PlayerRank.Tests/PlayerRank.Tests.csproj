@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
+
+    <LangVersion>Latest</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,12 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PlayerRank\PlayerRank.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <SonarQubeSetting Include="sonar.coverage.exclusions">
-      <Value>**\*</Value>
-    </SonarQubeSetting>
   </ItemGroup>
 
 </Project>

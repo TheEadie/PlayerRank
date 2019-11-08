@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.0</TargetFramework>
+    <TargetFrameworks>netstandard1.0;netcoreapp3.0</TargetFrameworks>
     <Version>0.0.1.0</Version>
 
     <PackageVersion>0.0.1-local</PackageVersion>
@@ -11,6 +11,16 @@
     <PackageLicenseUrl>https://github.com/TheEadie/PlayerRank/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/TheEadie/PlayerRank</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TheEadie/PlayerRank</RepositoryUrl>
+
+    <LangVersion>Latest</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nullable" Version="1.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
 
 </Project>
