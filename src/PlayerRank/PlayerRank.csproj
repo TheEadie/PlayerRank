@@ -12,8 +12,15 @@
     <PackageProjectUrl>https://github.com/TheEadie/PlayerRank</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TheEadie/PlayerRank</RepositoryUrl>
 
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>Latest</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nullable" Version="1.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
 
 </Project>
