@@ -20,3 +20,18 @@ jobs:
       with:
         name: NuGet
         path: .artifacts/
+
+  release:
+    name: Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Download build
+      uses: actions/download-artifact@v1
+      with:
+        name: NuGet
+    - name: Release
+      run: ./CommandLine/.build/release.sh ${{ secrets.GITHUB_TOKEN }} ${{ github.repository }} NuGet ${{ secrets.NUGET_TOKEN }}
