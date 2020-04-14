@@ -8,7 +8,7 @@
     <Authors>David Eadie</Authors>
     <Description>Calculates rankings for multiplayer games</Description>
     <Copyright>David Eadie</Copyright>
-    <PackageLicenseUrl>https://github.com/TheEadie/PlayerRank/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/TheEadie/PlayerRank</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TheEadie/PlayerRank</RepositoryUrl>
 
