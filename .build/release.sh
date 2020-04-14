@@ -37,4 +37,5 @@ for filename in $RELEASE_ASSETS_FOLDER/*; do
 done
 
 # Upload to NuGet
-dotnet nuget push **/*.nupkg -k $NUGET_API_TOKEN
+echo "Upload the nuget.org"
+dotnet nuget push **/*.nupkg -k $NUGET_API_TOKEN -s https://api.nuget.org/v3/index.json

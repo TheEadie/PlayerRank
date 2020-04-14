@@ -34,4 +34,4 @@ jobs:
       with:
         name: NuGet
     - name: Release
-      run: ./CommandLine/.build/release.sh ${{ secrets.GITHUB_TOKEN }} ${{ github.repository }} NuGet ${{ secrets.NUGET_TOKEN }}
+      run: ./.build/release.sh ${{ secrets.GITHUB_TOKEN }} ${{ github.repository }} NuGet ${{ secrets.NUGET_TOKEN }}
