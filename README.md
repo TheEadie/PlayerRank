@@ -1,11 +1,11 @@
-[![Build Status](https://eadie.visualstudio.com/PlayerRank/_apis/build/status/PlayerRank%20-%20Build?branchName=master)](https://eadie.visualstudio.com/PlayerRank/_build/latest?definitionId=4&branchName=master)
+![Build](https://github.com/TheEadie/PlayerRank/workflows/Build/badge.svg)
 
 # PlayerRank
 Calculates rankings for multiplayer games
 
 ### How to install
 
-Run the following command in Nuget Package Manager Console: `Install-Package PlayerRank`
+`dotnet add package PlayerRank`
 
 ### Basic usage
 
@@ -28,10 +28,10 @@ foreach (var position in league.GetLeaderBoard(scoringStrategy))
 
 ### Documentation
 
-- [Recording Games](Docs/RecordingAGame.md)
-- [Simple Scoring Strategy](Docs/SimpleStrategy.md)
-- [Elo Scoring Strategy](Docs/EloStrategy.md)
+- [Recording Games](docs/RecordingAGame.md)
+- [Simple Scoring Strategy](docs/SimpleStrategy.md)
+- [Elo Scoring Strategy](docs/EloStrategy.md)
 
 ### Report an issue or suggest an improvement
 
-Please add to the issue tracker here on GitHub or send me a Pull Request with your improvements.
+Please add to the issue tracker here on GitHub or send me a pull request with your improvements.
