@@ -1,14 +1,15 @@
 #!/bin/bash
 
-# Install pre-reqs
-dotnet tool install -g GitVersion.Tool
+# Dependencies
+DockerImage_GitVersion="gittools/gitversion:5.3.4-linux-alpine.3.10-x64-netcoreapp3.1"
 
 # Clear artifacts folder
 rm .artifacts/ -rf
 mkdir .artifacts
 
 # Calculate the version
-GitVersionOutput=dotnet-gitversion
+echo "Calculating next version"
+GitVersionOutput="echo $(docker run --rm -v "$(pwd):/repo" $DockerImage_GitVersion /repo)"
 Version=$($GitVersionOutput | jq -r '.MajorMinorPatch')
 NuGetVersion=$($GitVersionOutput | jq -r '.NuGetVersion')
 
