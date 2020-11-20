@@ -1,3 +1,7 @@
+### Breaking Changes V4
+
+- PlayerRank now targets .Net Standard 2.0
+
 ### Breaking Changes V3
 
 - PlayerRank now targets .Net Standard 1.0. This should require no changes to your code but may bring additional dependencies when you upgrade.

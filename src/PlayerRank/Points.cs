@@ -33,8 +33,11 @@ namespace PlayerRank
             return _points.GetHashCode();
         }
 
-        public int CompareTo(Points other)
+        public int CompareTo(Points? other)
         {
+            if (other is null)
+                throw new ArgumentException("Can not compare Points to null");
+
             if (other > this)
                 return -1;
             return other < this ? 1 : 0;

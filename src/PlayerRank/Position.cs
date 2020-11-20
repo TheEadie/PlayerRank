@@ -45,8 +45,11 @@ namespace PlayerRank
             return _position.GetHashCode();
         }
 
-        public int CompareTo(Position other)
+        public int CompareTo(Position? other)
         {
+            if (other is null)
+                throw new ArgumentException("Can not compare Points to null");
+
             if (other > this)
                 return -1;
             return other < this ? 1 : 0;
