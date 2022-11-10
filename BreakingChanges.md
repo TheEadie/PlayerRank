@@ -1,3 +1,8 @@
+### Breaking Changes V5
+
+- PlayerRank now targets .NET 7
+- PlayerRank no longer supports .NET Framework
+
 ### Breaking Changes V4
 
 - PlayerRank now targets .Net Standard 2.0
