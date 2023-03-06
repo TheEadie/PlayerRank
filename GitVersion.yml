@@ -1,4 +1,0 @@
-next-version: 5.0
-mode: ContinuousDelivery
-tag-prefix: 'release/'
-branches: {}
