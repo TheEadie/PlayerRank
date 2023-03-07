@@ -11,7 +11,8 @@ WriteVersionFile() {
     if [[ "$2" == "" ]]; then
         NUGETVERSION="$1"
     else
-        NUGETVERSION="$1-${2:0:20}"
+        NUGET_SAFE=${2//[^[:alnum:]]/}
+        NUGETVERSION="$1-${NUGET_SAFE:0:20}"
     fi    
 
     mkdir -p .artifacts
@@ -74,7 +75,7 @@ elif [[ "$MINOR" > "$LATEST_MINOR" ]]; then
     WriteVersionFile ${MAJOR}.${MINOR}.${PATCH} "$BRANCH_NAME"
     exit
 else
-    ((LATEST_PATCH++))
+    LATEST_PATCH=$((++LATEST_PATCH))
     WriteVersionFile ${MAJOR}.${MINOR}.${LATEST_PATCH} "$BRANCH_NAME"
     exit
 fi
