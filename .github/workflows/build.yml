@@ -1,44 +1,42 @@
 name: Build
 
 on:
-  push:
+  workflow_call:
 
 jobs:
   build:
-    name: Build
+    name: Build NuGet Package
     runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
-    - name: Build
-      run: ./.build/build.sh
-    - name: Upload build
-      uses: actions/upload-artifact@v1
-      with:
-        name: NuGet
-        path: .artifacts/
+    container: mcr.microsoft.com/dotnet/sdk:7.0
 
-  release:
-    name: Release
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
-    - name: Download build
-      uses: actions/download-artifact@v3
-      with:
-        name: NuGet
-    - name: Release
-      run: ./.build/release.sh ${{ secrets.GITHUB_TOKEN }} ${{ github.repository }} NuGet ${{ secrets.NUGET_TOKEN }}
+      - name: Install jq
+        run: |
+          apt-get update
+          apt-get install jq -y
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Trust Checkout
+        run: git config --global --add safe.directory /__w/PlayerRank/PlayerRank
+
+      - name: Calculate Version
+        run: ./build/version.sh
+
+      - name: Build
+        run: ./build/build.sh
+
+      - name: Unit Tests
+        run: ./build/test.sh
+
+      - name: Create NuGet Package
+        run: ./build/publish.sh
+
+      - name: Upload build
+        uses: actions/upload-artifact@v1
+        with:
+          name: NuGet
+          path: .artifacts/

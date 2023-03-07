@@ -1,13 +1,16 @@
 #!/bin/bash
+set -euo pipefail
+
 GITHUB_TOKEN=$1
 GITHUB_REPO=$2
 RELEASE_ASSETS_FOLDER=$3
-NUGET_API_TOKEN=$4
 
 # Calculate the version from the release folder
-VERSION=$(cat $RELEASE_ASSETS_FOLDER/version.json | jq -r '.MajorMinorPatch')
+VERSION=$"(cat $RELEASE_ASSETS_FOLDER/version.json | jq -r '.["major-minor-patch"]')"
 
 # Create GitHub Release
+>&2 echo "Creating GitHub Release..."
+
 CREATE_RELEASE_RESPONSE=$(curl --request POST \
     --url "https://api.github.com/repos/$GITHUB_REPO/releases" \
     --header "authorization: Bearer $GITHUB_TOKEN" \
@@ -35,7 +38,3 @@ for filename in $RELEASE_ASSETS_FOLDER/*; do
     --header "Content-Type: application/octet-stream" \
     --data-binary "@$filename"
 done
-
-# Upload to NuGet
-echo "Upload the nuget.org"
-dotnet nuget push **/*.nupkg -k $NUGET_API_TOKEN -s https://api.nuget.org/v3/index.json

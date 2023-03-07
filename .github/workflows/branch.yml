@@ -1,0 +1,11 @@
+name: Build Branch
+
+on:
+  push:
+    branches-ignore:
+      - "main"
+
+jobs:
+  build:
+    name: Build
+    uses: ./.github/workflows/build.yml
