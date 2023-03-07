@@ -6,10 +6,10 @@ GITHUB_REPO=$2
 RELEASE_ASSETS_FOLDER=$3
 
 # Calculate the version from the release folder
-VERSION=$"(cat $RELEASE_ASSETS_FOLDER/version.json | jq -r '.["major-minor-patch"]')"
+VERSION=$(cat $RELEASE_ASSETS_FOLDER/version.json | jq -r '.["major-minor-patch"]')
 
 # Create GitHub Release
->&2 echo "Creating GitHub Release..."
+>&2 echo "Creating GitHub Release $VERSION ..."
 
 CREATE_RELEASE_RESPONSE=$(curl --request POST \
     --url "https://api.github.com/repos/$GITHUB_REPO/releases" \
@@ -17,7 +17,7 @@ CREATE_RELEASE_RESPONSE=$(curl --request POST \
     --header "content-type: application/json" \
     --data '{
                 "tag_name": "release/'$VERSION'",
-                "target_commitish": "master",
+                "target_commitish": "main",
                 "name": "v'$VERSION'",
                 "body": "",
                 "draft": false,
