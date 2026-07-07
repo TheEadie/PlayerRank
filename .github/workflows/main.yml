@@ -16,6 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/sdk:10.0
     if: github.ref == 'refs/heads/main'
+    permissions:
+      id-token: write
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -34,5 +37,11 @@ jobs:
       - name: Release - GitHub
         run: ./build/release-github.sh ${{ secrets.GITHUB_TOKEN }} ${{ github.repository }} .artifacts
 
+      - name: NuGet.org login
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+      
       - name: Release - NuGet.org
-        run: ./build/release-nuget.sh ${{ secrets.NUGET_TOKEN }}
+        run: ./build/release-nuget.sh ${{steps.login.outputs.NUGET_API_KEY}}
