@@ -40,3 +40,4 @@ jobs:
         with:
           name: NuGet
           path: .artifacts/
+          include-hidden-files: true
