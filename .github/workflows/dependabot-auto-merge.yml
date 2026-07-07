@@ -1,0 +1,35 @@
+name: Dependabot auto-approve
+on: pull_request
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  dependabot:
+    name: Dependabot auto-approve
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98
+
+      # Minor and patch updates
+      - name: Approve PR and enable auto-merge
+        if: steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor'
+        run: |
+          gh pr review --approve "$PR_URL"
+          gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Major updates
+      - name: Comment on PR
+        if: steps.metadata.outputs.update-type == 'version-update:semver-major'
+        uses: thollander/actions-comment-pull-request@v3
+        with:
+          message: |
+            This PR contains a major version update. Please find a human to review and approve it.
+          comment-tag: major-update
