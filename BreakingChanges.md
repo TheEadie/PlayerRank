@@ -1,3 +1,7 @@
+### Breaking Changes V6
+
+- PlayerRank now targets .NET 10
+
 ### Breaking Changes V5
 
 - PlayerRank now targets .NET 7
