@@ -7,7 +7,7 @@ jobs:
   build:
     name: Build NuGet Package
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/dotnet/sdk:7.0
+    container: mcr.microsoft.com/dotnet/sdk:10.0
 
     steps:
       - name: Install jq
@@ -16,7 +16,7 @@ jobs:
           apt-get install jq -y
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -36,7 +36,7 @@ jobs:
         run: ./build/publish.sh
 
       - name: Upload build
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v7
         with:
           name: NuGet
           path: .artifacts/
